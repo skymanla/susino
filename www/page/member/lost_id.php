@@ -69,19 +69,10 @@ function lostSearchAc1(){
 			}else if(data.postnumber == "99"){
 				alert("아이디 및 이메일 주소를 확인해주세요.");
 			}
-			/*$('.form_box').css({'display':'none'});
-			$('.mem_lost_success').css({'display':'block'});
-			$('#find_search_id').text(data);*/
 		}, error : function(jqXHR, textStatus, errorThrown){
 			console.log("error!\n"+textStatus+" : "+errorThrown);
 		}
 	});
-
-
-	/*$('.lost_go').on('click',function (){
-		$('.form_box').css({'display':'none'});
-		$('.mem_lost_success').css({'display':'block'});
-	});*/
 }
 // ENd 아이디 찾기
 
