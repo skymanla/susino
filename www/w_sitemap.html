@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=2.0,user-scalable=yes" />
+	<title>스시노백 추가 사이트맵</title>
+	<style type="text/css">
+	<!--
+	*{padding:0;margin:0;font-size:12px;}
+	h1{padding:50px 0;text-align:center;font-size:20px;}
+	h2{padding-bottom:10px;text-align:center;font-size:14px;}
+	table{width:100%;max-width:1000px;margin:0 auto 50px;border-collapse:collapse;border-spacing:0;}
+	table th,
+	table td{padding:5px 10px;border:1px solid #ddd;}
+	table thead th{background-color:#f1f1f1;}
+	table tbody th{width:250px;background-color:#f7f7f7;text-align:left;}
+	p{cursor:pointer;}
+	//-->
+	</style>
+</head>
+<body>
+<h1>스시노백 추가 사이트맵</h1>
+<h2>사용자 페이지</h2>
+<table>
+	<thead>
+		<tr>
+			<th>이름</th>
+			<th>경로</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>로그인</th>
+			<td><p>/page/member/login.php</p></td>
+		</tr>
+		<tr>
+			<th>회원가입</th>
+			<td><p>/page/member/register_form.php</p></td>
+		</tr>
+		<tr>
+			<th>가입완료</th>
+			<td><p>/page/member/register_result.php</p></td>
+		</tr>
+		<tr>
+			<th>아이디찾기</th>
+			<td><p>/page/member/lost_id.php</p></td>
+		</tr>
+		<tr>
+			<th>비밀번호찾기</th>
+			<td><p>/page/member/lost_password.php</p></td>
+		</tr>
+	</tbody>
+</table>
+<h2>관리자페이지</h2>
+<table>
+	<thead>
+		<tr>
+			<th>이름</th>
+			<th>경로</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>회원관리 > 회원목록</th>
+			<td><p>/adm/page/s2/s1.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원목록(정보수정)</th>
+			<td><p>/adm/page/s2/s1sview.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원 SMS 관리</th>
+			<td><p>/adm/page/s2/s2.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원 SMS 관리(상세페이지)</th>
+			<td><p>/adm/page/s2/s2sview.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원 SMS 관리(작성페이지)</th>
+			<td><p>/adm/page/s2/s2swrite.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원  E-mail 관리</th>
+			<td><p>/adm/page/s2/s3.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원  E-mail 관리(상세페이지)</th>
+			<td><p>/adm/page/s2/s3sview.php</p></td>
+		</tr>
+		<tr>
+			<th>회원관리 > 회원  E-mail 관리(작성페이지)</th>
+			<td><p>/adm/page/s2/s3swrite.php</p></td>
+		</tr>
+	</tbody>
+</table>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script type="text/javascript">
+//<![CDATA[
+$(function (){
+	$('p').on('click',function (){
+		var wTar = $(this).text();
+		window.open(wTar,'_blank');
+	});
+});
+//]]>
+</script>
+</body>
+</html>
