@@ -725,6 +725,10 @@
 .s1s1_wrap > div.box3{height:1249px;background-image:url('/img/s1/s1s1_bg3.jpg');}
 .s1s1_wrap > div.box4{height:700px;background-image:url('/img/s1/s1s1_bg4.jpg');}
 
+.s5s1_wrap > div{background-position:center top;background-repeat:no-repeat;}
+.s5s1_wrap > div.box1{height:965px;background-image:url('/img/s5/s5s1_bg1.jpg');}
+.s5s1_wrap > div.box2{height:401px;background-image:url('/img/s5/s5s1_bg3.jpg');}
+
 .s1s3s1_wrap > div{background-position:center top;background-repeat:no-repeat;}
 .s1s3s1_wrap > div.box1{height:747px;background-image:url('/img/s1/s1s3s1_bg1.jpg');}
 .s1s3s1_wrap > div.box2{height:667px;background-image:url('/img/s1/s1s3s1_bg2.jpg');}
@@ -753,6 +757,8 @@
 .s1s3s4_wrap > div.box4{height:628px;background-image:url('/img/s1/s1s3s4_bg4.jpg');}
 .s1s3s4_wrap > div.box5{height:591px;background-image:url('/img/s1/s1s3s4_bg5.jpg');}
 .s1s3s4_wrap > div.box6{height:385px;background-image:url('/img/s1/s1s3s4_bg6.jpg');}
+
+
 
 .s6s1_wrap{min-height:1578px;background:url('/img/s6/s6s1_bg.jpg') no-repeat center top #000;}
 .s6s1_wrap > div{width:1414px;margin:0 auto;padding:305px 0 100px;}
@@ -854,3 +860,24 @@
 .register_result .bt_box{margin-top:30px;text-align:center;}
 .register_result .bt_box a{display:inline-block;min-width:400px;padding:15px 70px;border:0 none;background-color:#bb1a29;color:#fff;font-weight:bold;font-size:18px;}
 /* END members */
+
+/* STR 20180514 rich add */
+.w_code{background-color:#ffefb6;}
+.w_code input[type="text"]{width:100%;height:50px;line-height:50px;padding:0 20px;border:2px solid #f0a12f;font-size:18px;}
+.w_code a{display:inline-block;min-width:200px;padding:10px 30px;font-size:18px;font-weight:700;color:#fff;vertical-align:middle;text-align:center;}
+.w_code .w_info{width:726px;margin:0 auto;}
+.w_code .w_info > ul > li{display:table;width:100%;margin-top:10px;}
+.w_code .w_info > ul > li:first-child{margin-top:0;}
+.w_code .w_info > ul > li > label,
+.w_code .w_info > ul > li > div{display:table-cell;}
+.w_code .w_info > ul > li > label{width:177px;}
+.w_code .w_info > ul > li > div{width:200px;padding-left:10px;}
+.w_code .w_info > ul > li > label + div{width:auto;padding-left:0;}
+.w_code .w_btn{position:relative;height:318px;background:url('/img/s5/s5s1_bg2.png') no-repeat;}
+.w_code .w_btn > div{position:absolute;width:100%;left:0;bottom:130px;text-align:center;}
+.w_code .w_btn > div > a{margin-left:6px;}
+.w_code .w_btn > div > a:first-child{margin-left:0;}
+.w_code .bt_code1{background-color:#f0a12f;}
+.w_code .bt_code2{background-color:#666;}
+.w_code .bt_code3{background-color:#bb1a29;}
+/* END 20180514 rich add */

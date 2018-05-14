@@ -113,17 +113,20 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<col width="">
 				<col width="">
 				<col width="">
+				<col width="">
+				<col width="140">
 			</colgroup>
 			<thead>
 				<tr>
 					<th>글번호</th>
+					<th>우리동네</th>
 					<th>아이디</th>
 					<th>이름</th>
 					<th>핸드폰</th>
 					<th>이메일</th>
 					<th>레벨</th>
-					<th>우리동네</th>
 					<th>가입일</th>
+					<th>정보</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -136,8 +139,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 					<td class="txt_c">010-0000-0000</td>
 					<td class="txt_c">wind@winddesign.co.kr</td>
 					<td class="txt_c">일반회원</td>
-					<td class="txt_c">지역1</td>
 					<td class="txt_c">2018-00-00</td>
+					<td class="txt_c"><a href="/adm/page/s2/s1sview_no_modfy.php" class="bt_s1" target="_blank" title="새창으로 열립니다.">자세히보기</a></td>
 				</tr>
 				<?php }?>
 			</tbody>

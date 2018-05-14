@@ -18,6 +18,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			</thead>
 			<tbody>
 				<tr>
+					<th>구분</th>
+					<td>직접발송</td>
+				</tr>
+				<tr>
 					<th>받는이 ID</th>
 					<td>admin, admin2, admin3</td>
 				</tr>
@@ -27,7 +31,17 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td><textarea name="" id="" class="w_input1" style="height:200px"></textarea></td>
+					<td>
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용 <br />
+						내용내용내용내용내용내용내용
+					</td>
 				</tr>
 			</tbody>
 		</table>

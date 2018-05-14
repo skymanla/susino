@@ -1,8 +1,14 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 ?>
+
 <section class="section1">
-	<h3>단골고객</h3>
+	<h3>미스테리 쇼퍼 신청자</h3>
+	<ul class="tab_type1">
+		<li><a href="s2sview.php">신청자 목록</a></li>
+		<li><a href="s2sview_list1.php">당첨자</a></li>
+		<li class="active"><a href="s2sview_list2.php">당첨자 직접 등록</a></li>
+	</ul>
 
 	<div class="table_wrap1 no_line">
 		<table>
@@ -17,11 +23,11 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 					<td>
 						<select name="" title="" class="w_input1">
 							<option value="">아이디</option>
+							<option value="">우리동네</option>
 							<option value="">이름</option>
-							<option value="">코드</option>
 							<option value="">핸드폰</option>
 							<option value="">이메일</option>
-							<option value="">주소</option>
+							<option value="">레벨</option>
 						</select>
 						<input type="text" class="w_input1" value="" name="" style="width:180px">
 						<button type="button" class="bt_s1 input_sel">검색</button>
@@ -33,7 +39,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 
 	<div class="table_wrap1">
 		<table>
-			<caption>회원 목록</caption>
+			<caption>회원목록</caption>
 			<colgroup>
 				<col width="50">
 				<col width="80">
@@ -49,9 +55,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<tr>
 					<th><input type="checkbox" class="" value="" name="" id="all_check" onclick="javascript:all_check();" placeholder="" /></th>
 					<th>글번호</th>
+					<th>우리동네</th>
 					<th>아이디</th>
 					<th>이름</th>
-					<th>코드</th>
 					<th>핸드폰</th>
 					<th>이메일</th>
 					<th>레벨</th>
@@ -59,16 +65,16 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 			</thead>
 			<tbody>
-				<?php for($i=0;$i<10;$i++){?>
+				<?php for($i=1;$i<11;$i++){?>
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
-					<td class="txt_c">1</td>
-					<td class="txt_c">wind</td>
+					<td class="txt_c"><?php echo $i;?></td>
+					<td class="txt_c">지역1</td>
+					<td class="txt_c">admin</td>
 					<td class="txt_c">홍길동</td>
-					<td class="txt_c">123ASCASD!</td>
-					<td class="txt_c">010-1234-1234</td>
-					<td class="txt_c">winddesign@winddesign.co.kr</td>
-					<td class="txt_c">VIP</td>
+					<td class="txt_c">010-0000-0000</td>
+					<td class="txt_c">wind@winddesign.co.kr</td>
+					<td class="txt_c">일반회원</td>
 					<td class="txt_c"><a href="/adm/page/s2/s1sview_no_modfy.php" class="bt_s1" target="_blank" title="새창으로 열립니다.">자세히보기</a></td>
 				</tr>
 				<?php }?>
@@ -80,8 +86,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 		<div class="left_box">
 			<button type="button" class="bt_1">전체선택</button>
 			<button type="button" class="bt_1">선택해제</button>
-			<a href="s1ssmswrite.php" class="bt_1">선택 sms 발송</a>
-			<a href="s1semailwrite.php" class="bt_1">선택 E-mail 발송</a>
+			<button type="button" class="bt_1">선택 당첨자 직접 등록</button>
 		</div>
 	</div>
 
@@ -93,8 +98,62 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 		<a href="?cur_page=2" class="arr next"><i>다음</i></a>
 		<a href="javascript:void(0);" class="arr all_next"><i>마지막</i></a>
 	</nav>
-</section>
 
+	
+	<div class="table_wrap1">
+		<table>
+			<caption>미스테리 쇼퍼 내용</caption>
+			<colgroup>
+				<col width="100">
+				<col width="">
+			</colgroup>
+			<thead>
+				<tr>
+					<th colspan="4" class="txt_l">미스테리 쇼퍼 내용</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th>상태</th>
+					<td>진행중</td>
+				</tr>
+				<tr>
+					<th>우리동네</th>
+					<td>서울시 강남구</td>
+				</tr>
+				<tr>
+					<th>기간</th>
+					<td>2018-07-01 ~ 2018-08-30</td>
+				</tr>
+				<tr>
+					<th>작성일</th>
+					<td>2018-07-01</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td>유니크매장 미스테리 쇼퍼를 모집합니다!</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다! <br />
+						유니크매장 미스테리 쇼퍼를 모집합니다!
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="bt_wrap2">
+		<a href="s2.php" class="bt_2">목록으로</a>
+	</div>
+
+</section>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
