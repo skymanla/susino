@@ -16,7 +16,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 					<th>검색필터</th>
 					<td>
 						<select name="" title="" class="w_input1">
-							<option value="" selected="selected">제목</option>
+							<option value="" selected="selected">구분</option>
+							<option value="">제목</option>
 							<option value="">발송일시</option>
 						</select>
 						<input type="text" class="w_input1"value="" name="" style="width:180px">
@@ -33,6 +34,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			<colgroup>
 				<col width="50">
 				<col width="80">
+				<col width="140">
 				<col width="240">
 				<col width="">
 				<col width="230">
@@ -42,6 +44,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<tr>
 					<th><input type="checkbox" class="" value="" name="" placeholder="" /></th>
 					<th>글번호</th>
+					<th>구분</th>
 					<th>받는이</th>
 					<th>제목</th>
 					<th>발송일시</th>
@@ -52,27 +55,39 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
 					<td class="txt_c">1</td>
+					<td class="txt_c">직접발송</td>
 					<td>우리동네 : 지역1</td>
 					<td>테스트 테스트 테스트</td>
 					<td class="txt_c">2018-00-00&nbsp;&nbsp;&nbsp;00 : 00 : 00</td>
-					<td class="txt_c"><a href="s3sview.php" class="bt_s1">보기</a></td>
+					<td class="txt_c"><a href="s2sview.php" class="bt_s1">보기</a></td>
 				</tr>
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
 					<td class="txt_c">1</td>
+					<td class="txt_c">직접발송</td>
 					<td>레벨 : VIP</td>
 					<td>테스트 테스트 테스트</td>
 					<td class="txt_c">2018-00-00&nbsp;&nbsp;&nbsp;00 : 00 : 00</td>
-					<td class="txt_c"><a href="s3sview.php" class="bt_s1">보기</a></td>
+					<td class="txt_c"><a href="s2sview.php" class="bt_s1">보기</a></td>
+				</tr>
+				<tr>
+					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
+					<td class="txt_c">1</td>
+					<td class="txt_c">미스테리 쇼퍼</td>
+					<td>admin 외 2명</td>
+					<td>테스트 테스트 테스트</td>
+					<td class="txt_c">2018-00-00&nbsp;&nbsp;&nbsp;00 : 00 : 00</td>
+					<td class="txt_c"><a href="s2sview.php" class="bt_s1">보기</a></td>
 				</tr>
 				<?php for($i=2;$i<11;$i++){?>
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
 					<td class="txt_c"><?php echo $i;?></td>
-					<td>윈드 외 2명</td>
+					<td class="txt_c">스시노미식회</td>
+					<td>admin 외 2명</td>
 					<td>테스트 테스트 테스트</td>
 					<td class="txt_c">2018-00-00&nbsp;&nbsp;&nbsp;00 : 00 : 00</td>
-					<td class="txt_c"><a href="s3sview.php" class="bt_s1">보기</a></td>
+					<td class="txt_c"><a href="s2sview.php" class="bt_s1">보기</a></td>
 				</tr>
 				<?php }?>
 			</tbody>
