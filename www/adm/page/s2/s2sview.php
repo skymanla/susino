@@ -1,5 +1,6 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 ?>
 <section class="section1">
 	<h3>회원 SMS 관리</h3>

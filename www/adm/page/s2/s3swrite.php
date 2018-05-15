@@ -1,9 +1,14 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
+//lvl cate
+$sql = "select * from sb_member_level where sb_idx <> '' order by sb_level_cate asc";
+$lvl_result = $conn->query($sql);
 ?>
+<script type="text/javascript" src="/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <section class="section1">
 	<h3>회원 E-mail 관리</h3>
-
+	<form name="mailFrm" id="mailFrm" enctype="multipart/form-data" onsubmit="return mail_submit(mailFrm);">
 	<div class="table_wrap1">
 		<table>
 			<caption>E-mail 작성</caption>
@@ -21,30 +26,32 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 					<th>받는이 설정</th>
 					<td>
 						<div class="label_box1_wrap" id="mail_target_tab">
-							<div class="label_box1"><input type="radio" name="mail_target" id="check_1" checked=""><label for="check_1">직접입력</label></div>
-							<div class="label_box1"><input type="radio" name="mail_target" id="check_2"><label for="check_2">레벨설정</label></div>
-							<div class="label_box1"><input type="radio" name="mail_target" id="check_3"><label for="check_3">우리동네</label></div>
+							<div class="label_box1"><input type="radio" name="mail_target" id="check_1" value="manual" checked=""><label for="check_1">직접입력</label></div>
+							<div class="label_box1"><input type="radio" name="mail_target" id="check_2" value="lvl_setting"><label for="check_2">레벨설정</label></div>
+							<div class="label_box1"><input type="radio" name="mail_target" id="check_3" value="dong_setting"><label for="check_3">우리동네</label></div>
 						</div>
 					</td>
 				</tr>
 				<tr class="mail_target_tr tr1">
 					<th>받는이 ID</th>
-					<td><input type="text" class="w_input1" value="" name="" placeholder="" style="width:300px" /> <span class="copy1">다중으로 보낼시  , 로 구분하세요 (예:   crashoxsusu, wind, gaga )</span></td>
+					<td><input type="text" class="w_input1" value="" name="sb_sender_email" id="sb_sender_email" placeholder="" style="width:300px" /> <span class="copy1">다중으로 보낼시  , 로 구분하세요 (예:   crashoxsusu, wind, gaga )</span></td>
 				</tr>
 				<tr class="mail_target_tr tr2" style="display:none">
 					<th>받는이 레벨</th>
 					<td>
-						<select name="" title="" class="w_input1">
-							<option value="" selected="selected">일반회원</option>
-							<option value="">VIP</option>
-							<option value="">점주</option>
+						<select name="sb_mb_lvl" id="sb_mb_lvl" title="" class="w_input1">
+							<?
+								foreach($lvl_result as $key => $lvl){
+							?>
+							<option value="<?=$lvl['sb_level_cate']?>" <? if($lvl['sb_level_cate']==1){ echo 'selected="selected"' ;} ?> ><?=$lvl['sb_level_title']?></option>
+							<? } ?>
 						</select>
 					</td>
 				</tr>
 				<tr class="mail_target_tr tr3" style="display:none">
 					<th>받는이 우리동네</th>
 					<td>
-						<select name="" title="" class="w_input1">
+						<select name="sb_locate" id="sb_locate" title="" class="w_input1">
 							<option value="" selected="selected">지역선택</option>
 							<option value="">지역1</option>
 							<option value="">지역2</option>
@@ -56,128 +63,93 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" class="w_input1" value="" name="" style="width:100%" /></td>
+					<td><input type="text" class="w_input1" value="" id="sb_email_title" name="sb_email_title" style="width:100%" /></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea name="" id="" class="w_input1" style="height:200px">에디터삽입</textarea>
+						<textarea class="w_input1" id="sb_email_content" name="sb_email_content" style="height:200px;display:none"></textarea>
 					</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
-
+	</form>
 	<div class="bt_wrap2">
 		<a href="s3.php" class="bt_2">취소</a>
-		<a href="s3sview.php" class="bt_1">E-mail 발송</a>
+		<a href="javascript:mail_submit(mailFrm);" class="bt_1" >E-mail 발송</a>
 	</div>
 
 	<h3>회원목록</h3>
-	<div class="table_wrap1 no_line">
-		<table>
-			<caption>검색필터</caption>
-			<colgroup>
-				<col width="100">
-				<col width="">
-			</colgroup>
-			<tbody>
-				<tr>
-					<th>검색필터</th>
-					<td>
-						<select name="" title="" class="w_input1">
-							<option value="" selected="selected">아이디</option>
-							<option value="">이름</option>
-							<option value="">핸드폰</option>
-							<option value="">이메일</option>
-							<option value="">레벨</option>
-							<option value="">우리동네</option>
-							<option value="">가입일</option>
-						</select>
-						<input type="text" class="w_input1"value="" name="" style="width:180px">
-						<button type="button" class="bt_s1 input_sel" id="cate_append_bt">검색</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+	<div id="mem_list">
 
-	<div class="table_wrap1">
-		<table>
-			<caption>회원목록</caption>
-			<colgroup>
-				<col width="80">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="140">
-			</colgroup>
-			<thead>
-				<tr>
-					<th>글번호</th>
-					<th>우리동네</th>
-					<th>아이디</th>
-					<th>이름</th>
-					<th>핸드폰</th>
-					<th>이메일</th>
-					<th>레벨</th>
-					<th>가입일</th>
-					<th>정보</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php for($i=1;$i<11;$i++){?>
-				<tr>
-					<td class="txt_c"><?php echo $i;?></td>
-					<td class="txt_c">지역1</td>
-					<td class="txt_c">admin</td>
-					<td class="txt_c">홍길동</td>
-					<td class="txt_c">010-0000-0000</td>
-					<td class="txt_c">wind@winddesign.co.kr</td>
-					<td class="txt_c">일반회원</td>
-					<td class="txt_c">2018-00-00</td>
-					<td class="txt_c"><a href="/adm/page/s2/s1sview_no_modfy.php" class="bt_s1" target="_blank" title="새창으로 열립니다.">자세히보기</a></td>
-				</tr>
-				<?php }?>
-			</tbody>
-		</table>
 	</div>
-
-	<nav class="paging_type1">
-		<a href="javascript:void(0);" class="arr all_prev"><i>처음</i></a>
-		<a href="javascript:void(0);" class="arr prev"><i>이전</i></a>
-		<a href="javascript:void(0);" class="active">1</a>
-		<a href="javascript:void(0);">2</a>
-		<a href="javascript:void(0);">3</a>
-		<a href="javascript:void(0);">4</a>
-		<a href="javascript:void(0);">5</a>
-		<a href="javascript:void(0);">6</a>
-		<a href="javascript:void(0);">7</a>
-		<a href="javascript:void(0);">8</a>
-		<a href="javascript:void(0);">9</a>
-		<a href="javascript:void(0);">10</a>
-		<a href="javascript:void(0);" class="arr next"><i>다음</i></a>
-		<a href="javascript:void(0);" class="arr all_next"><i>마지막</i></a>
-	</nav>
+	
 </section>
 
 <script type="text/javascript">
 //<![CDATA[
 
+var oEditors = [];
+nhn.husky.EZCreator.createInIFrame({
+	oAppRef: oEditors,
+	elPlaceHolder: "sb_email_content",
+	sSkinURI: "/editor/SmartEditor2Skin.html",
+	fCreator: "createSEditor2"
+});
+function submitContents(elClickedObj){
+	oEditors.getById["sb_email_content"].exec("UPDATE_CONTENTS_FIELD", []);	// 에디터의 내용이 textarea에 적용됩니다. 
+	// 에디터의 내용에 대한 값 검증은 이곳에서 document.getElementById("ir1").value를 이용해서 처리하면 됩니다.
+
+	try {
+		elClickedObj.form.submit();
+	} catch(e) {}
+}
+
 $(function (){
 	marTarAc1(); //받는이 설정
+	mem_list(1, "", "");//ajax 
 });
+//mem_list
+function mem_list(pageNo, stx="", searchword=""){
+	var keyword = document.getElementById("stx");
+	var sword = document.getElementById("search_word");
+	if(keyword != null){
+		stx = keyword.options[keyword.selectedIndex].value;
+	}
+	if(sword != null){
+		searchword = sword.value.trim();
+	}
+	if(searchword == ""){
+		stx = "";
+		searchword = "";
+	}
+	$.ajax({
+		type : 'POST',
+		url : '/ajax/adm_member_list.php',
+		data : {'cur_page' : pageNo, 'stx' : stx, 'search_word' : searchword},
+		//dataType: 'html',
+		success : function(data){
+			$("#mem_list").html(data);
+		}
+	})
+}
+//회원 클릭시 아이디 입력
+function mem_click_ev(memid){
+	if($('#check_1').prop("checked") == true){//설정값이 맞을 경우에만 작동
+		$('#sb_sender_email').val($('#sb_sender_email').val()+memid+',');
+	}
+}
 
+function openMember(idx){
+	window.open("./member/popMember.php?idx="+idx, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=500,width=830,height=600");
+}
 // STR 받는이 설정
 function marTarAc1(){
 	$('#mail_target_tab input').on('click',function(){
 		var $_This = $(this);
 		var w_ch_num = $_This.attr('id').split('_')[1];
-		$('.mail_target_tr').find('input, select').val('');
+		//$('.mail_target_tr').find('input, select').val('');
 		$('.mail_target_tr').css({'display':'none'});
 		$('.tr'+w_ch_num+'').css({'display':'table-row'});
 	});
@@ -194,6 +166,33 @@ function marTarAc1(){
 }
 // ENd 받는이 설정
 
+function mail_submit(form){
+	//var Frm = document.getElementById('mailFrm');
+	if($('#check_1').prop("checked") == true){
+		if( $.trim($('#sb_sender_email').val()) == "" ){
+			alert("회원 아이디을 입력해 주세요.");
+			return false;
+		}
+	}
+
+	if( $.trim($('#sb_email_title').val()) == "" ){
+		console.log("제목을 입력하세요.");
+		return false;
+	}
+	oEditors.getById["sb_email_content"].exec("UPDATE_CONTENTS_FIELD", []);
+	form.sb_email_content.value = document.getElementById("sb_email_content").value;
+	if(!form.sb_email_content.value || form.sb_email_content.value=='<p>&nbsp;</p>'){
+		console.log('내용을 입력하세요!');
+		form.sb_email_content.focus();
+		return;
+	}
+	
+	if(confirm("해당 내용으로 메일을 전송하시겠습니까?")){
+		form.method="post";
+		form.action="/ajax/adm_sendmailer.php";
+		form.submit();
+	}
+}
 //]]>
 </script>
 

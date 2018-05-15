@@ -1,7 +1,6 @@
 <?php
  	$sFileInfo = '';
- 	$host = $_SERVER['HTTP_HOST'];
-	$headers = array();
+	$headers = array(); 
 	foreach ($_SERVER as $k => $v){   
   	
 		if(substr($k, 0, 9) == "HTTP_FILE"){ 
@@ -15,13 +14,12 @@
 	$file->size = $headers['file_size'];
 	$file->content = file_get_contents("php://input"); 
 	
-	//$newPath = $_SERVER['DOCUMENT_ROOT'].'/data/editor/'.iconv("utf-8", "cp949", $file->name);
-	$newPath = $_SERVER['DOCUMENT_ROOT'].'/data/editor/'.$file->name;
+	$newPath = $_SERVER['DOCUMENT_ROOT'].'/data/editor/'.iconv("utf-8", "cp949", $file->name);
 	
 	if(file_put_contents($newPath, $file->content)) {
 		$sFileInfo .= "&bNewLine=true";
 		$sFileInfo .= "&sFileName=".$file->name;
-		$sFileInfo .= "&sFileURL=http://".$host."/data/editor/".$file->name;
+		$sFileInfo .= "&sFileURL=/data/editor/".$file->name;
 	}
 	echo $sFileInfo;
  ?>

@@ -56,7 +56,7 @@ switch($_GET['stx']){
 		break;
 	case "regdate":
 		$stx_regdate_check = 'selected="selected"';
-		$sql_search = " and DATE_FORMAT(sb_regdate,'%Y-%m-%d')='".$_GET['regdate'];
+		$sql_search = " and DATE_FORMAT(sb_regdate,'%Y-%m-%d')='".$_GET['search_word']."'";
 		$query_string.="&stx=regdate&search_word=".$_GET['search_word'];
 		break;
 	default:
@@ -167,11 +167,11 @@ $level_query = $conn->query($sql);
 			</thead>
 			<tbody>
 				<?
-					$idx = 1;
+					$idx = 0;
 					foreach($mem_list_query as $key=>$row){
 				?>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
+					<td class="txt_c"><input type="checkbox" class="rp_check_class" name="rp_check[]" value="<?=$row['sb_idx']?>" placeholder="" /></td>
 					<td class="txt_c"><?=$board_no?></td>
 					<td class="txt_c">지역1</td>
 					<td class="txt_c"><?=$row['sb_id']?></td>
@@ -179,7 +179,7 @@ $level_query = $conn->query($sql);
 					<td class="txt_c"><?=$row['sb_phone']?></td>
 					<td class="txt_c"><?=$row['sb_email']?></td>
 					<td class="txt_c">
-						<select name="" title="" class="w_input1">
+						<select id="sb_m_lvl_<?=$idx?>" title="" class="w_input1">
 							<?
 								foreach($level_query as $key=>$level_row){
 							?>
@@ -191,7 +191,8 @@ $level_query = $conn->query($sql);
 					<td class="txt_c"><?=$row['sb_delete_flag']=="1" ? "탈퇴회원" : "스시노백 회원"?></td>
 					<td class="txt_c"><a href="s1sview.php?idx=<?=$row['sb_idx']?>&id=<?=$row['sb_id']?>" class="bt_s1">정보수정</a></td>
 				</tr>
-				<? 
+				<? 	
+						$idx++;
 						$board_no--;
 					} 
 				?>
@@ -201,9 +202,9 @@ $level_query = $conn->query($sql);
 
 	<div class="bt_wrap1">
 		<div class="left_box">
-			<button type="button" class="bt_1">전체선택</button>
-			<button type="button" class="bt_1">선택해제</button>
-			<button type="button" class="bt_1">선택수정</button>
+			<button type="button" class="bt_1" onclick="javascript:all_check_t();">전체선택</button>
+			<button type="button" class="bt_1" onclick="javascript:all_check_f();">선택해제</button>
+			<button type="button" class="bt_1" onclick="javascript:level_all_modify();">선택수정</button>
 		</div>
 	</div>
 
@@ -268,6 +269,43 @@ function all_check(){
     }
 }
 
+function all_check_t(){
+    $(".rp_check_class").prop("checked", true);
+}
+
+function all_check_f(){
+    $(".rp_check_class").prop("checked", false);   
+}
+
+function level_all_modify(){
+	var idx_flag = <?=$idx?>;
+	var chk_data = new Array()
+	var chk_cnt = 0;
+	var chkbox = $('.rp_check_class');
+
+	for(var i=0;i<chkbox.length;i++){
+        if(chkbox[i].checked == true){
+        	chk_data[chk_cnt] = new Array();
+        	var lvl_val = document.getElementById('sb_m_lvl_'+i);
+            /*chk_data[chk_cnt]['sb_idx'] = chkbox[i].value;
+            chk_data[chk_cnt]['sb_lvl_cata'] = lvl_val.options[lvl_val.selectedIndex].value;*/
+            chk_data[chk_cnt] = {'sb_idx' : chkbox[i].value, 'sb_lvl_cata' : lvl_val.options[lvl_val.selectedIndex].value}
+            chk_cnt++;
+        }
+    }
+    $.ajax({
+    	type : "POST",
+    	//dataType : "json",
+    	url : "/ajax/modify_adm_mem.php",
+    	data : {ajax_data : chk_data},
+    	success : function(result){
+    		alert("회원 레벨이 수정되었습니다.\n페이지를 새로고침합니다.");
+    		location.reload();
+    	}, error : function(jqXHR, textStatus, errorThrown){
+			console.log("error!\n"+textStatus+" : "+errorThrown);
+		}
+    });
+}
 </script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
