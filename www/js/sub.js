@@ -16,6 +16,8 @@ $(function (){
 	boxHoverAC1('.wrap_bigban > li');
 	boxHoverAC1('.ban_style_s2 .in_style');
 	boxHoverAC1('.ban_style_s2 .hover_view');
+
+	myNoticeRoll();
 });
 
 function headerAC1(){
@@ -182,4 +184,41 @@ function popCloseAc1(t){
 	$(t).fadeOut(300);
 	setTimeout(function(){$(t).css('margin-top','')}, 300);
 
+}
+
+function myNoticeRoll(){
+	var $bxTar = $('.my_notice_roll_wrap .roll_wrap');
+	var visualSlide = $bxTar.find('.roll').bxSlider({
+		mode:'vertical',
+		auto:true,
+		pause:2500,
+		speed:600,
+		autoDelay:0,
+		minSlides: 1,
+		maxSlides:1,
+		moveSlides:1,
+		//startSlide:0,
+		controls:false,
+		pager:false,
+		useCSS: false
+	});
+	$(window).on('resize', function() {
+		visualSlide.stop().reloadSlider();
+	});
+
+	$bxTar.on('click touchend', function() {
+		visualSlide.stopAuto();
+		visualSlide.startAuto();
+	});
+
+	$('.my_notice_roll_wrap .bt_wrap button').on('click',function (){
+		var arroTxt = $(this).attr('class');
+		visualSlide.stopAuto();
+		if(arroTxt=='prev'){
+			visualSlide.goToPrevSlide();
+		} else {
+			visualSlide.goToNextSlide();
+		}
+		visualSlide.startAuto();
+	});
 }

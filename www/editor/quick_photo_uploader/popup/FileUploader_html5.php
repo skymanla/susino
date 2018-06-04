@@ -11,7 +11,8 @@
 	}
 	
 	$file = new stdClass; 
-	$file->name = rawurldecode($headers['file_name']);	
+	//$file->name = rawurldecode($headers['file_name']);
+	$file->name = rawurldecode("editor_".time());
 	$file->size = $headers['file_size'];
 	$file->content = file_get_contents("php://input"); 
 	

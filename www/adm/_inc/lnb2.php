@@ -5,4 +5,6 @@
 	<li <?php if($w_b_num===2){ echo 'class="active"';}?>><a href="/adm/page/s3/s3.php">스시노 미식회</a></li>
 	<li <?php if($w_b_num===3){ echo 'class="active"';}?>><a href="/adm/page/s3/s4.php">체험단</a></li>
 	<li <?php if($w_b_num===4){ echo 'class="active"';}?>><a href="/adm/page/s3/s5.php">이벤트</a></li>
+	<li <?php if($w_b_num===5){ echo 'class="active"';}?>><a href="/adm/page/s3/s6.php">우리동네 공지사항</a></li>
+	<li <?php if($w_b_num===6){ echo 'class="active"';}?>><a href="/adm/page/s3/s7.php">함께갈레요 관리</a></li></a></li>
 </ul>

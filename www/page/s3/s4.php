@@ -378,21 +378,56 @@ function dmapAc1(){
 
 							var uniq_more = '';
 							if(addArry1[i].type==3){
-								uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="pin_link2">네이버플레이스</a>' +
-													'<a href="' + addArry1[i].link2 + '" class="pin_link1">자세히보기</a>';
+								//uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="pin_link2">네이버플레이스</a>' +
+													//'<a href="' + addArry1[i].link2 + '" class="pin_link1">자세히보기</a>';
+								uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="go_naver">네이버플레이스</a>' +
+														'<a href="' + addArry1[i].link2 + '" class="go_more">자세히보기</a>';
 							} else {
-								uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="pin_link2">네이버플레이스</a>';
+								//uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="pin_link2">네이버플레이스</a>';
+								uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="go_naver">네이버플레이스</a>';
 							}
+
+							//infowindow[i] = new daum.maps.CustomOverlay({
+								//position: coords,
+								//xAnchor: 1,
+								//yAnchor: 1,
+								//content: '<div class="map_pin_info">' +
+												//'<div class="pin_info">' + addArry1[i].info + '</div>' +
+												//'<div class="pin_addr">' + addArry1[i].addr + '</div>' +
+												//'<div class="pin_call">' + addArry1[i].call + '</div>' +
+												//uniq_more +
+											//'</div>'
+							//});
 
 							infowindow[i] = new daum.maps.CustomOverlay({
 								position: coords,
 								xAnchor: 1,
 								yAnchor: 1,
 								content: '<div class="map_pin_info">' +
-												'<div class="pin_info">' + addArry1[i].info + '</div>' +
-												'<div class="pin_addr">' + addArry1[i].addr + '</div>' +
-												'<div class="pin_call">' + addArry1[i].call + '</div>' +
-												uniq_more +
+												'<div class="title">' +
+													'<h2>'+addArry1[i].info+'</h2>' +
+													'<div class="bt_wrap">' + uniq_more +'</div>' +
+												'</div>' +
+												'<ul>' +
+													'<li>' +
+														'<div>주소</div>' +
+														'<div>' + addArry1[i].addr + '</div>' +
+													'</li>' +
+													'<li>' +
+														'<div>전화번호</div>' +
+														'<div>' + addArry1[i].call + '</div>' +
+													'</li>' +
+													'<li>' +
+														'<div>서비스</div>' +
+														'<div class="info_icon">' +
+															'<div class="p"><i>주차</i></div>' +
+															//'<div class="q"><i>배달</i></div>' +
+															'<div class="c"><i>예약</i></div>' +
+															'<div class="k"><i>카카오톡</i></div>' +
+															'<div class="r"><i>room</i></div>' +
+														'</div>' +
+													'</li>' +
+												'</ul>' +
 											'</div>'
 							});
 

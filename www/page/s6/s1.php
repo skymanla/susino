@@ -1,12 +1,16 @@
 <?php include_once "../../_head.php";?>
 
-<div class="s6s1_wrap">
-	<div>
-		<div class="headgroup">
-			<h2>#봄엔스시</h2>
-			<p class="copy1">2018, 4월의 인스타 #해시태그</p>
-		</div>
+<div class="s6s1_wrap type1">
+	<div class="tab_wrap">
+		<a href="s1.php" class="bt1 active">랍스타그램</a>
+		<a href="s1_tab2.php" class="bt2">핑스타그램</a>
+	</div>
+	<div class="box_wrap">
 		<div class="social_stream_wrap">
+			<div class="headgroup">
+				<h2>#랍스타그램</h2>
+				<p class="copy1">2018 스시노백쉐프의 신메뉴 #랍스타그램</p>
+			</div>
 			<div id="social-stream1" class="social_stream"></div>
 		</div>
 	</div>

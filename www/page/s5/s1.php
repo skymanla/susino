@@ -10,7 +10,7 @@
 				<li>
 					<label for="inplbl_01"><img src="/img/s5/s5s1_txt1.png" alt="나의주소" /></label>
 					<div>
-						<input type="text" id="inplbl_01" value="" name="" placeholder="주소를 입력해주세요" />
+						<input type="text" id="inplbl_01" value="서울시 강남구 신사동 201-12" name="" placeholder="로그인이 필요합니다." readonly />
 					</div>
 				</li>
 				<li>

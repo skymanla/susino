@@ -1,6 +1,7 @@
 $(function(){
 	scrollAc1();
 	checkedAc1();
+	boardCateAc1();
 });
 function gnbAC(s){
 	var $gnbTarPar = $('.gnb');
@@ -68,5 +69,11 @@ function checkedAc1(){
 				$(this).next('label').removeClass('active');
 			}
 		});
+	});
+}
+
+function boardCateAc1(){
+	$('.toggle_j a').on('click',function (){
+		$(this).addClass('active').siblings().removeClass('active');
 	});
 }

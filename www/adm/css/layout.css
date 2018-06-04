@@ -182,6 +182,7 @@ border-radius:50%;
 .table_wrap1 .txt_l{text-align:left;}
 .table_wrap1 .txt_c{text-align:center;}
 .table_wrap1 .copy1{color:#999;font-size:13px;padding:0 10px;}
+.table_wrap1 .img_wrap img{width:100%;height:auto;}
 .table_wrap1 > table > thead > tr,
 .table_wrap1 > table > tbody > tr{border-top:1px solid #e8e8e8;}
 .table_wrap1.no_line > table > thead > tr,

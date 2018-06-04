@@ -67,7 +67,7 @@ $result = $conn->query($query);
 					}
 					else if(date('Y-m-d') < $row['sbe_sdate'])
 					{
-						echo "<span class='mk_ing2'>진행예정</span>";
+						echo "<span class='mk_ex'>진행예정</span>";
 					}
 					else
 					{

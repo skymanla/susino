@@ -153,6 +153,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 		</table>
 	</div>
 	<div class="bt_wrap2">
+		<a href="s3swrite.php" class="bt_1">수정하기</a>
 		<a href="s3.php" class="bt_2">목록으로</a>
 	</div>
 
