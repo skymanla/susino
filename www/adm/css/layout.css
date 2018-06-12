@@ -379,6 +379,11 @@ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endCo
 /* IE 8 */
 -ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#cc000000, endColorstr=#cc000000)";
 }
+
+.radio_box_wrap{overflow:hidden;}
+.radio_box_wrap > div{float:left;margin:5px 15px 0 0;}
+.radio_box_wrap > div label{padding-left:5px;}
+.radio_box_wrap > div label b{color:#bb1a29;}
 /* END 기타 */
 
 /* STR blog */

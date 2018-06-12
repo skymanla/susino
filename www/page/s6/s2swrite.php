@@ -72,14 +72,11 @@ $(function() {
 			<input type="hidden" name="flag" value="event">
 			<input type="hidden" name="mode" value="<?php echo $mode?>">
 			<?php
-			if($_GET['idx'])
-			{
+				if($_GET['idx']){
 			?>
 			<input type="hidden" name="idx" value="<?php echo $_GET['idx']?>">
 			<input type="hidden" name="file2" value="<?php echo $row['sbe_file']?>">
-			<?php
-			}
-			?>
+			<?php }	?>
 			<table class="board_style1">
 				<caption>이벤트 정보입력란</caption>
 				<colgroup>
@@ -139,7 +136,7 @@ $(function() {
 		</div>
 		<div class="cst_rWrap">
 			<button type="button" class="bt_s1_gray" onclick="location.href='/page/s6/s2.php'">취소</button>
-			<button type="submit" class="bt_s1_red"onclick="write_ok();">등록</button>
+			<button type="submit" class="bt_s1_red" onclick="write_ok();">등록</button>
 		</div>
 	</div>
 </div>

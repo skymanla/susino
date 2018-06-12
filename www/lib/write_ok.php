@@ -1,28 +1,21 @@
 <?php 
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
-$flag					= trim($_POST['flag']);
-if($flag == 'notice' || $flag == 'event')
-{
+$flag					= trim($_POST['flag']);//게시판 정보
+if($flag == 'notice' || $flag == 'event' || $flag == "shopper" || $flag == "ftalk" || $flag == "pick"){//관리자 세션 체크하는 듯?
 	include_once($_SERVER['DOCUMENT_ROOT']."/lib/Session.php");
 }
+
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 
-if($flag != 'business')
-{
-	if($flag != 'customer')
-	{
-		if($_POST['file1'])
-		{
+if($flag != 'business'){
+	if($flag != 'customer')	{
+		if($_POST['file1'])	{
 			include_once($_SERVER['DOCUMENT_ROOT']."/lib/file_upload.php"); // 파일 처리 함수
 			$new_file1 = $new_file1;
-		}
-		else
-		{
+		}else{
 			$new_file1 = $_POST['file2'];
 		}
-	}
-	else
-	{
+	}else{
 		include_once($_SERVER['DOCUMENT_ROOT']."/lib/file_upload.php"); // 파일 처리 함수
 	}
 }
@@ -53,9 +46,25 @@ $aria					= trim($_POST['aria']);
 $aria2					= trim($_POST['aria2']);
 $store					= trim($_POST['store']);
 $use					= trim($_POST['use']);
+//add Ryan 180612
+//작성자 확인용
+$ip = $_SERVER['REMOTE_ADDR'];
+$w_id = $_SESSION['sba_id'];
 
-if($flag == 'customer')
-{
+//상점 변수 추가
+$sbs_option					= $_POST['sbs_option'];
+$sbs_op_p					= $_POST['sbs_op_p'];
+$sbs_op_q1					= $_POST['sbs_op_q1'];
+$sbs_op_q2					= $_POST['sbs_op_q2'];
+
+//미스테리쇼퍼, 체험단, 미식회 공통
+$shopper_lvl = $_POST['shopper_lvl'];
+$sb_sido = $_POST['s_sido'];
+$sb_addr_sec = $_POST['addr_sec'];
+include_once($_SERVER['DOCUMENT_ROOT']."/ajax/register_our_area.php");
+//end
+
+if($flag == 'customer'){
 	$board_name	= "sb_customer";
 
 	$query = "INSERT INTO $board_name (sbc_name, sbc_hp, sbc_email, sbc_title, sbc_contents, sbc_file, sbc_rdate, sbc_udate) VALUES ('$name','$hp','$email','$title','$content','$new_file1',now(),now())";
@@ -63,9 +72,7 @@ if($flag == 'customer')
 	$url = "/page/scenter/s1.php";
 	echoAlert("고객의 소리가 등록되었습니다.");
 	echoMovePage($url);
-}
-else if($flag == 'business')
-{
+}else if($flag == 'business'){
 	$board_name	= "sb_business";
 
 	$query = "INSERT INTO $board_name (sbb_name, sbb_hp, sbb_email, sbb_aria, sbb_aria2, sbb_contents, sbb_store, sbb_use, sbb_rdate) VALUES ('$name','$hp2','$email2','$aria','$aria2','$content','$store','$use',now())";
@@ -73,21 +80,16 @@ else if($flag == 'business')
 	$url = "/together/";
 	echoAlert("창업상담이 등록되었습니다.");
 	echoMovePage($url);
-}
-else if($flag == 'notice')
-{
+}else if($flag == 'notice'){
 	$board_name	= "sb_notice";
 
-	if($mode == 'w')
-	{
+	if($mode == 'w')	{
 		$query = "INSERT INTO $board_name (sbn_title, sbn_contents, sbn_file, sbn_count, sbn_rdate, sbn_udate) VALUES ('$title','$content','$new_file1',0,now(),now())";
 		$conn->query($query);
 		$url = "/page/s1/s6.php";
 		echoAlert("공지사항이 등록되었습니다.");
 		echoMovePage($url);
-	}
-	else if($mode == 'd')
-	{
+	}else if($mode == 'd'){
 		$query = "SELECT * FROM $board_name where sbn_idx = '".$idx."'";
 		$result = $conn->query($query);
 		$row = $result->fetch_assoc();
@@ -100,9 +102,7 @@ else if($flag == 'notice')
 		$url = "/page/s1/s6.php";
 		echoAlert("공지사항이 삭제되었습니다.");
 		echoMovePage($url);
-	}
-	else if($mode == 'u')
-	{
+	}else if($mode == 'u'){
 		$query	 = "UPDATE $board_name SET ";
 		$query .= " sbn_title					=	'".$title."',";
 		$query .= " sbn_contents			=	'".$content."',";
@@ -114,21 +114,19 @@ else if($flag == 'notice')
 		echoAlert("공지사항이 수정되었습니다.");
 		echoMovePage($url);
 	}
-}
-else if($flag == 'store')
-{
+}else if($flag == 'store'){
 	$board_name	= "sb_store";
-
-	if($mode == 'w')
-	{
-		$query = "INSERT INTO $board_name (sbs_no, sbs_series, sbs_type, sbs_new, sbs_name, sbs_tel, sbs_link1, sbs_link2, sbs_zip, sbs_address, sbs_address2, sbs_rdate) VALUES ('$no','$series','$type','$new','$name','$tel','$link1','$link2','$zip','$address','$address2',now())";
+	//print_r($sbs_option);
+	$sbs_option = implode('||',$sbs_option);
+	//echo $sbs_option;
+	//exit;
+	if($mode == 'w'){
+		$query = "INSERT INTO $board_name (sbs_no, sbs_series, sbs_type, sbs_new, sbs_name, sbs_tel, sbs_link1, sbs_link2, sbs_zip, sbs_address, sbs_address2, sbs_option, sbs_op_p, sbs_op_q1, sbs_op_q2, sbs_rdate) VALUES ('$no','$series','$type','$new','$name','$tel','$link1','$link2','$zip','$address','$address2','$sbs_option,'$sbs_op_p','$sbs_op_q1','$sbs_op_q2',now())";
 		$conn->query($query);
 		$url = "/page/s3/s1.php";
 		echoAlert("매장이 등록되었습니다.");
 		echoMovePage($url);
-	}
-	else if($mode == 'd')
-	{
+	}else if($mode == 'd'){
 		$query = "SELECT * FROM $board_name where sbs_idx = '".$idx."'";
 		$result = $conn->query($query);
 		$row = $result->fetch_assoc();
@@ -139,9 +137,7 @@ else if($flag == 'store')
 		$url = "/page/s3/s1.php";
 		echoAlert("매장이 삭제되었습니다.");
 		echoMovePage($url);
-	}
-	else if($mode == 'u')
-	{
+	}else if($mode == 'u'){
 		$query	 = "UPDATE $board_name SET ";
 		$query .= " sbs_no					=	'".$no."',";
 		$query .= " sbs_series				=	'".$series."',";
@@ -153,28 +149,27 @@ else if($flag == 'store')
 		$query .= " sbs_link2				=	'".$link2."',";
 		$query .= " sbs_zip					=	'".$zip."',";
 		$query .= " sbs_address			=	'".$address."',";
-		$query .= " sbs_address2		=	'".$address2."'";
+		$query .= " sbs_address2		=	'".$address2."',";
+		$query .= " sbs_option		=	'".$sbs_option."',";
+		$query .= " sbs_op_p		=	'".$sbs_op_p."',";
+		$query .= " sbs_op_q1		=	'".$sbs_op_q1."',";
+		$query .= " sbs_op_q2		=	'".$sbs_op_q2."'";
 		$query .= "	WHERE sbs_idx	=	'".$idx."'";
 		$conn->query($query);
-		$url = "/page/s3/s1.php";
+		//$url = "/page/s3/s1.php";
+		$url = "/page/s3/s1swrite.php?mode=u&idx=".$idx;
 		echoAlert("매장이 수정되었습니다.");
 		echoMovePage($url);
 	}
-}
-else if($flag == 'event')
-{
+}else if($flag == 'event'){
 	$board_name	= "sb_event";
-
-	if($mode == 'w')
-	{
+	if($mode == 'w')	{
 		$query = "INSERT INTO $board_name (sbe_sdate, sbe_edate, sbe_idate, sbe_title, sbe_contents, sbe_file, sbe_rdate, sbe_udate) VALUES ('$sdate','$edate','$idate','$title','$content','$new_file1',now(),now())";
 		$conn->query($query);
 		$url = "/page/s6/s2.php";
 		echoAlert("이벤트가 등록되었습니다.");
 		echoMovePage($url);
-	}
-	else if($mode == 'd')
-	{
+	}else if($mode == 'd'){
 		$query = "SELECT * FROM $board_name where sbe_idx = '".$idx."'";
 		$result = $conn->query($query);
 		$row = $result->fetch_assoc();
@@ -184,12 +179,10 @@ else if($flag == 'event')
 
 		@unlink("/data/event/".$row['sbe_file']);
 
-		$url = "/page/s6/s2.php";
+		$url = "/adm/page/s3/s5.php";
 		echoAlert("이벤트가 삭제되었습니다.");
 		echoMovePage($url);
-	}
-	else if($mode == 'u')
-	{
+	}else if($mode == 'u'){
 		$query	 = "UPDATE $board_name SET ";
 		$query .= " sbe_sdate				=	'".$sdate."',";
 		$query .= " sbe_edate				=	'".$edate."',";
@@ -200,9 +193,38 @@ else if($flag == 'event')
 		$query .= " sbe_udate				=	now() ";
 		$query .= "	WHERE sbe_idx	=	'".$idx."'";
 		$conn->query($query);
-		$url = "/page/s6/s2.php";
+		$url = "/adm/page/s3/s5.php";
 		echoAlert("이벤트가 수정되었습니다.");
 		echoMovePage($url);
 	}
+}else if($flag=="shopper"){
+	$board_name = "sb_shopper_board";
+	if($mode=="w"){
+		//idx check
+		$query = "select sbsp_idx from $board_name where 1 order by sbsp_idx desc limit 0";
+		$q = $conn->query($query);
+		$v = $q->fetch_assoc();
+		if(empty($v['sbsp_idx'])){
+			$sbsp_idx = 1;
+		}else{
+			$sbsp_idx = $v['sbsp_idx'];
+			$sbsp_idx++;
+		}
+		$sdate = $_POST['sdate']." 00:00:00";
+		$edate = $_POST['edate']." 23:59:59";
+
+		$query = "insert into $board_name 
+					(sbsp_idx, sbsp_sdate, sbsp_edate, sbsp_lvl, sbsp_area, sbsp_title, sbsp_content, sbsp_rdate, sbsp_id, sbsp_ip)
+					values
+					('$sbsp_idx', '$sdate', '$edate', '$shopper_lvl', '$sb_our_area', '$title', '$content', now(), '$w_id', '$ip')";
+		if($conn->query($query)){
+			$url = "/adm/page/s3/s2sview.php?idx=$sbsp_idx";
+			echoAlert("이벤트가 등록되었습니다.");
+			echoMovePage($url);	
+		}else{
+			die('error');
+		}
+		
+	}	
 }
 ?>

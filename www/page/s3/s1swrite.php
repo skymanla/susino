@@ -17,6 +17,7 @@ else
 	$row['sbs_new'] = 1;
 	$row['sbs_type'] = 1;
 }
+$sbs_option = explode('||', $row['sbs_option']);
 ?>
 <script>
 // submit 최종 폼체크
@@ -194,6 +195,63 @@ function del()
 					</tr>
 					<tr>
 						<th scope="row">
+							<label for="">부가서비스</label>
+						</th>
+						<td>
+							<div class="checkbox_wrap">
+								<div>
+									<input type="checkbox" name="sbs_option[]" value="q" id="sbs_op1" <? if(in_array("q", $sbs_option)) echo "checked";?> />
+									<label for="sbs_op1"><i></i>배달</label>
+								</div>
+								<div>
+									<input type="checkbox" name="sbs_option[]" value="p" id="sbs_op2" <? if(in_array("p", $sbs_option)) echo "checked"; ?> />
+									<label for="sbs_op2"><i></i>주차</label>
+								</div>
+								<div>
+									<input type="checkbox" name="sbs_option[]" value="r" id="sbs_op3" <? if(in_array("r", $sbs_option)) echo "checked"; ?>/>
+									<label for="sbs_op3"><i></i>room</label>
+								</div>
+								<div>
+									<input type="checkbox" name="sbs_option[]" value="gc" id="sbs_op4" <? if(in_array("gc", $sbs_option)) echo "checked"; ?>/>
+									<label for="sbs_op4"><i></i>전자상품권</label>
+								</div>
+								<div>
+									<input type="checkbox" name="sbs_option[]" value="c" id="sbs_op5" <? if(in_array("c", $sbs_option)) echo "checked"; ?>/>
+									<label for="sbs_op5"><i></i>예약</label>
+								</div>
+								<div>
+									<input type="checkbox" name="sbs_option[]" value="k" id="sbs_op6" <? if(in_array("k", $sbs_option)) echo "checked"; ?>/>
+									<label for="sbs_op6"><i></i>카카오톡</label>
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="">주차정보</label>
+						</th>
+						<td>
+							<input type="text" name="sbs_op_p" id="" value="<?php echo $row['sbs_op_p']?>"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="">배달지역</label>
+						</th>
+						<td>
+							<input type="text" name="sbs_op_q1" id="" value="<?php echo $row['sbs_op_q1']?>"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
+							<label for="">배달조건</label>
+						</th>
+						<td>
+							<input type="text" name="sbs_op_q2" id="" value="<?php echo $row['sbs_op_q2']?>"/>
+						</td>
+					</tr>
+					<tr>
+						<th scope="row">
 							<label for="">주소</label>
 						</th>
 						<td>
@@ -245,7 +303,7 @@ function del()
 			<?php
 			}
 			?>
-			<button type="button" class="bt_s1_gray" onclick="location.href='/page/s3/s1.php'">취소</button>
+			<button type="button" class="bt_s1_gray" onclick="location.href='/page/s3/s1.php'">목록으로</button>
 			<button type="submit" class="bt_s1_red" onclick="write_ok();">등록</button>
 		</div>
 	</div>

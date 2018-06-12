@@ -106,21 +106,29 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/_head.php');
 								</td>
 							</tr>
 							<tr>
-								<th>생년월일</th>
+								<th>우리동네 설정</th>
 								<td>
-									<input type="text" class="" value="" name="sb_birth1" id="sb_birth1" placeholder="" style="width:135px" required />
-									<select name="sb_birth2" id="sb_birth2" class="" style="width:150px" >
-										<option value="" selected="selected" disabled>월</option>
-										<?php for($i=1;$i<=12;$i++){?>
-										<option value="<?=$i?>"><?php echo $i;?></option>
-										<?php }?>
+									<select id="s_sido" name="s_sido">
+										<option value="" data-real-addr="all">시/도</option>
+										<option value="0" data-real-addr="서울">서울특별시</option>
+										<option value="1" data-real-addr="부산">부산광역시</option>
+										<option value="2" data-real-addr="대구">대구광역시</option>
+										<option value="3" data-real-addr="인천">인천광역시</option>
+										<option value="4" data-real-addr="광주">광주광역시</option>
+										<option value="5" data-real-addr="대전">대전광역시</option>
+										<option value="6" data-real-addr="울산">울산광역시</option>
+										<option value="7" data-real-addr="세종특별자치시">세종특별자치시</option>
+										<option value="8" data-real-addr="경기">경기도</option>
+										<option value="9" data-real-addr="강원">강원도</option>
+										<option value="10" data-real-addr="충북">충청북도</option>
+										<option value="11" data-real-addr="충남">충청남도</option>
+										<option value="12" data-real-addr="전북">전라북도</option>
+										<option value="13" data-real-addr="전남">전라남도</option>
+										<option value="14" data-real-addr="경북">경상북도</option>
+										<option value="15" data-real-addr="경남">경상남도</option>
+										<option value="16" data-real-addr="제주특별자치도">제주특별자치도</option>
 									</select>
-									<select name="sb_birth3" id="sb_birth3" class="" style="width:150px" >
-										<option value="" selected="selected" disabled>일</option>
-										<?php for($i=1;$i<=31;$i++){?>
-										<option value="<?=$i?>"><?php echo $i;?></option>
-										<?php }?>
-									</select>
+									<div id="s_gugun"><div class="radio_box_wrap"></div></div>
 								</td>
 							</tr>
 						</tbody>
@@ -138,6 +146,24 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/_head.php');
 							<col width="" />
 						</colgroup>
 						<tbody>
+							<tr>
+								<th>생년월일</th>
+								<td>
+									<input type="text" class="" value="" name="sb_birth1" id="sb_birth1" placeholder="" style="width:135px" required />
+									<select name="sb_birth2" id="sb_birth2" class="" style="width:150px" >
+										<option value="" selected="selected" disabled>월</option>
+										<?php for($i=1;$i<=12;$i++){?>
+										<option value="<?=$i?>"><?php echo $i;?></option>
+										<?php }?>
+									</select>
+									<select name="sb_birth3" id="sb_birth3" class="" style="width:150px" >
+										<option value="" selected="selected" disabled>일</option>
+										<?php for($i=1;$i<=31;$i++){?>
+										<option value="<?=$i?>"><?php echo $i;?></option>
+										<?php }?>
+									</select>
+								</td>
+							</tr>
 							<tr>
 								<th class="text_t">주소</th>
 								<td>
@@ -172,17 +198,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/_head.php');
 								</td>
 							</tr>
 							<tr>
-								<th>우리동네 설정</th>
-								<td>
-									<select name="sb_dongnae" title="" style="width:150px" >
-										<option value="" selected="selected" disabled>지역선택</option>
-										<option value="">지역1</option>
-										<option value="">지역2</option>
-										<option value="">지역3</option>
-									</select>
-								</td>
-							</tr>
-							<tr>
 								<th>블로그 주소</th>
 								<td><input type="text" class="" value="" name="sb_blog" placeholder="" style="width:100%" /></td>
 							</tr>
@@ -197,6 +212,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/_head.php');
 
 <script>
 var memfg = false;
+
+$(function(){
+	myInfoAc1(); // 우리동네 설정
+	$('#sb_id').keyup(function(){
+		memfg = false;
+	});
+});
 
 function chkEmail(){
 	var se_email = document.getElementById("sb_email2_select");
@@ -219,7 +241,7 @@ function chkId(){
 		$(".copy01").html("아이디를 입력해주세요.");
 		return false;
 	}
-	console.log(getid);
+	
 	$.ajax({
 		type : "POST",
 		url	: "/ajax/memid_chk_ajax.php",
@@ -231,10 +253,12 @@ function chkId(){
 
 			}else if(result == 99){
 				$(".copy01").html("중복된 아이디입니다.");
+				memfg = false;
 			}
 			
 		}, error : function(jqXHR, textStatus, errorThrown){
 			console.log("error!\n"+textStatus+" : "+errorThrown);
+			memfg = false;
 		}
 	})
 }
@@ -259,6 +283,7 @@ function chkFrm(){
 		return false;
 	}
 
+
 	if($.trim($("#sb_pw").val()) == ""){
 		alert("패스워드를 입력해주세요.");
 		document.getElementById("sb_pw").focus();
@@ -277,11 +302,21 @@ function chkFrm(){
 		return false;	
 	}
 
-	if(!$.isNumeric($("#sb_birth1").val()) || !$.isNumeric($("#sb_birth2 option:selected").val()) || !$.isNumeric($("#sb_birth3 option:selected").val())){
+	if(chkFrm.s_sido.value==''){
+		alert("우리동네 설정을 해주세요");
+		return false;
+	}else{
+		if(!$('input:radio[name=addr_sec]').is(':checked')){
+			alert("우리동네 설정을 해주세요");
+			return false;
+		}
+	}
+
+	/*if(!$.isNumeric($("#sb_birth1").val()) || !$.isNumeric($("#sb_birth2 option:selected").val()) || !$.isNumeric($("#sb_birth3 option:selected").val())){
 		alert("월일을 선택해 주세요.");
 		document.getElementById("sb_birth1").focus();
 		return false;
-	}
+	}*/
 
 	if(confirm("입력하신 정보로 회원가입을 하시겠습니까?")){
 		chkFrm.submit();
@@ -289,6 +324,70 @@ function chkFrm(){
 		return false;
 	}
 }
+
+// STR 우리동네 설정
+function myInfoAc1(){
+	// STR 셀렉박스 체인지
+	$('#s_sido').on('change',function (){
+		addInfo1($(this).find('option:selected').attr('data-real-addr'));
+	});
+	// END 셀렉박스 체인지
+
+	// STR 지점 정보
+	function addInfo1(t){
+		$.ajax({
+			type: 'GET',
+			url: '/inc/p_map_data.php',
+			dataType: 'json',
+			data: ''
+		}).done(function(addArry1) {
+			
+			var addrSec = [];
+			var addrSecHtml = '';
+			var addrSecNum =0;
+
+
+			$.each(addArry1,function (i){
+				if(addArry1[i].addr.split(' ')[0].indexOf(t) != -1){
+					console.log(addArry1[i].addr);
+					addrSec.push(addArry1[i].addr.split(' ')[1]);
+				}
+			});
+
+			if(addrSec.length==0){
+				alert('해당 지역에는 매장이 없습니다.\n다른 지역을 검색해주세요.');
+				$('#s_sido option:eq(0)').attr('selected', 'selected');
+				$('#s_gugun .radio_box_wrap').html('');
+				return false;
+			}
+
+			var results = new Array();
+			for (var i=0; i<addrSec.length; i++) {
+				var key = addrSec[i].toString();
+				if (!results[key]) {
+					results[key] = 1
+				} else {
+					results[key] = results[key] + 1;
+				}
+			}
+			for (var j in results) {
+				addrSecHtml += '<div class="radio_box"><input type="radio" value="' + j + '" name="addr_sec" id="addr_sec'+addrSecNum+'"/><label for="addr_sec'+addrSecNum+'">' + j + ' (<b>'+results[j]+'</b>)</label></div>';
+				addrSecNum++;
+			}
+			if(t!='세종특별자치시'){
+				$('#s_gugun .radio_box_wrap').html(addrSecHtml);
+			} else {
+				$('#s_gugun .radio_box_wrap').html('');
+			}
+
+
+		}).fail(function(){
+			//alert('error');
+		})
+	}
+	// END 지점 정보
+}
+// END 우리동네 설정
 </script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/_tail.php');

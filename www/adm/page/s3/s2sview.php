@@ -1,5 +1,12 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+
+$sql = "select * from sb_shopper_board where sbsp_idx='".$_GET['idx']."'";//쇼퍼 내용
+$q = $conn->query($sql);
+$row = $q->fetch_assoc();
+
+$sql = "select * from sb_shopper_member where sbsp_idx='".$_GET['idx']."'";//쇼퍼 신청한 사람
+$q = $conn->query($sql);
 ?>
 
 <section class="section1">

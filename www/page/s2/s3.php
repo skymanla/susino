@@ -1,6 +1,6 @@
 <?php include_once "../../_head.php";?>
 
-<div class="wrap_style_s2">
+<div class="wrap_style_s2 bg2">
 	<div class="heading_s2">
 		<h2 class="tit"><img src="/img/s2/s2_title3.png" alt="점심엔 런치 초밥" /></h2>
 	</div>
@@ -76,7 +76,7 @@
 					</div>
 				</div>
 			</li>
-			<li class="pos_last">
+			<li class="pos_last2">
 				<div class="in_style" onclick="location.href='/page/s2/s3s6.php'">
 					<img src="/img/s2/s2s3_image6.jpg" alt="" />
 					<div class="tit_box"><h3 class="type1 tit_s2s3_6"></h3></div>
@@ -90,8 +90,23 @@
 					</div>
 				</div>
 			</li>
+			<li class="pos_last">
+				<div class="in_style" onclick="location.href='/page/s2/s3s7.php'">
+					<img src="/img/s2/s2s3_image7.jpg" alt="" />
+					<div class="tit_box"><h3 class="type1 tit_s2s3_7"></h3></div>
+					<div class="hover_view">
+						<div class="center_link">
+							<div class="in">
+								<h3 class="hover type1 tit_s2s3_7"></h3>
+								<a href="/page/s2/s3s7.php" class="bt_more">자세히보기</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
 		</ul>
 	</div>
+	<a href="/page/s1/s3.php" class="go_more_1 type1">이렇게 다릅니다.</a>
 </div>
 
 <?php include_once "../../_tail.php";?>

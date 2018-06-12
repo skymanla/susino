@@ -7,6 +7,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/_head.php');
 	</div>
 	<div class="login_box">
 		<form method="post" action="./login_chk.php">
+			<input type="hidden" name="qtr" id="qtr" value="<?=$_SESSION[re_uri]?>" />
 			<fieldset>
 				<legend>로그인</legend>
 				<input type="text" class="" value="" name="sb_id" placeholder="아이디" />

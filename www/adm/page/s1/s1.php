@@ -39,7 +39,7 @@ $result = $conn->query($query);
 			</colgroup>
 			<thead>
 				<tr>
-					<th><input type="checkbox" class="" value="" name="" /></th>
+					<th><input type="checkbox" class="" value="" name="" id="all_check" onclick="javascript:all_check();" /></th>
 					<th>글번호</th>
 					<th>제목</th>
 					<th>이름</th>
@@ -54,7 +54,7 @@ $result = $conn->query($query);
 				{
 				?>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="" /></td>
+					<td class="txt_c"><input type="checkbox" class="rp_check_class" name="rp_check[]" value="<?=$row['sbc_idx']?>" /></td>
 					<td class="txt_c"><?php echo $board_no;?></td>
 					<td><a href="s1sview.php?idx=<?php echo $row['sbc_idx'];?>"><?php echo $row['sbc_title'];?></a></td>
 					<td class="txt_c"><?php echo $row['sbc_name'];?></td>
@@ -82,9 +82,9 @@ $result = $conn->query($query);
 
 	<div class="bt_wrap1">
 		<div class="left_box">
-			<button type="button" class="bt_1">전체선택</button>
-			<button type="button" class="bt_1">선택해제</button>
-			<button type="button" class="bt_1">선택삭제</button>
+			<button type="button" class="bt_1" onclick="javascript:all_check_t()" >전체선택</button>
+			<button type="button" class="bt_1" onclick="javascript:all_check_f()" >선택해제</button>
+			<button type="button" class="bt_1" onclick="javascript:modiy_stat('D')">선택삭제</button>
 		</div>
 	</div>
 
@@ -111,6 +111,56 @@ $result = $conn->query($query);
 	}
 	?>
 	</nav>
+	<script>
+		/* checkbox function start */
+		function all_check(){
+		    if($('#all_check').is(':checked')){
+		        $(".rp_check_class").prop("checked", true);
+		    }else{
+		        $(".rp_check_class").prop("checked", false);   
+		    }
+		}
+		function all_check_t(){
+		    $(".rp_check_class").prop("checked", true);
+		}
+
+		function all_check_f(){
+		    $(".rp_check_class").prop("checked", false);   
+		}
+		/* checkbox function end */
+
+		/* select delete start */
+		function modiy_stat(mode){
+			if(mode=="D"){
+				var chk_data = new Array()
+				var chk_cnt = 0;
+				var chkbox = $('.rp_check_class');
+
+				for(var i=0;i<chkbox.length;i++){
+			        if(chkbox[i].checked == true){
+			        	chk_data[chk_cnt] = chkbox[i].value;
+			            chk_cnt++;
+			        }
+			    }
+			    $.ajax({
+			    	type : 'POST',
+			    	url : '/ajax/adm_board_del.php',
+			    	data : {"mode": mode, "pageinfo" : "s1_s1", "chk_idx" : chk_data},
+			    	success : function(result){
+			    		//console.log(result);
+			    		alert("선택된 게시물이 삭제되었습니다.");
+			    		location.reload();
+			    	}, error : function(jqXHR, textStatus, errorThrown){
+						console.log("error!\n"+textStatus+" : "+errorThrown);
+					}
+			    });
+			}else{
+				console.log('undefinded mode');
+				return false;
+			}
+		}
+		/* select delete end */
+	</script>
 </section>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');

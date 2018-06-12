@@ -5,8 +5,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 <section class="section1">
 	<h3>함께갈레요 신청자</h3>
 	<ul class="tab_type1">
-		<li class="active"><a href="javascript:void(0);">신청자 목록</a></li>
-		<li><a href="javascript:void(0);">당첨자</a></li>
+		<li class="active"><a href="s7.php">신청자 목록</a></li>
+		<li><a href="s7slist2.php">당첨자</a></li>
+		<li><a href="s7slist3.php">당첨자 확율관리</a></li>
 	</ul>
 	<div class="table_wrap1 no_line">
 		<table>
@@ -39,7 +40,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 		<table>
 			<caption>회원 목록</caption>
 			<colgroup>
-				<col width="50">
 				<col width="80">
 				<col width="">
 				<col width="">
@@ -52,7 +52,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			</colgroup>
 			<thead>
 				<tr>
-					<th><input type="checkbox" class="" value="" name="" id="all_check" onclick="javascript:all_check();" placeholder="" /></th>
 					<th>글번호</th>
 					<th>추천등록일</th>
 					<th>추천인</th>
@@ -66,7 +65,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			</thead>
 			<tbody>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
 					<td class="txt_c">1</td>
 					<td class="txt_c">2018-05-29</td>
 					<td class="txt_c">미등록 고객</td>
@@ -79,7 +77,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 				<?php for($i=0;$i<10;$i++){?>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
 					<td class="txt_c">1</td>
 					<td class="txt_c">2018-05-29</td>
 					<td class="txt_c">winddesign</td>
@@ -93,14 +90,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<?php }?>
 			</tbody>
 		</table>
-	</div>
-
-	<div class="bt_wrap1">
-		<div class="left_box">
-			<button type="button" class="bt_1">전체선택</button>
-			<button type="button" class="bt_1">선택해제</button>
-			<button type="button" class="bt_1">선택 당첨자 확정</button>
-		</div>
 	</div>
 
 	<nav class="paging_type1">

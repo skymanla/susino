@@ -33,15 +33,12 @@ $result = $conn->query($query);
 
 	<div class="con_wrapStyle1 w1">
 		<?php
-		if($_SESSION['sba_id'])
-		{
+		if($_SESSION['sba_id'])	{
 		?>
-		<div class="admin_bt">
+		<!--<div class="admin_bt">
 			<a href="/page/s6/s2swrite.php" class="w_edit">글쓰기</a>
-		</div>
-		<?php
-		}
-		?>
+		</div>-->
+		<?php }	?>
 		<ul class="evt_wrap">
 			<?php 
 				$i = 0;

@@ -62,22 +62,9 @@
 					</div>
 				</div>
 			</li>
-			<li>
-				<div class="in_style" onclick="location.href='/page/s2/s6s5.php'">
-					<img src="/img/s2/s2s6_image5.jpg" alt="" />
-					<div class="tit_box"><h3 class="type1 tit_s2s6_5"></h3></div>
-					<div class="hover_view">
-						<div class="center_link">
-							<div class="in">
-								<h3 class="hover type1 tit_s2s6_5"></h3>
-								<a href="/page/s2/s6s5.php" class="bt_more">자세히보기</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</li>
 		</ul>
 	</div>
+	<a href="/page/s1/s3.php" class="go_more_1">이렇게 다릅니다.</a>
 </div>
 
 <?php include_once "../../_tail.php";?>

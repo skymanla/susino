@@ -10,17 +10,43 @@ $data = '';
 $i = 0;
 while($row = $result->fetch_assoc())
 {
-	$data .= '{
-		"id" : "'.$row['sbs_idx'].'",
-		"addr" : "'.$row['sbs_address'].'",
-		"info" : "'.$row['sbs_name'].'",
-		"call" : "'.$row['sbs_tel'].'",
-		"type" : "'.$row['sbs_type'].'",
-		"link" : "'.$row['sbs_link1'].'",
-		"link2" : "'.$row['sbs_link2'].'"
-	}';
-	$i++;
-	if($i < $total_rows) $data .= ',';
+	$sbs_option = explode('||', $row['sbs_option']);
+	if($_GET['type']=='delivery'){
+		if(in_array("q", $sbs_option)){
+			
+			if($i > 0) $data .= ',';
+			$data .= '{
+				"id" : "'.$row['sbs_idx'].'",
+				"addr" : "'.$row['sbs_address'].'",
+				"info" : "'.$row['sbs_name'].'",
+				"call" : "'.$row['sbs_tel'].'",
+				"type" : "'.$row['sbs_type'].'",
+				"link" : "'.$row['sbs_link1'].'",
+				"link2" : "'.$row['sbs_link2'].'",
+				"option" : "'.$row['sbs_option'].'",
+				"op_p" : "'.$row['sbs_op_p'].'",
+				"op_q1" : "'.$row['sbs_op_q1'].'",
+				"op_q2" : "'.$row['sbs_op_q2'].'"
+			}';
+			$i++;
+		}
+	} else {
+		$data .= '{
+			"id" : "'.$row['sbs_idx'].'",
+			"addr" : "'.$row['sbs_address'].'",
+			"info" : "'.$row['sbs_name'].'",
+			"call" : "'.$row['sbs_tel'].'",
+			"type" : "'.$row['sbs_type'].'",
+			"link" : "'.$row['sbs_link1'].'",
+			"link2" : "'.$row['sbs_link2'].'",
+			"option" : "'.$row['sbs_option'].'",
+			"op_p" : "'.$row['sbs_op_p'].'",
+			"op_q1" : "'.$row['sbs_op_q1'].'",
+			"op_q2" : "'.$row['sbs_op_q2'].'"
+		}';
+		$i++;
+		if($i < $total_rows) $data .= ',';
+	}
 }
 
 die('['.$data.']');

@@ -87,16 +87,16 @@ if($cnt == $limit_num){
 
 $sql = "select 
 			a.sb_idx, a.sb_id as sb_id, a.sb_name as sb_name, a.sb_phone as sb_phone, a.sb_email as sb_email,
-			a.sb_mem_level as sb_mem_level, b.sb_level_title as sb_level_title, a.sb_regdate as sb_regdate, a.sb_delete_flag as sb_delete_flag
+			a.sb_mem_level as sb_mem_level, b.sb_level_title as sb_level_title, a.sb_regdate as sb_regdate, a.sb_dongnae as sb_dongnae, a.sb_delete_flag as sb_delete_flag
 			from
 			sb_member a left join sb_member_level b on
 			a.sb_mem_level=b.sb_level_cate
-			where a.sb_idx <> '' $sql_mem_stat $sql_search order by a.sb_regdate desc limit $limit_num offset $show_offset_num";
+			where a.sb_idx <> '' $sql_mem_stat $sql_search order by a.sb_idx desc limit $limit_num offset $show_offset_num";
 
 $mem_list_query = $conn->query($sql);
 
 
-$sql = "select * from sb_member_level where 1 order by sb_level_cate asc";
+$sql = "select * from sb_member_level where 1 order by sb_idx asc";
 $level_query = $conn->query($sql);
 ?>
 <section class="section1">
@@ -173,7 +173,7 @@ $level_query = $conn->query($sql);
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="rp_check_class" name="rp_check[]" value="<?=$row['sb_idx']?>" placeholder="" /></td>
 					<td class="txt_c"><?=$board_no?></td>
-					<td class="txt_c">지역1</td>
+					<td class="txt_c"><?=$row['sb_dongnae']?></td>
 					<td class="txt_c"><?=$row['sb_id']?></td>
 					<td class="txt_c"><?=$row['sb_name']?></td>
 					<td class="txt_c"><?=$row['sb_phone']?></td>
@@ -205,6 +205,9 @@ $level_query = $conn->query($sql);
 			<button type="button" class="bt_1" onclick="javascript:all_check_t();">전체선택</button>
 			<button type="button" class="bt_1" onclick="javascript:all_check_f();">선택해제</button>
 			<button type="button" class="bt_1" onclick="javascript:level_all_modify();">선택수정</button>
+			<?php if($_GET['memstat']!=3) {?>
+			<button type="button" class="bt_1" onclick="javascript:level_all_modify();">선택삭제</button>
+			<?php }?>
 		</div>
 	</div>
 

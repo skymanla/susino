@@ -1,5 +1,26 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+
+$cur_page = (int)$_GET['cur_page'];
+if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
+
+//개수
+$count = "SELECT COUNT(sbsp_idx) as cnt FROM sb_shopper_board";
+$count_result = $conn->query($count);
+$row = $count_result->fetch_assoc();
+$cnt = $row['cnt'];
+
+$limit_num = 10; //몇개씩 리스트에 보여줄 것인지
+$offset_num = 10; //몇번 부터 시작할지
+$show_offset_num = ($cur_page - 1) * $offset_num; //페이지마다 보여주는 리스트가 40개씩 갱신.
+
+$board_no = $cnt - $show_offset_num;
+
+$total_page = floor ( $cnt / $limit_num ) + 1;
+
+
+$sql = "select * from sb_shopper_board where 1 order by sbsp_idx desc";
+$q = $conn->query($sql);
 ?>
 
 <section class="section1">
@@ -62,28 +83,34 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 			</thead>
 			<tbody>
-				<?php for($i=0;$i<10;$i++){?>
+				<? 
+					foreach($q as $key => $r){ 
+						$sdate = date('Y-m-d', strtotime($r['sbsp_sdate']));
+						$edate = date('Y-m-d', strtotime($r['sbsp_edate']));
+				?>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
-					<td class="txt_c">1</td>
-					<td class="txt_c">서울시 강남구</td>
-					<td class="txt_c">유니크매장 미스테리 쇼퍼를 모집합니다!</td>
-					<td class="txt_c">2018-07-01 ~ 2018-08-30</td>
-					<td class="txt_c">2018-07-01</td>
-					<td class="txt_c">모집중</td>
-					<td class="txt_c"><a href="s2sview.php" class="bt_s1">자세히보기</a></td>
+					<td class="txt_c"><input type="checkbox" class="" value="<?=$r['sbsp_idx']?>" name="rp_check_class" placeholder="" /></td>
+					<td class="txt_c"><?=$board_no?></td>
+					<td class="txt_c"><?=$r['sbsp_area']=="A" ? '전체' : $r['sbsp_area'] ?></td>
+					<td class="txt_c"><?=$r['sbsp_title']?></td>
+					<td class="txt_c"><?=$sdate?> ~ <?=$edate?></td>
+					<td class="txt_c"><?=date('Y-m-d', strtotime($r['sbsp_rdate']))?></td>
+					<td class="txt_c">
+						<?
+							$now_date = date('Y-m-d');
+							if($now_date > $edate){
+								echo '<span class="txt_col1">마감</span>';
+							}else if( ($now_date >= $sdate) && ($now_date <= $edate) ){
+								echo "모집중";
+							}
+						?>
+					</td>
+					<td class="txt_c"><a href="s2sview.php?idx=<?=$r[sbsp_idx]?>" class="bt_s1">자세히보기</a></td>
 				</tr>
-				<?php }?>
-				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
-					<td class="txt_c">1</td>
-					<td class="txt_c">서울시 강남구</td>
-					<td class="txt_c">유니크매장 미스테리 쇼퍼를 모집합니다!</td>
-					<td class="txt_c">2018-07-01 ~ 2018-08-30</td>
-					<td class="txt_c">2018-07-01</td>
-					<td class="txt_c"><span class="txt_col1">마감</span></td>
-					<td class="txt_c"><a href="s2sview.php" class="bt_s1">자세히보기</a></td>
-				</tr>
+				<? 
+					$board_no--;
+					}
+				?>
 			</tbody>
 		</table>
 	</div>

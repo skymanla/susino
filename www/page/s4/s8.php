@@ -112,7 +112,7 @@ function dmapAc1(){
 
 		$.ajax({
 			type: 'GET',
-			url: '/inc/p_map_data.php',
+			url: '/inc/p_map_data.php?type=delivery',
 			dataType: 'json',
 			data: ''
 		}).done(function(addArry1) {
@@ -228,7 +228,7 @@ function dmapAc1(){
 
 		$.ajax({
 			type: 'GET',
-			url: '/inc/p_map_data.php',
+			url: '/inc/p_map_data.php?type=delivery',
 			dataType: 'json',
 			data: ''
 		}).done(function(addArry1) {
@@ -322,6 +322,52 @@ function dmapAc1(){
 											//'</div>'
 							//});
 
+							var wOption = '';
+							if(addArry1[i].option!=''){
+								var wOptionTotal = addArry1[i].option.split('||');
+									wOption = '<li>';
+										wOption += '<div>서비스</div>';
+										wOption += '<div class="info_icon">';
+
+										if($.inArray('q', wOptionTotal) != -1){
+											//wOption += '<div class="q"><i>배달</i></div>'
+										}  if($.inArray('p', wOptionTotal) != -1){
+											wOption += '<div class="p"><i>주차</i></div>'
+										}  if($.inArray('r', wOptionTotal) != -1){
+											wOption += '<div class="r"><i>room</i></div>'
+										}  if($.inArray('gc', wOptionTotal) != -1){
+											wOption += '<div class="gc"><i>전자상품권</i></div>'
+										}  if($.inArray('c', wOptionTotal) != -1){
+											wOption += '<div class="c"><i>예약</i></div>'
+										}  if($.inArray('k', wOptionTotal) != -1){
+											wOption += '<div class="k"><i>카카오톡</i></div>'
+										}
+
+										wOption += '</div>';
+									wOption += '</li>';
+							}
+							var wOpp = '';
+							if(addArry1[i].op_p!=''){
+								wOpp = '<li>' +
+									'<div>주차정보</div>' +
+									'<div>' + addArry1[i].op_p + '</div>' +
+								'</li>';
+							}
+							var wOpq1 = '';
+							if(addArry1[i].op_q1!=''){
+								wOpq1 = '<li>' +
+									'<div>배달지역</div>' +
+									'<div>' + addArry1[i].op_q1 + '</div>' +
+								'</li>';
+							}
+							var wOpq2 = '';
+							if(addArry1[i].op_q2!=''){
+								wOpq2 = '<li>' +
+									'<div>배달조건</div>' +
+									'<div>' + addArry1[i].op_q2 + '</div>' +
+								'</li>';
+							}
+
 							infowindow[i] = new daum.maps.CustomOverlay({
 								position: coords,
 								xAnchor: 1,
@@ -340,16 +386,10 @@ function dmapAc1(){
 														'<div>전화번호</div>' +
 														'<div>' + addArry1[i].call + '</div>' +
 													'</li>' +
-													'<li>' +
-														'<div>서비스</div>' +
-														'<div class="info_icon">' +
-															'<div class="q"><i>배달</i></div>' +
-															'<div class="p"><i>주차</i></div>' +
-															'<div class="c"><i>예약</i></div>' +
-															'<div class="k"><i>카카오톡</i></div>' +
-															'<div class="r"><i>room</i></div>' +
-														'</div>' +
-													'</li>' +
+													//wOption +
+													wOpq1 +
+													wOpq2 +
+													//wOpp +
 												'</ul>' +
 											'</div>'
 							});

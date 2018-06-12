@@ -92,6 +92,7 @@
 			</li>
 		</ul>
 	</div>
+	<a href="/page/s1/s3.php" class="go_more_1">이렇게 다릅니다.</a>
 </div>
 
 <?php include_once "../../_tail.php";?>

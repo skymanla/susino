@@ -1,4 +1,6 @@
-<?php include_once "../../_head.php";?>
+<?php 
+	include_once "../../_head.php";
+?>
 
 <div class="wrap_style1 pabno">
 	<div class="heading_s1">
@@ -36,7 +38,7 @@
 						후기를 전송해주세요!
 					</p>
 					<div class="bt_wrap">
-						<a href="javascript:void(0);" class="bt2">나의 당첨내역</a>
+						<a href="s2sreview.php" class="bt2">자발적 후기 전송하기</a>
 					</div>
 				</div>
 			</div>
@@ -54,14 +56,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="my_invite_wrap">
-			<h3><i>나의 초대장</i></h3>
-			<input type="text" class="" value="http://winddesign32.cafe24.com/page/s5/s2sinvite.php?invite=wind" name="" />
-			<a href="/page/s6/s4.php" class="event_go">이벤트 상세보기</a>
-			<a href="/page/s5/s2sinvite_list.php" class="event_win">당첨 확인하기<span><i>당첨</i></span></a>
-		</div>
 	</div>
+
 	<div class="my_notice_wrap">
+
 		<div class="tab_type1">
 			<a href="javascript:void(0);" class="bt active">우리동네소식</a>
 			<a href="javascript:void(0);" class="bt">나의소식 <span class="count">3</span></a>

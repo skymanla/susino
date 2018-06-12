@@ -3,7 +3,6 @@ include_once($_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 session_start();
 
-
 //justice
 $sb_id = $_POST['sb_id'];
 $sb_pw = password_hash($_POST['sb_pw'], PASSWORD_BCRYPT);
@@ -16,6 +15,11 @@ $sb_zipcode = $_POST['sb_zipcode'];
 $sb_addr1 = $_POST['sb_addr1'];
 $sb_addr2 = $_POST['sb_addr2'];
 $sb_signin_ip = $_POST['mem_ip'];
+
+//우리동네
+$sb_sido = $_POST['s_sido'];
+$sb_addr_sec = $_POST['addr_sec'];
+include_once($_SERVER['DOCUMENT_ROOT']."/ajax/register_our_area.php");
 
 $sql = "select * from sb_member where 1 order by sb_idx desc limit 0, 1";
 $q = $conn->query($sql);
@@ -32,7 +36,7 @@ $sql = "insert into
 		sb_member
 		(sb_idx, sb_id, sb_password, sb_name, sb_phone, sb_email, sb_sex, sb_birth, sb_zipcode, sb_addr1, sb_addr2, sb_dongnae, sb_blog_url, sb_signin_ip, sb_regdate)
 		values
-		('$sb_idx', '$sb_id', '$sb_pw', '$sb_name', '$sb_phone', '$sb_email', '$sb_sex', '$sb_birth', '$sb_zipcode', '$sb_addr1', '$sb_addr2', '$sb_dongnae', '$sb_blog_url', '$sb_signin_ip', now())
+		('$sb_idx', '$sb_id', '$sb_pw', '$sb_name', '$sb_phone', '$sb_email', '$sb_sex', '$sb_birth', '$sb_zipcode', '$sb_addr1', '$sb_addr2', '$sb_our_area', '$sb_blog_url', '$sb_signin_ip', now())
 		";
 
 if($conn->query($sql)){

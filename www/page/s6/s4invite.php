@@ -1,6 +1,6 @@
 <?php include_once "../../_head.php";?>
 
-<div class="person_invite_wrap">
+<div class="person_invite_wrap <?php if($_GET['type']){ echo 'bg'.$_GET['type']; } ?>">
 	<div class="title"><p><b>홍길동</b></p></div>
 	<button type="button" class="invite_ok"><i>함께 갈래요!</i></button>
 	<!-- STR 이미 참여 신청이 완료된경우 -->

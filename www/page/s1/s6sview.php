@@ -61,7 +61,7 @@ function del()
 				{
 				?>
 				<a href="javascript:;" onclick="del();"><button type="button" class="bt_s2_red">삭제</button></a>
-				<a href="./s2swrite.php?mode=u&idx=<?php echo $row['sbn_idx']?>"><button type="button" class="bt_s2_gray">수정</button></a>
+				<a href="./s6swrite.php?mode=u&idx=<?php echo $row['sbn_idx']?>"><button type="button" class="bt_s2_gray">수정</button></a>
 				<?php
 				}
 				?>

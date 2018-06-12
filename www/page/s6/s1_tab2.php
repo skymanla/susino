@@ -5,11 +5,15 @@
 		<a href="s1.php" class="bt1">랍스타그램</a>
 		<a href="s1_tab2.php" class="bt2 active">핑스타그램</a>
 	</div>
+	<div class="c_copy1">
+		<b>고객분들이 직접 올려주신 인스타그램 게시물 중에서<br />매달 선정하는 해시태그를 올려주시는 분들 중 5분을 뽑아 3만원 상품권을 드립니다.</b> <br />
+		(당첨은 공식 인스타계정에서 매달 말일날에 공지되며, 당첨되신 분들께 별도로 메시지를 보내드립니다.)
+	</div>
 	<div class="box_wrap">
 		<div class="social_stream_wrap">
 			<div class="headgroup">
-				<h2>#핑스타그램</h2>
-				<p class="copy1">2018 스시노백쉐프의 신메뉴 #핑스타그램</p>
+				<h2>#일본가정식한상</h2>
+				<p class="copy1">2018 스시노백쉐프의 신메뉴 #일본가정식한상</p>
 			</div>
 			<div id="social-stream1" class="social_stream"></div>
 		</div>
