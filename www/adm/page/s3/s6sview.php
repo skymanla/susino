@@ -1,5 +1,19 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+
+$mode = $_GET['mode'];
+$flag_depth = "App_notice";
+$tbl_info = "sb_application_notice_board";
+
+$sql = "select * from $tbl_info where sbab_idx='".$_GET['idx']."' ";
+$q = $conn->query($sql);
+$r = $q->fetch_assoc();
+if(empty($r)){
+	$url = "/adm/page/s3/s6.php";
+	echoAlert("잘못된 접근입니다.");
+	echoMovePage($url);	
+}
 ?>
 
 <section class="section1">
@@ -20,38 +34,20 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			<tbody>
 				<tr>
 					<th>작성일</th>
-					<td>2018-07-01</td>
+					<td><?=date('Y-m-d', strtotime($r['sbab_rdate']))?></td>
 				</tr>
 				<tr>
 					<th>우리동네</th>
-					<td>전지역</td>
+					<td><?=$r['sbab_area']=='A' ? '전체 지역' : $r['sbab_area'] ?></td>
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td>(스시노 미식회) 화이트데이 신메뉴 평가단 모집</td>
+					<td><?=stripslashes($r['sbab_title'])?></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td>
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용 <br />
-						내용 내용 내용
+						<?=stripslashes($r['sbab_content'])?>
 					</td>
 				</tr>
 			</tbody>
@@ -59,7 +55,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 	</div>
 	<div class="bt_wrap2">
 		<a href="s6.php" class="bt_2">삭제</a>
-		<a href="s6swrite.php" class="bt_2">수정</a>
+		<a href="s6swrite.php?idx=<?=$_GET[idx]?>&mode=u" class="bt_2">수정</a>
 		<a href="s6.php" class="bt_1">목록</a>
 	</div>
 </section>

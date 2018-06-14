@@ -1,5 +1,58 @@
 <?php 
+/*
+우리동네 공지사항
+ */
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+
+$cur_page = (int)$_GET['cur_page'];
+if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
+
+//우리동네 공지사항
+$tbl_info = "sb_application_notice_board";
+$flag_depth = "App_notice";
+
+$where = array();
+//검색 조건
+switch($_GET['stx']){
+	case "area" :
+		$where[] = " sbab_area like '%".$_GET['sval']."%' ";
+		$area_chk = "selected";
+		break;
+	case "title" :
+		$where[] = " sbab_title like '%".$_GET['sval']."%' ";
+		$title_chk = "selected";
+		break;
+	case "rdating" :
+		$where[] = " date_format(sbab_rdate, '%Y-%m-%d') = '".$_GET['sval']."' ";
+		$rdating_chk = "selected";
+		break;
+	default :
+		break;
+}
+if(!empty($where)){
+	$whereis = ' where '.implode(' and ', $where);
+}else{
+	$whereis = ' where 1 ';
+}
+
+//개수
+$count = "SELECT COUNT(sbab_idx) as cnt FROM $tbl_info ".$whereis;
+$count_result = $conn->query($count);
+$row = $count_result->fetch_assoc();
+$cnt = $row['cnt'];
+
+$limit_num = 10; //몇개씩 리스트에 보여줄 것인지
+$offset_num = 10; //몇번 부터 시작할지
+$show_offset_num = ($cur_page - 1) * $offset_num; //페이지마다 보여주는 리스트가 40개씩 갱신.
+
+$board_no = $cnt - $show_offset_num;
+
+$total_page = floor ( $cnt / $limit_num ) + 1;
+
+
+$sql = "select * from $tbl_info $whereis order by sbab_idx desc LIMIT $limit_num OFFSET $show_offset_num";
+$q = $conn->query($sql);
+
 ?>
 
 <section class="section1">
@@ -15,13 +68,15 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<tr>
 					<th>검색필터</th>
 					<td>
-						<select name="" title="" class="w_input1">
-							<option value="">제목</option>
-							<option value="">작성일</option>
-							<option value="">우리동네</option>
-						</select>
-						<input type="text" class="w_input1" value="" name="" style="width:180px">
-						<button type="button" class="bt_s1 input_sel">검색</button>
+						<form name="searchFrm" id="searchFrm" method="get">
+							<select name="stx" id="stx" title="" class="w_input1" onchange="sFrmval(this);">
+								<option value="title" <?=$title_chk?> >제목</option>
+								<option value="rdating" <?=$rdating_chk?> >작성일</option>
+								<option value="area" <?=$area_chk?> >우리동네</option>
+							</select>
+							<input type="text" class="w_input1" value="<?=$_GET['sval']?>" name="sval" style="width:180px">
+							<button type="button" class="bt_s1 input_sel" onclick="document.searchFrm.submit()">검색</button>
+						</form>
 					</td>
 				</tr>
 			</tbody>
@@ -50,25 +105,28 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 			</thead>
 			<tbody>
-				<?php for($i=0;$i<10;$i++){?>
+				<?php foreach($q as $key => $r){?>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="rp_check_class" placeholder="" /></td>
-					<td class="txt_c">1</td>
-					<td class="txt_c">전지역</td>
-					<td>공지사항 이지롱!!! 공지사항 이지롱!!! 공지사항 이지롱!!! 공지사항 이지롱!!! 공지사항 이지롱!!! </td>
-					<td class="txt_c">2018-05-25</td>
-					<td class="txt_c"><a href="s6sview.php" class="bt_s1">자세히보기</a></td>
+					<td class="txt_c"><input type="checkbox" class="rp_check_class" value="<?=$r['sbab_idx']?>" name="rp_check[]" placeholder="" /></td>
+					<td class="txt_c"><?=$board_no?></td>
+					<td class="txt_c"><?=$r['sbab_area']=="A" ? '전체' : $r['sbab_area'] ?></td>
+					<td><?=stripslashes($r['sbab_title'])?></td>
+					<td class="txt_c"><?=date('Y-m-d', strtotime($r['sbab_rdate']))?></td>
+					<td class="txt_c"><a href="s6sview.php?idx=<?=$r['sbab_idx']?>" class="bt_s1">자세히보기</a></td>
 				</tr>
-				<?php }?>
+				<?php 
+					$board_no--;
+				} 
+				?>
 			</tbody>
 		</table>
 	</div>
 
 	<div class="bt_wrap1">
 		<div class="left_box">
-			<button type="button" class="bt_1">전체선택</button>
-			<button type="button" class="bt_1">선택해제</button>
-			<button type="button" class="bt_1">선택삭제</button>
+			<button type="button" class="bt_1" onclick="javascript:all_check_t();">전체선택</button>
+			<button type="button" class="bt_1" onclick="javascript:all_check_f();">선택해제</button>
+			<button type="button" class="bt_1" onclick="javascript:modiy_stat('D')">선택삭제</button>
 		</div>
 		<div class="right_box">
 			<a href="s6swrite.php" class="bt_1">글쓰기</a>
@@ -76,16 +134,108 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 	</div>
 
 	<nav class="paging_type1">
+		<?
+			$first_page_num = (floor ( ($cur_page - 1) / 10 )) * 10 + 1; // 1,11,21,31...
+			$last_page_num = $first_page_num + 9; // 10,20,30...last
+			//$next_page_num = $last_page_num + 1;
+			//$prev_page_num = $first_page_num - 10;
+			$now_next_page_num = $cur_page+1;
+			$now_prev_page_num = $cur_page-1;
+
+			if($now_prev_page_num == 0){
+				$now_prev_page = "javascript:void(0);";
+			}else{
+				$now_prev_page = "?cur_page=".$now_prev_page_num.$query_string;
+			}
+
+			if($total_page == $cur_page){
+				$now_next_page = "javascript:void(0);";
+			}else{
+				$now_next_page = "?cur_page=".$now_next_page_num.$query_string;	
+			}
+		?>
 		<a href="javascript:void(0);" class="arr all_prev"><i>처음</i></a>
-		<a href="javascript:void(0);" class="arr prev"><i>이전</i></a>
-		<a href="?cur_page=1" class="active">1</a>
-		<a href="?cur_page=2">2</a>
-		<a href="?cur_page=2" class="arr next"><i>다음</i></a>
+		<a href="<?=$now_prev_page?>" class="arr prev"><i>이전</i></a>
+		<?
+			for($i = $first_page_num; $i <= $total_page && $i <= $last_page_num; $i ++) {
+				if($cur_page == $i){
+					echo "<a href='?cur_page={$i}{$query_string}' class='active'>{$i}</a>\n";
+				}else{
+					echo "<a href='?cur_page={$i}{$query_string}'>{$i}</a>";
+				}
+			}
+		?>
+		
+		<a href="<?=$now_next_page?>" class="arr next"><i>다음</i></a>
 		<a href="javascript:void(0);" class="arr all_next"><i>마지막</i></a>
 	</nav>
 
 </section>
-
+<script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
+<script>
+	function sFrmval(getVal){
+		var Pt = getVal.parentNode.getElementsByClassName('w_input1');
+		if(getVal.value == "rdating"){
+			Pt[1].setAttribute('id', 'inp_date');
+			$('#inp_date').datepicker({
+				dateFormat: 'yy-mm-dd'
+			});
+		}else{
+			Pt[1].removeAttribute('id');
+		}
+	}
+	function all_check(){
+	    if($('#all_check').is(':checked')){
+	        $(".rp_check_class").prop("checked", true);
+	    }else{
+	        $(".rp_check_class").prop("checked", false);   
+	    }
+	}
+	function all_check_t(){
+	    $(".rp_check_class").prop("checked", true);
+	}
+	function all_check_f(){
+	    $(".rp_check_class").prop("checked", false);   
+	}
+	/* select delete start */
+	function modiy_stat(mode){
+		if(mode=="D"){
+			var chk_data = new Array()
+			var chk_cnt = 0;
+			var chkbox = $('.rp_check_class');
+				for(var i=0;i<chkbox.length;i++){
+		        if(chkbox[i].checked == true){
+		        	chk_data[chk_cnt] = chkbox[i].value;
+		            chk_cnt++;
+		        }
+		    }
+		    if(chk_data == ""){
+				alert("삭제할 게시물을 선택해 주세요.");
+				return false;
+			}
+			if(confirm("선택하신 "+chk_cnt+"개의 게시물을 삭제하시겠습니까?")){
+				$.ajax({
+			    	type : 'POST',
+			    	url : '/ajax/adm_board_del.php',
+			    	data : {"mode": mode, "pageinfo" : "application_notice", "flag_depth" : "<?=$flag_depth?>", "chk_idx" : chk_data},
+			    	success : function(result){
+			    		//console.log(result);
+			    		alert("선택된 게시물이 삭제되었습니다.");
+			    		location.reload();
+			    	}, error : function(jqXHR, textStatus, errorThrown){
+						console.log("error!\n"+textStatus+" : "+errorThrown);
+					}
+			    });
+			}else{
+				return false;
+			}
+		}else{
+			console.log('undefinded mode');
+			return false;
+		}
+	}
+	/* select delete end */
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
 ?>

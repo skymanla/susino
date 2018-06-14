@@ -37,6 +37,10 @@
 						<?php } else if($w_sub_name[2] == 'member'){?>
 						<img src="/img/common/logo_gnb_member.png" alt="Members" />
 						<?php }?>
+
+						<?php if($w_s_title_1 == 'invite'){?>
+						<img src="/img/common/logo_gnb_invite.png" alt="우리함께갈래요?" />
+						<?php }?>
 					<?php }?>
 					<div class="sns_bt">
 						<a href="https://www.instagram.com/sb.chef" class="instar" target="_blank" title="새창으로 열립니다."><i>인스타그램</i></a>

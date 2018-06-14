@@ -58,8 +58,10 @@ $sbs_op_q1					= $_POST['sbs_op_q1'];
 $sbs_op_q2					= $_POST['sbs_op_q2'];
 
 //미스테리쇼퍼, 체험단, 미식회 공통
+$flag_depth1 = $conn->real_escape_string($_POST['flag_depth1']);
 $shopper_lvl = $_POST['shopper_lvl'];
 $sb_sido = $_POST['s_sido'];
+$limit_num = $conn->real_escape_string($_POST['limit_num']);
 $sb_addr_sec = $_POST['addr_sec'];
 include_once($_SERVER['DOCUMENT_ROOT']."/ajax/register_our_area.php");
 //end
@@ -161,7 +163,7 @@ if($flag == 'customer'){
 		echoAlert("매장이 수정되었습니다.");
 		echoMovePage($url);
 	}
-}else if($flag == 'event'){
+}else if($flag == 'event'){//이벤트 등록
 	$board_name	= "sb_event";
 	if($mode == 'w')	{
 		$query = "INSERT INTO $board_name (sbe_sdate, sbe_edate, sbe_idate, sbe_title, sbe_contents, sbe_file, sbe_rdate, sbe_udate) VALUES ('$sdate','$edate','$idate','$title','$content','$new_file1',now(),now())";
@@ -197,34 +199,112 @@ if($flag == 'customer'){
 		echoAlert("이벤트가 수정되었습니다.");
 		echoMovePage($url);
 	}
-}else if($flag=="shopper"){
-	$board_name = "sb_shopper_board";
+}else if($flag=="application"){//신청형 게시판
+	if($flag_depth1 != 'shopper' xor $flag_depth1 != 'ftalk' xor $flag_depth1 != 'pick') die('not flag_depth1');//맞지 않으면 애당초 안타게
+	//page url
+	if($flag_depth1 == 'shopper'){
+		$url = "/adm/page/s3/s2sview.php";
+	}else if($flag_depth1 == 'ftalk'){
+		$url = "/adm/page/s3/s3sview.php";
+	}else if($flag_depth1 == 'pick'){
+		$url = "/adm/page/s3/s4sview.php";
+	}
+	$board_name = "sb_application_board";
+	$sdate = $_POST['sdate']." 00:00:00";
+	$edate = $_POST['edate']." 23:59:59";
 	if($mode=="w"){
 		//idx check
-		$query = "select sbsp_idx from $board_name where 1 order by sbsp_idx desc limit 0";
+		$query = "select sbab_idx from $board_name where 1 order by sbab_idx desc limit 1";
 		$q = $conn->query($query);
 		$v = $q->fetch_assoc();
-		if(empty($v['sbsp_idx'])){
-			$sbsp_idx = 1;
+		if(empty($v['sbab_idx'])){
+			$sbab_idx = 1;
 		}else{
-			$sbsp_idx = $v['sbsp_idx'];
-			$sbsp_idx++;
+			$sbab_idx = $v['sbab_idx'];
+			$sbab_idx++;
 		}
-		$sdate = $_POST['sdate']." 00:00:00";
-		$edate = $_POST['edate']." 23:59:59";
+		
 
 		$query = "insert into $board_name 
-					(sbsp_idx, sbsp_sdate, sbsp_edate, sbsp_lvl, sbsp_area, sbsp_title, sbsp_content, sbsp_rdate, sbsp_id, sbsp_ip)
+					(sbab_idx, sbab_cate, sbab_sdate, sbab_edate, sbab_lvl, sbab_area, sbab_limit, sbab_title, sbab_content, sbab_rdate, sbab_id, sbab_ip)
 					values
-					('$sbsp_idx', '$sdate', '$edate', '$shopper_lvl', '$sb_our_area', '$title', '$content', now(), '$w_id', '$ip')";
+					('$sbab_idx', '$flag_depth1', '$sdate', '$edate', '$shopper_lvl', '$sb_our_area', '$limit_num', $title', '$content', now(), '$w_id', '$ip')";
 		if($conn->query($query)){
-			$url = "/adm/page/s3/s2sview.php?idx=$sbsp_idx";
+			$url .= "?idx=$sbab_idx";
 			echoAlert("이벤트가 등록되었습니다.");
 			echoMovePage($url);	
 		}else{
 			die('error');
 		}
 		
-	}	
+	}else if($mode == 'u'){
+		$query = "update $board_name set
+					sbab_sdate='$sdate',
+					sbab_edate='$edate',
+					sbab_lvl='$shopper_lvl',
+					sbab_area='$sb_our_area',
+					sbab_limit = '$limit_num',
+					sbab_title='$title',
+					sbab_content='$content',
+					sbab_udate=now(),
+					sbab_id='$w_id',
+					sbab_ip='$ip'
+				where sbab_idx='$idx' and sbab_cate='$flag_depth1'
+				";
+		if($conn->query($query)){
+			$url .= "?idx=$idx";
+			echoAlert("이벤트가 수정되었습니다.");
+			echoMovePage($url);
+		}else{
+			die($query);
+		}
+	}
+}else if($flag == "App_notice"){
+	$board_name = "sb_application_notice_board";
+	if($mode=="w"){
+		//idx check
+		$query = "select sbab_idx from $board_name where 1 order by sbab_idx desc limit 1";
+		$q = $conn->query($query);
+		$v = $q->fetch_assoc();
+		if(empty($v['sbab_idx'])){
+			$sbab_idx = 1;
+		}else{
+			$sbab_idx = $v['sbab_idx'];
+			$sbab_idx++;
+		}
+		
+
+		$query = "insert into $board_name 
+					(sbab_idx, sbab_area, sbab_title, sbab_content, sbab_rdate, sbab_id, sbab_ip)
+					values
+					('$sbab_idx', '$sb_our_area', '$title', '$content', now(), '$w_id', '$ip')";
+		print_r($query);
+		exit;
+		if($conn->query($query)){
+			$url = "/adm/page/s3/s6.php?idx=$sbab_idx";
+			echoAlert("이벤트가 등록되었습니다.");
+			echoMovePage($url);	
+		}else{
+			die($query);
+		}
+		
+	}else if($mode == 'u'){
+		$query = "update $board_name set
+					sbab_area='$sb_our_area',
+					sbab_title='$title',
+					sbab_content='$content',
+					sbab_udate=now(),
+					sbab_id='$w_id',
+					sbab_ip='$ip'
+				where sbab_idx='$idx''
+				";
+		if($conn->query($query)){
+			$url = "/adm/page/s3/s6.php?idx=$idx";
+			echoAlert("이벤트가 수정되었습니다.");
+			echoMovePage($url);
+		}else{
+			die($query);
+		}
+	}
 }
 ?>

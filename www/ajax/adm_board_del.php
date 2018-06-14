@@ -4,6 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 //header("Content-Type:application/json");
 
 $pageinfo = $_REQUEST['pageinfo'];//페이지 정보
+$flag_depth = $_REQUEST['flag_depth'];
 $mode = $_REQUEST['mode'];//모드
 $chk_idx_arr = $_REQUEST['chk_idx'];//id
 
@@ -39,6 +40,22 @@ if($pageinfo == "s1_s1"){
 			$sql = "delete from ".$tbl_info." where sbe_idx='".$chk_idx_arr[$i]."'";
 			$conn->query($sql);
 		}
+	}
+}else if($pageinfo == "application"){//신청 페이지
+	$tbl_info = "sb_application_board";
+	if($mode == "D"){
+		for($i=0;$i<count($chk_idx_arr);$i++){
+			$sql = "delete from ".$tbl_info." where sbab_idx='".$chk_idx_arr[$i]."' and sbab_cate='".$flag_depth."'";
+			$conn->query($sql);
+		}	
+	}
+}else if($pageinfo =="application_notice"){
+	$tbl_info = "sb_application_notice_board";
+	if($mode == "D"){
+		for($i=0;$i<count($chk_idx_arr);$i++){
+			$sql = "delete from ".$tbl_info." where sbab_idx='".$chk_idx_arr[$i]."' and sbab_cate='".$flag_depth."'";
+			$conn->query($sql);
+		}	
 	}
 }
 exit;

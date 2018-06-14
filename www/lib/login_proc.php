@@ -27,6 +27,7 @@ else
 	{
 		$_SESSION['sba_id'] = $log_id;
 		$_SESSION['sba_pw'] = $row['sba_pw'];
+		$_SESSION['login_chk'] = '99';
 		echo "<meta http-equiv='Refresh' content='0; URL=/adm/index.php'>";
 	}
 	else

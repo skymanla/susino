@@ -5,7 +5,11 @@ $uri = $_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST'];
 $query = "SELECT * FROM sb_event where sbe_idx = '".$_GET['idx']."'";
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
-
+if(empty($row)){
+	$url = "/adm/page/s3/s5.php";
+	echoAlert("잘못된 접근입니다.");
+	echoMovePage($url);	
+}
 $qtr = "page=".$_GET['page'];
 ?>
 

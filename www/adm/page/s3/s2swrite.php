@@ -1,12 +1,27 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 
+$mode = $_GET['mode'];
+$flag_depth = "shopper";
+$tbl_info = "sb_application_board";
 if($mode == "w"){
 	//pass
 }else if($mode == "u"){
-	$sql = "select * from sb_shopper_board where sbsp_idx='".$_GET['idx']."'";
+	$sql = "select * from $tbl_info where sbab_idx='".$_GET['idx']."' and sbab_cate='$flag_depth' ";
 	$q = $conn->query($sql);
 	$row = $q->fetch_assoc();
+	if(empty($row)){
+		$url = "/adm/page/s3/s2.php";
+		echoAlert("잘못된 접근입니다.");
+		echoMovePage($url);	
+	}
+	//날짜
+	$sdate = date('Y-m-d', strtotime($row['sbab_sdate']));
+	$edate = date('Y-m-d', strtotime($row['sbab_edate']));
+	//print_r($row);
+}else{
+	$mode = "w";
 }
 
 $sql = "select * from sb_member_level where sb_idx <> '3' order by sb_idx asc";
@@ -17,8 +32,10 @@ $level_query = $conn->query($sql);
 <section class="section1">
 	<h3>미스테리 쇼퍼 등록</h3>
 	<form name="myform1" id="myform1" method="post" enctype="multipart/form-data" onsubmit="write_ok(this);">
-		<input type="hidden" name="flag" id="flag" value="shopper" />
-		<input type="hidden" name="mode" id="mode" value="w" />
+		<input type="hidden" name="flag" id="flag" value="application" />
+		<input type="hidden" name="flag_depth1" id="flag_depth1" value="shopper" />
+		<input type="hidden" name="mode" id="mode" value="<?=$mode?>" />
+		<input type="hidden" name="idx" id="idx" value="<?=$_GET['idx']?>" />
 		<div class="table_wrap1">
 			<table>
 				<caption>미스테리 쇼퍼 작성</caption>
@@ -36,9 +53,9 @@ $level_query = $conn->query($sql);
 						<th>등급</th>
 						<td>
 							<select name="shopper_lvl" id="shopper_lvl" title="" class="w_input1">
-								<option value="A" selected="selected">전체</option>
-								<? foreach($level_query as $key => $row){ ?>
-								<option value="<?=$row['sb_level_cate']?>"><?=$row['sb_level_title']?></option>
+								<option value="A" <?=$row['sbab_lvl']=="A" ? 'selected="selected"' : ''?>>전체</option>
+								<? foreach($level_query as $key => $row_lvl){ ?>
+								<option value="<?=$row_lvl['sb_level_cate']?>" <?=$row['sbab_lvl']==$row_lvl['sb_level_cate'] ? 'selected="selected"' : ''?>><?=$row_lvl['sb_level_title']?></option>
 								<? }?>
 							</select>
 						</td>
@@ -73,18 +90,24 @@ $level_query = $conn->query($sql);
 					<tr>
 						<th>기간</th>
 						<td>
-							<input type="text" class="w_input1 datepicker1" value="" name="sdate" id="date1_start" placeholder="시작일" /> - 
-							<input type="text" class="w_input1 datepicker1" value="" name="edate" id="date1_end" placeholder="종료일" />
+							<input type="text" class="w_input1 datepicker1" value="<?=$sdate?>" name="sdate" id="date1_start" placeholder="시작일" /> - 
+							<input type="text" class="w_input1 datepicker1" value="<?=$edate?>" name="edate" id="date1_end" placeholder="종료일" />
+						</td>
+					</tr>
+					<tr>
+						<th>당첨인원</th>
+						<td>
+							<input type="text" class="w_input1" value="<?=$row['sbab_limit']?>" name="limit_num" id="limit_num" placeholder="당첨될 인원수" />
 						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
-						<td><input type="text" class="w_input1" value="" name="title" id="inp_2" style="width:100%" /></td>
+						<td><input type="text" class="w_input1" value="<?=stripslashes($row[sbab_title])?>" name="title" id="inp_2" style="width:100%" /></td>
 					</tr>
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea name="content" class="w_input1" id="inp_3" cols="30" rows="10" style="height:200px"></textarea>
+							<textarea name="content" class="w_input1" id="inp_3" cols="30" rows="10" style="height:200px"><?=stripslashes($row[sbab_content])?></textarea>
 						</td>
 					</tr>
 				</tbody>
@@ -160,7 +183,13 @@ function findArea(Aval){
 				var i = 0;
 				var data = "";
 				for(key in result){
-					data += '<div class="radio_box"><input type="radio" value="'+key+'" name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					if(i==0){
+						var chkVal = "checked";
+					}else{
+						var chkVal = "";
+					}
+					data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					i++;
 				}
 				$('#area_depth').html(data);
 			}

@@ -1,5 +1,28 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+/*
+체험단 등록 내용 가져오기
+ */
+$tbl_info = "sb_application_board";
+$flag_depth = "pick";
+$sql = "select * from  $tbl_info where sbab_idx='".$_GET['idx']."' and sbab_cate='$flag_depth' ";
+$q = $conn->query($sql);
+$row = $q->fetch_assoc();
+if(empty($row)){
+	$url = "/adm/page/s3/s4.php";
+	echoAlert("잘못된 접근입니다.");
+	echoMovePage($url);	
+}
+//날짜 변환
+$now_date = date('Y-m-d');
+$sdate = date('Y-m-d', strtotime($row['sbab_sdate']));
+$edate = date('Y-m-d', strtotime($row['sbab_edate']));
+
+
+$sql = "select * from sb_pick_member where sbab_fidx='".$_GET['idx']."'";//쇼퍼 신청한 사람
+//$q = $conn->query($sql);
+//$row_mem = $q->fetch_assoc();
 ?>
 
 <section class="section1">
@@ -114,42 +137,45 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			<tbody>
 				<tr>
 					<th>상태</th>
-					<td>진행중</td>
+					<td>
+						<?
+							if($now_date > $edate){
+								echo '<span class="txt_col1">마감</span>';
+							}else if( ($now_date >= $sdate) && ($now_date <= $edate) ){
+								echo "모집중";
+							}else if( $now_date < $sdate){
+								echo "진행 대기";
+							}
+						?>
+					</td>
 				</tr>
 				<tr>
 					<th>우리동네</th>
-					<td>서울시 강남구</td>
+					<td>
+						<?=$row['sbab_area'] == "A" ? "전체 지역" : $row['sbab_area']?>
+					</td>
 				</tr>
 				<tr>
 					<th>기간</th>
-					<td>2018-07-01 ~ 2018-08-30</td>
+					<td><?=$sdate.' ~ '.$edate?></td>
 				</tr>
 				<tr>
 					<th>작성일</th>
-					<td>2018-07-01</td>
+					<td><?=date('Y-m-d', strtotime($row['sbab_rdate']))?></td>
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td>유니크매장 체험단를 모집합니다!</td>
+					<td><?=stripslashes($row['sbab_title'])?></td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다! <br />
-						유니크매장 체험단를 모집합니다!
-					</td>
+					<td><?=stripslashes($row['sbab_content'])?></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div class="bt_wrap2">
-		<a href="s4swrite.php" class="bt_1">수정하기</a>
+		<a href="./s4swrite.php?mode=u&idx=<?=$_GET[idx]?>" class="bt_1">수정하기</a>
 		<a href="s4.php" class="bt_2">목록으로</a>
 	</div>
 

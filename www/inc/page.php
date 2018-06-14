@@ -107,4 +107,12 @@ if(isset($w_sub_name[2])){
 		$w_c_num = $w_c_num-1;
 	}
 }
+
+
+if($w_file_name=="invite.php"){
+	$w_index = false;
+	$w_s_title_1="invite";
+}
+
+
 ?>
