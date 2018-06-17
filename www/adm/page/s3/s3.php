@@ -211,81 +211,78 @@ $q = $conn->query($sql);
 		<a href="<?=$now_next_page?>" class="arr next"><i>다음</i></a>
 		<a href="javascript:void(0);" class="arr all_next"><i>마지막</i></a>
 	</nav>
-	<script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
-	<script>
-		function mv_page(getVal){
-			if(getVal == "a"){
-				location.href = './s3.php';
-			}else if(getVal == "ing"){
-				location.href = './s3.php?mvpage=ing';
-			}else if(getVal == "endding"){
-				location.href = './s3.php?mvpage=endding';
-			}
+</section>
+<script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
+<script>
+	function mv_page(getVal){
+		if(getVal == "a"){
+			location.href = './s3.php';
+		}else if(getVal == "ing"){
+			location.href = './s3.php?mvpage=ing';
+		}else if(getVal == "endding"){
+			location.href = './s3.php?mvpage=endding';
 		}
-		function sFrmval(getVal){
-			var Pt = getVal.parentNode.getElementsByClassName('w_input1');
-			if(getVal.value == "dating" || getVal.value == "rdating"){
-				Pt[1].setAttribute('id', 'inp_date');
-				$('#inp_date').datepicker({
-					dateFormat: 'yy-mm-dd'
-				});
-			}else{
-				Pt[1].removeAttribute('id');
-			}
+	}
+	function sFrmval(getVal){
+		var Pt = getVal.parentNode.getElementsByClassName('w_input1');
+		if(getVal.value == "dating" || getVal.value == "rdating"){
+			Pt[1].setAttribute('id', 'inp_date');
+			$('#inp_date').datepicker({
+				dateFormat: 'yy-mm-dd'
+			});
+		}else{
+			Pt[1].removeAttribute('id');
 		}
-		function all_check(){
-		    if($('#all_check').is(':checked')){
-		        $(".rp_check_class").prop("checked", true);
-		    }else{
-		        $(".rp_check_class").prop("checked", false);   
+	}
+	function all_check(){
+	    if($('#all_check').is(':checked')){
+	        $(".rp_check_class").prop("checked", true);
+	    }else{
+	        $(".rp_check_class").prop("checked", false);   
+	    }
+	}
+	function all_check_t(){
+	    $(".rp_check_class").prop("checked", true);
+	}
+	function all_check_f(){
+	    $(".rp_check_class").prop("checked", false);   
+	}
+
+	/* select delete start */
+	function modiy_stat(mode){
+		if(mode=="D"){
+			var chk_data = new Array()
+			var chk_cnt = 0;
+			var chkbox = $('.rp_check_class');
+				for(var i=0;i<chkbox.length;i++){
+		        if(chkbox[i].checked == true){
+		        	chk_data[chk_cnt] = chkbox[i].value;
+		            chk_cnt++;
+		        }
 		    }
-		}
-
-		function all_check_t(){
-		    $(".rp_check_class").prop("checked", true);
-		}
-
-		function all_check_f(){
-		    $(".rp_check_class").prop("checked", false);   
-		}
-
-		/* select delete start */
-		function modiy_stat(mode){
-			if(mode=="D"){
-				var chk_data = new Array()
-				var chk_cnt = 0;
-				var chkbox = $('.rp_check_class');
-					for(var i=0;i<chkbox.length;i++){
-			        if(chkbox[i].checked == true){
-			        	chk_data[chk_cnt] = chkbox[i].value;
-			            chk_cnt++;
-			        }
-			    }
-			    if(chk_data == ""){
-					alert("삭제할 게시물을 선택해 주세요.");
-					return false;
-				}
-			    $.ajax({
-			    	type : 'POST',
-			    	url : '/ajax/adm_board_del.php',
-			    	data : {"mode": mode, "pageinfo" : "application", "flag_depth" : "<?=$flag_depth?>", "chk_idx" : chk_data},
-			    	success : function(result){
-			    		//console.log(result);
-			    		alert("선택된 게시물이 삭제되었습니다.");
-			    		location.reload();
-			    	}, error : function(jqXHR, textStatus, errorThrown){
-						console.log("error!\n"+textStatus+" : "+errorThrown);
-					}
-			    });
-			}else{
-				console.log('undefinded mode');
+		    if(chk_data == ""){
+				alert("삭제할 게시물을 선택해 주세요.");
 				return false;
 			}
+		    $.ajax({
+		    	type : 'POST',
+		    	url : '/ajax/adm_board_del.php',
+		    	data : {"mode": mode, "pageinfo" : "application", "flag_depth" : "<?=$flag_depth?>", "chk_idx" : chk_data},
+		    	success : function(result){
+		    		//console.log(result);
+		    		alert("선택된 게시물이 삭제되었습니다.");
+		    		location.reload();
+	    	}, error : function(jqXHR, textStatus, errorThrown){
+						console.log("error!\n"+textStatus+" : "+errorThrown);
+				}
+		    });
+		}else{
+			console.log('undefinded mode');
+			return false;
 		}
-		/* select delete end */
-	</script>
-</section>
-
+	}
+	/* select delete end */
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
 ?>

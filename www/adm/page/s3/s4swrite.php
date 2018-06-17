@@ -19,6 +19,8 @@ if($mode == "w"){
 	//날짜
 	$sdate = date('Y-m-d', strtotime($row['sbab_sdate']));
 	$edate = date('Y-m-d', strtotime($row['sbab_edate']));
+	//시도
+	$catch_area = explode(" ", $row['sbab_area']);
 	//print_r($row);
 }else{
 	$mode = "w";
@@ -109,6 +111,15 @@ $level_query = $conn->query($sql);
 
 <script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
+var catch_area = "<?=$catch_area[0]?>";
+
+$(function(){
+	if(catch_area != ""){
+		$('#s_sido option[data-real-addr="<?php echo $catch_area[0]?>"]').attr('selected', 'selected');
+		//console.log($('input[name=s_sido'));
+		findArea($('#s_sido')[0]);
+	}
+});
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,

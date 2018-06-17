@@ -6,6 +6,7 @@ include_once "../../_head.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/function.php";
 
+$sb_id = $conn->real_escape_string($_SESSION['sb_id']);
 //비회원 튕기기
 if($_SESSION['login_chk'] != 99){
 	$url = "/page/member/login.php";
@@ -19,23 +20,47 @@ $tbl_info = "sb_application_board";
 //검색
 $where = array();
 $where[] = '';
+$qtr[] = '';
 switch($_GET['aType']){
 	case 'shopper' :
 		$where[] = " sbab_cate='shopper' ";
 		$shopper_chk = "active";
+		$qtr[] = 'aType='.$_GET['aType'];
 		break;
 	case 'ftalk' :
 		$where[] = " sbab_cate='ftalk' ";
 		$ftalk_chk = "active";
+		$qtr[] = 'aType='.$_GET['aType'];
 		break;
 	case 'pick' :
 		$where[] = " sbab_cate='pick' ";
 		$pick_chk = "active";
+		$qtr[] = 'aType='.$_GET['aType'];
 		break;
 	default :
 		$a_chk = "active";
 		break;
 }
+
+//전제, 모집중, 마감
+$now_date = date('Y-m-d');
+switch($_GET['bType']){
+	case 'ing' :
+		$where[] = " ( date_format(sbab_sdate, 'Y-m-d') >= '".$now_date."' and date_format(sbab_edate, 'Y-m-d') >= '".$now_date."' )";
+		$ing_chk = "active";
+		$qtr[] = 'bType='.$_GET['bType'];
+		break;
+	case 'end' :
+		$where[] = " ( date_format(sbab_edate, 'Y-m-d') < '".$now_date."' ) ";
+		$end_chk = "active";
+		$qtr[] = 'bType='.$_GET['bType'];
+		break;
+	default :
+		$Da_chk = "active";
+		break;
+}
+
+$sub_q = implode('&', $qtr);
 
 if(!empty($where)){
 	$whereis = implode(" and ", $where);
@@ -53,6 +78,12 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	$vA = $q->fetch_assoc();
 
 	$vL['rate'] = "관리자";
+
+	//전체 당첨자 수 불러오기
+	//체험기 가져오기(당첨된 것 만)
+	$sql_C = "select count(sbabm_mb_id) as cnt from sb_application_member where sbabm_option4 is null and sbabm_option5='Y'";
+	$q = $conn->query($sql_C);
+	$vC = $q->fetch_assoc();
 
 	//우리동네 알림 가져오기
 	$sql_N = "select * from sb_application_notice_board where 1 order by sbab_idx";
@@ -85,6 +116,11 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	$sql_L = "select sb_level_title as rate from sb_member_level where sb_level_cate='".$_SESSION['sb_mem_level']."'";
 	$q = $conn->query($sql_L);
 	$vL = $q->fetch_assoc();
+	//체험기 가져오기(당첨된 것 만)
+	$sql_C = "select count(sbabm_mb_id) as cnt from sb_application_member where 
+				(sbabm_mb_id='".$sb_id."' and sbabm_option5='Y') and sbabm_option4 is null";
+	$q = $conn->query($sql_C);
+	$vC = $q->fetch_assoc();
 	//우리동네 알림 가져오기
 	$sql_N = "select * from sb_application_notice_board where sbab_area='".$dongnae."' or sbab_area='A' order by sbab_idx";
 	$vN = $conn->query($sql_N);
@@ -108,6 +144,7 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	$sql_B = "select * from $tbl_info where ( sbab_area='$dongnae' or sbab_area='A' ) $whereis order by sbab_idx desc LIMIT $limit_num OFFSET $show_offset_num";
 	$vB = $conn->query($sql_B);
 }
+
 ?>
 
 <div class="wrap_style1 pabno">
@@ -142,7 +179,7 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 			<div>
 				<div>
 					<h3 class="title3"><i>나의 체험기</i></h3>
-					<p class="copy1"><b>3회</b></p>
+					<p class="copy1"><b><?=$vC['cnt']?>회</b></p>
 					<p class="copy2">
 						최근에 체험에 참여하셨네요!<br />
 						후기를 전송해주세요!
@@ -167,16 +204,15 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 			</div>
 		</div>
 	</div>
-
-	<div class="my_notice_wrap">
+	<div class="my_notice_wrap"id="mv_page_top">
 
 		<div class="tab_type1">
 			<a href="javascript:void(0);" class="bt active">우리동네소식</a>
-			<a href="javascript:void(0);" class="bt">나의소식 <span class="count">3</span></a>
+			<a href="javascript:void(0);" class="bt">나의소식 <span class="count"><?=$vC['cnt']?></span></a>
 			<div class="cate toggle_j">
-				<a href="javascript:void(0);" class="active">전체</a>
-				<a href="javascript:void(0);">모집중</a>
-				<a href="javascript:void(0);">마감</a>
+				<a href="javascript:mv_page2('A');" class="<?=$Da_chk?>">전체</a>
+				<a href="javascript:mv_page2('ing');" class="<?=$ing_chk?>">모집중</a>
+				<a href="javascript:mv_page2('end');" class="<?=$end_chk?>">마감</a>
 			</div>
 		</div>
 
@@ -230,7 +266,6 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 							$bgType = "bg2";
 							break;
 					}
-					$now_date = date('Y-m-d');
 					$sdate = date('Y-m-d', strtotime($row['sbab_sdate']));
 					$edate = date('Y-m-d', strtotime($row['sbab_edate']));
 					$go_more = 's2sview.php?idx='.$row['sbab_idx'].'&aType='.$row['sbab_cate'];
@@ -276,20 +311,20 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 			$prev_page_num = $first_page_num - 10;
 
 			if ($first_page_num != 1) { // It's not first page
-				echo "<a href='?cur_page=$prev_page_num' class='arr prev'><button type='button' class='bt_prev'>전페이지 버튼</button></a>";
+				echo "<a href='?cur_page=$prev_page_num{$sub_q}' class='arr prev'><button type='button' class='bt_prev'>전페이지 버튼</button></a>";
 			}
 
 			echo "<ul class='paing'>";
 
 			for($i = $first_page_num; $i <= $total_page && $i <= $last_page_num; $i ++) {
 				if ($cur_page == $i) {
-					echo "<li class='active'><a href='?cur_page=$i'><strong>$i</strong></a></li>"; // Current page
+					echo "<li class='active'><a href='?cur_page=$i{$sub_q}'><strong>$i</strong></a></li>"; // Current page
 				} else {
-					echo "<li><a href='?cur_page=$i'>$i</a></li>";
+					echo "<li><a href='?cur_page=$i{$sub_q}'>$i</a></li>";
 				}
 				if ($i % 10 == 0 && $last_page_num != $total_page) {
 					echo "</ul>";
-					echo "<a href='?cur_page=$next_page_num' class='arr next'><button type='button' class='bt_next'>다음 페이지 버튼</button></a>";
+					echo "<a href='?cur_page=$next_page_num{$sub_q}' class='arr next'><button type='button' class='bt_next'>다음 페이지 버튼</button></a>";
 				}
 			}
 			?>
@@ -299,13 +334,23 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 <script>
 function mv_page(getType){
 	if(getType=="A"){
-		location.href="./s2.php";
+		location.href="./s2.php#mv_page_top";
 	}else if(getType=="shopper"){
-		location.href="./s2.php?aType="+getType;
+		location.href="./s2.php?aType="+getType+"#mv_page_top";
 	}else if(getType=="ftalk"){
-		location.href="./s2.php?aType="+getType;
+		location.href="./s2.php?aType="+getType+"#mv_page_top";
 	}else if(getType=="pick"){
-		location.href="./s2.php?aType="+getType;
+		location.href="./s2.php?aType="+getType+"#mv_page_top";
+	}
+}
+
+function mv_page2(getType){
+	if(getType=="A"){
+		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>#mv_page_top";
+	}else if(getType=="ing"){
+		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType="+getType+"#mv_page_top";
+	}else if(getType=="end"){
+		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType="+getType+"#mv_page_top";
 	}
 }
 </script>

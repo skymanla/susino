@@ -19,6 +19,8 @@ if($mode == "w"){
 	//날짜
 	$sdate = date('Y-m-d', strtotime($row['sbab_sdate']));
 	$edate = date('Y-m-d', strtotime($row['sbab_edate']));
+	//시도
+	$catch_area = explode(" ", $row['sbab_area']);
 	//print_r($row);
 }else{
 	$mode = "w";
@@ -53,7 +55,7 @@ $level_query = $conn->query($sql);
 						<th>우리동네</th>
 						<td>
 							<select name="s_sido" id="s_sido" title="" class="w_input1" onchange="findArea(this)">
-								<option value="A" data-real-addr="all">전체</option>
+								<option value="A" data-real-addr="all" selected >전체</option>
 								<option value="0" data-real-addr="서울">서울특별시</option>
 								<option value="1" data-real-addr="부산">부산광역시</option>
 								<option value="2" data-real-addr="대구">대구광역시</option>
@@ -112,6 +114,17 @@ $level_query = $conn->query($sql);
 
 <script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
+var catch_area = "<?=$catch_area[0]?>";
+var mode_flag = "<?=$_GET[mode]?>";
+
+$(function(){
+	if(catch_area != ""){
+		$('#s_sido option[data-real-addr="<?php echo $catch_area[0]?>"]').attr('selected', 'selected');
+		//console.log($('input[name=s_sido'));
+		findArea($('#s_sido')[0]);
+	}
+});
+
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
@@ -172,11 +185,20 @@ function findArea(Aval){
 				var i = 0;
 				var data = "";
 				for(key in result){
-					if(i==0){
-						var chkVal = "checked";
+					if(mode_flag == "u"){
+						if(key == "<?=$catch_area[1]?>"){
+							var chkVal = "checked";
+						}else{
+							var chkVal = "";
+						}
 					}else{
-						var chkVal = "";
+						if(i==0){
+							var chkVal = "checked";
+						}else{
+							var chkVal = "";
+						}	
 					}
+					
 					data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
 					i++;
 				}

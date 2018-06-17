@@ -25,6 +25,8 @@ if($r['sb_sex'] == "male"){
 }else{
 	$female = "checked";
 }
+$sb_dong_arr = explode(" ", $r[sb_dongnae]);
+
 ?>
 <div class="wrap_style1">
 	<div class="heading_s1">
@@ -280,6 +282,11 @@ function chkFrm(){
 // STR 우리동네 설정
 function myInfoAc1(){
 	// STR 셀렉박스 체인지
+
+	$('#s_sido option[data-real-addr="<?php echo $sb_dong_arr[0]?>"]').attr('selected', 'selected');
+	addInfo1('<?php echo $sb_dong_arr[0]?>');
+
+
 	$('#s_sido').on('change',function (){
 		addInfo1($(this).find('option:selected').attr('data-real-addr'));
 	});
@@ -297,11 +304,12 @@ function myInfoAc1(){
 			var addrSec = [];
 			var addrSecHtml = '';
 			var addrSecNum =0;
+			var addrChecked = '';
+			var addrActive = '';
 
 
 			$.each(addArry1,function (i){
 				if(addArry1[i].addr.split(' ')[0].indexOf(t) != -1){
-					console.log(addArry1[i].addr);
 					addrSec.push(addArry1[i].addr.split(' ')[1]);
 				}
 			});
@@ -323,7 +331,15 @@ function myInfoAc1(){
 				}
 			}
 			for (var j in results) {
-				addrSecHtml += '<div class="radio_box"><input type="radio" value="' + j + '" name="addr_sec" id="addr_sec'+addrSecNum+'"/><label for="addr_sec'+addrSecNum+'">' + j + ' (<b>'+results[j]+'</b>)</label></div>';
+				if(j=='<?php echo $sb_dong_arr[1]?>'){
+					addrChecked = 'checked';
+					addrActive = 'active';
+				} else {
+					addrChecked = '';
+					addrActive = '';
+				}
+
+				addrSecHtml += '<div class="radio_box"><input type="radio" value="' + j + '" name="addr_sec" id="addr_sec'+addrSecNum+'" '+addrChecked+'/><label for="addr_sec'+addrSecNum+'" class="'+addrActive+'">' + j + ' (<b>'+results[j]+'</b>)</label></div>';
 				addrSecNum++;
 			}
 			if(t!='세종특별자치시'){
