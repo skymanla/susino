@@ -115,7 +115,10 @@ if(empty($row)){
 			data : { "mb_id" : mb_id, "idx" : idx, "aType" : aType},
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
+				alert(result.msg);
+				if(result.codeNum=="19"){
+					location.reload();
+				}
 			},error : function(jqXHR, textStatus, errorThrown){
 				console.log("error!\n"+textStatus+" : "+errorThrown);
 			}

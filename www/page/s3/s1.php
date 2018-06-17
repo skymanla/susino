@@ -412,8 +412,8 @@ function dmapAc1(){
 														'<div>' + addArry1[i].call + '</div>' +
 													'</li>' +
 													wOption +
-													wOpq1 +
-													wOpq2 +
+													//wOpq1 +
+													//wOpq2 +
 													wOpp +
 												'</ul>' +
 											'</div>'

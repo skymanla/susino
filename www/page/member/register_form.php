@@ -345,11 +345,13 @@ function myInfoAc1(){
 			var addrSec = [];
 			var addrSecHtml = '';
 			var addrSecNum =0;
-
+			if(t=='all'){
+				$('#s_gugun .radio_wrap').html('');
+				return false;
+			}
 
 			$.each(addArry1,function (i){
 				if(addArry1[i].addr.split(' ')[0].indexOf(t) != -1){
-					console.log(addArry1[i].addr);
 					addrSec.push(addArry1[i].addr.split(' ')[1]);
 				}
 			});
@@ -364,7 +366,7 @@ function myInfoAc1(){
 			var results = new Array();
 			for (var i=0; i<addrSec.length; i++) {
 				var key = addrSec[i].toString();
-				if (!results[key]) {
+				if (!results[key]){
 					results[key] = 1
 				} else {
 					results[key] = results[key] + 1;

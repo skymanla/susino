@@ -93,7 +93,7 @@ if($cnt == $limit_num){
 
 $sql = "select 
 			a.sb_idx, a.sb_id as sb_id, a.sb_name as sb_name, a.sb_phone as sb_phone, a.sb_email as sb_email,
-			a.sb_mem_level as sb_mem_level, b.sb_level_title as sb_level_title, a.sb_regdate as sb_regdate, a.sb_delete_flag as sb_delete_flag
+			a.sb_mem_level as sb_mem_level, a.sb_dongnae as sb_dongnae, b.sb_level_title as sb_level_title, a.sb_regdate as sb_regdate, a.sb_delete_flag as sb_delete_flag
 			from
 			sb_member a left join sb_member_level b on
 			a.sb_mem_level=b.sb_level_cate
@@ -171,7 +171,7 @@ $level_query = $conn->query($sql);
 				<tr onclick="javascript:mem_click_ev('<?=$row['sb_id']?>')">
 					<!--<input type="hidden" name="sb_id" id="sb_id_<?=$row['sb_id']?>" value="<?=$row['sb_id']?>" />-->
 					<td class="txt_c"><?=$board_no?></td>
-					<td class="txt_c">지역1</td>
+					<td class="txt_c"><?=$row['sb_dongnae']?></td>
 					<td class="txt_c"><?=$row['sb_id']?></td>
 					<td class="txt_c"><?=$row['sb_name']?></td>
 					<td class="txt_c"><?=$row['sb_phone']?></td>

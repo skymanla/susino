@@ -7,4 +7,5 @@
 	<li <?php if($w_b_num===4){ echo 'class="active"';}?>><a href="/adm/page/s3/s5.php">이벤트</a></li>
 	<li <?php if($w_b_num===5){ echo 'class="active"';}?>><a href="/adm/page/s3/s6.php">우리동네 공지사항</a></li>
 	<li <?php if($w_b_num===6){ echo 'class="active"';}?>><a href="/adm/page/s3/s7.php">함께갈레요 관리</a></li></a></li>
+	<li <?php if($w_b_num===7){ echo 'class="active"';}?>><a href="/adm/page/s3/s8.php">후기작성 관리</a></li></a></li>
 </ul>

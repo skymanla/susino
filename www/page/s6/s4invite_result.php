@@ -1,22 +1,39 @@
 <?php include_once "../../_head.php";?>
 
-<div class="person_invite_wrap <?php if($_GET['type']){ echo 'bg'.$_GET['type']; } ?>">
-	<div class="title"><p><b>홍길동</b></p></div>
-	<button type="button" class="invite_ok"><i>함께 갈래요!</i></button>
-	<!-- STR 이미 참여 신청이 완료된경우 -->
-	<!-- <div class="end_copy">이미 참여가 완료되었습니다.</div> -->
-	<!-- END 이미 참여 신청이 완료된경우 -->
+<div class="invite_result_wrap">
+	<div class="title">
+		<p class="rank">2등</p>
+		<p class="copy1">3만원 초대권</p>
+	</div>
+	<ul class="invite_result_rank">
+		<li class="rank1">
+			<p class="copy1">1등</p>
+			<p class="copy2">
+				15만원 초대권 <br />
+				(10명)
+			</p>
+		</li>
+		<li class="rank2">
+			<p class="copy1">2등</p>
+			<p class="copy2">
+				10만원 초대권 <br />
+				(10명)
+			</p>
+		</li>
+		<li class="rank3">
+			<p class="copy1">3등</p>
+			<p class="copy2">
+				5만원 초대권 <br />
+				(30명)
+			</p>
+		</li>
+		<li class="rank4">
+			<p class="copy1">4등</p>
+			<p class="copy2">
+				3만원 초대권 <br />
+				(20명)
+			</p>
+		</li>
+	</ul>
 </div>
-
-<script type="text/javascript">
-//<![CDATA[
-$(function(){
-	$('.invite_ok').on('click',function (){
-		alert('홍길동님과 함께갈래요 참여가 완료되었습니다.');
-		location.href = '/';
-	});
-});
-//]]>
-</script>
-
 <?php include_once "../../_tail.php";?>

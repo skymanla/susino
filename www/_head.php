@@ -13,10 +13,8 @@ include_once "inc/page.php";
 	<link rel="stylesheet" type="text/css" href="/css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="/css/layout.css" />
 	<link rel="stylesheet" type="text/css" href="/css/sub.css" />
-	<link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.4/themes/base/jquery-ui.css" rel="stylesheet" />
-	<link type="text/css" href="/js/datepicker_style.css">
+	<link type="text/css" href="/css/jquery-ui.min.css" rel="stylesheet" />
 	<script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
-	<link type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet" />
 	<?php if(($w_a_num===0 && $w_b_num===4) || ($w_a_num===5 && $w_b_num===0)){?>
 	<link rel="stylesheet" type="text/css" href="/css/wind.instarSns.v.1.0.0.css" />
 	<?php }?>

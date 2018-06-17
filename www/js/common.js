@@ -46,15 +46,17 @@ function checkedAc1(){
 			$(this).parents('.radio_box_wrap').find('label').removeClass('active');
 			$(this).next('label').addClass('active');
 		}
-		$(this).on('click',function(){
-			$(this).parents('.jquery_checked').find('label').removeClass('active');
-			$(this).parents('.radio_box_wrap').find('label').removeClass('active');
-			if($(this).prop('checked')){
-				$(this).next('label').addClass('active');
-			} else {
-				$(this).next('label').removeClass('active');
-			}
-		});
+	});
+
+	
+	$(document).on('click','[type="radio"]',function(){
+		$(this).parents('.jquery_checked').find('label').removeClass('active');
+		$(this).parents('.radio_box_wrap').find('label').removeClass('active');
+		if($(this).prop('checked')){
+			$(this).next('label').addClass('active');
+		} else {
+			$(this).next('label').removeClass('active');
+		}
 	});
 
 	
@@ -62,13 +64,14 @@ function checkedAc1(){
 		if($(this).prop('checked')){
 			$(this).next('label').addClass('active');
 		}
-		$(this).on('click',function(){
-			if($(this).prop('checked')){
-				$(this).next('label').addClass('active');
-			} else {
-				$(this).next('label').removeClass('active');
-			}
-		});
+	});
+
+	$(document).on('click','[type="checkbox"]',function(){
+		if($(this).prop('checked')){
+			$(this).next('label').addClass('active');
+		} else {
+			$(this).next('label').removeClass('active');
+		}
 	});
 }
 

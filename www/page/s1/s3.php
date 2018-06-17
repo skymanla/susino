@@ -27,19 +27,9 @@ footer{z-index:5;position:relative;}
 	transition:all 0.2s ease-in-out;
 }
 #con_slide_wrap1 .bt_wrap button.active{background-color:#bb1a29;color:#bb1a29;}
-#con_box1{background:url('/img/s1/s3slide/img1.jpg') no-repeat center top;}
-#con_box1 button{
-	position:absolute;top:640px;left:50%;width:117px;height:33px;border:0 none;background-color:#000;text-align:center;font-size:12px;color:#fff;outline:0;
-	-o-transition:all 0.1s ease-in-out;
-	-moz-transition:all 0.1s ease-in-out;
-	-webkit-transition:all 0.1s ease-in-out;
-	transition:all 0.1s ease-in-out;
-}
-#con_box1 button:hover,
-#con_box1 button:focus{background-color:#bb1a29;}
-#con_box1 button.bt1{margin-left:-475px;}
-#con_box1 button.bt2{margin-left:-58px;}
-#con_box1 button.bt3{margin-left:365px;}
+#con_box1{background:url('/img/s1/s3slide/img1_2.jpg') no-repeat center top;}
+#con_box1 button{position:absolute;top:590px;left:50%;width:100px;height:160px;margin-left:-60px;border:0 none;background-color:transparent;outline:0;}
+#con_box1 button i{position:absolute;top:-2000px;left:-2000px;font-size:1px;text-indent:-2000px;}
 #con_box2{}
 #con_box2 > div{position:relative;width:300%;height:100%;overflow:hidden;}
 #con_box2 > div > div{float:left;width:33.33%;height:100%;}
@@ -256,9 +246,7 @@ function conSlideAc1(){
 	</div>
 
 	<div id="con_box1">
-		<button type="button" class="bt1">자세히 보기</button>
-		<button type="button" class="bt2">자세히 보기</button>
-		<button type="button" class="bt3">자세히 보기</button>
+		<button type="button" class="bt1"><i>자세히 보기</i></button>
 	</div>
 	<div id="con_box2">
 		<div class="box2_bt_wrap">

@@ -12,9 +12,9 @@
 	if($_SESSION['sba_id'])
 	{
 	?>
-	<div class="admin_bt padr1">
+	<!-- <div class="admin_bt padr1">
 		<a href="/page/s3/s1swrite.php?mode=w" class="w_edit">글쓰기</a>
-	</div>
+	</div> -->
 	<?php
 	}
 	?>
@@ -66,7 +66,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="list_wrap">
+			<div class="list_wrap type1">
 				<div class="list_box"></div>
 			</div>
 		</div>
@@ -267,7 +267,7 @@ function dmapAc1(){
 
 					var modify_bt = '';
 					<?php if($_SESSION['sba_id']){?>
-					modify_bt = '<a href="s1swrite.php?mode=u&idx='+addArry1[i].id+'" class="pin_modify">수정하기</a>';
+					//modify_bt = '<a href="s1swrite.php?mode=u&idx='+addArry1[i].id+'" class="pin_modify">수정하기</a>';
 					<?php }?>
 
 					var list_html = '<div>'+

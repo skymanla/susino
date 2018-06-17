@@ -1,5 +1,12 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+$sb_idx = $conn->real_escape_string($_GET['idx']);
+$sb_id = $conn->real_escape_string($_GET['id']);
+
+$sql = "select *, (select sb_level_title from sb_member_level where sb_level_cate=sb_mem_level) as sb_l_title from sb_member where sb_idx='".$sb_idx."' and sb_id='".$sb_id."'";
+$q = $conn->query($sql);
+$v = $q->fetch_assoc();
+
 ?>
 
 <section class="section1">
@@ -19,47 +26,47 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<tbody>
 					<tr>
 						<th>상태</th>
-						<td>스시노백 회원</td>
+						<td><?=$v['sb_delete_flag']=='1' ? '탈퇴회원' : '스시노백 회원' ?></td>
 					</tr>
 					<tr>
 						<th>레벨</th>
-						<td>일반회원</td>
+						<td><?=$v[sb_l_title]?></td>
 					</tr>
 					<tr>
 						<th>이름</th>
-						<td>홍길동</td>
+						<td><?=$v[sb_name]?></td>
 					</tr>
 					<tr>
 						<th>아이디</th>
-						<td>wind</td>
+						<td><?=$v[sb_id]?></td>
 					</tr>
 					<tr>
 						<th>핸드폰</th>
-						<td>010-1111-2222</td>
+						<td><?=$v[sb_phone]?></td>
 					</tr>
 					<tr>
 						<th>성별</th>
-						<td>남</td>
+						<td><?=$v[sb_sex]=='male' ? "남성" : "여성"?></td>
 					</tr>
 					<tr>
 						<th>생년월일</th>
-						<td>1999-1-1</td>
+						<td><?=$v[sb_birth]?></td>
 					</tr>
 					<tr>
 						<th>이메일</th>
-						<td>winddesign@winddesign.co.kr</td>
+						<td><?=$v[sb_email]?></td>
 					</tr>
 					<tr>
 						<th>주소</th>
-						<td>제주특별자치도 제주시 첨단로 242 (카카오스페이스닷원)</td>
+						<td><?=$v[sb_addr1].' '.$v[sb_addr2]?></td>
 					</tr>
 					<tr>
 						<th>우리동네</th>
-						<td>지역1</td>
+						<td><?=$v[sb_dongnae]?></td>
 					</tr>
 					<tr>
 						<th>블로그</th>
-						<td>https://blog.naver.com/web_sh</td>
+						<td><?=$v[sb_blog_url]?></td>
 					</tr>
 				</tbody>
 			</table>

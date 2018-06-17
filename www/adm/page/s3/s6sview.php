@@ -32,6 +32,25 @@ if(empty($r)){
 				</tr>
 			</thead>
 			<tbody>
+				<!--<tr>
+					<th>작성일</th>
+					<td><?=date('Y-m-d', strtotime($r['sbab_rdate']))?></td>
+				</tr>
+				<tr>
+					<th>우리동네</th>
+					<td><?=$r['sbab_area']=='A' ? '전체 지역' : $r['sbab_area'] ?></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><?=stripslashes($r['sbab_title'])?></td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>
+						<?=stripslashes($r['sbab_content'])?>
+					</td>
+				</tr>-->
+
 				<tr>
 					<th>작성일</th>
 					<td><?=date('Y-m-d', strtotime($r['sbab_rdate']))?></td>
