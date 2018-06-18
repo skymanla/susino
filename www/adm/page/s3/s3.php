@@ -231,6 +231,7 @@ $q = $conn->query($sql);
 				dateFormat: 'yy-mm-dd'
 			});
 		}else{
+			$('#inp_date').datepicker("destroy");
 			Pt[1].removeAttribute('id');
 		}
 	}

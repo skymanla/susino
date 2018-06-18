@@ -1,7 +1,7 @@
 <?php 
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 $flag					= trim($_POST['flag']);//게시판 정보
-if($flag == 'notice' || $flag == 'event' || $flag == "shopper" || $flag == "ftalk" || $flag == "pick"){//관리자 세션 체크하는 듯?
+if($flag == 'notice' || $flag == 'event' || $flag == "shopper" || $flag == "ftalk" || $flag == "pick" || $flag == "invite"){//관리자 세션 체크하는 듯?
 	include_once($_SERVER['DOCUMENT_ROOT']."/lib/Session.php");
 }
 
@@ -305,6 +305,39 @@ if($flag == 'customer'){
 		}else{
 			die($query);
 		}
+	}
+}else if($flag == "invite"){
+	$invite_rate1 = $_POST['invite_rate1'];
+	$invite_rate2 = $_POST['invite_rate2'];
+
+	for($i=1;$i<5;$i++){
+		$sbia_option[$i] = $_POST["invite_prize_{$i}"]."||".$_POST["invite_prize_{$i}_product"];
+	}
+	$board_name = "sb_invite_admin";
+	$sdate = $sdate." 00:00:00";
+	$edate = $edate." 23:59:59";
+	//여긴 update 따윈 없다
+	$sql = "select sbia_idx from $board_name where 1=1 order by sbia_idx desc limit 1";
+	$q = $conn->query($sql);
+	$v = $q->fetch_assoc();
+	if(empty($v['sbia_idx'])){
+		$sbia_idx = 1;
+	}else{
+		$sbia_idx = $v['sbia_idx'];
+		$sbia_idx++;
+	}
+	//insert
+	$query = "insert into $board_name
+			(sbia_idx, sbia_sdate, sbia_edate, sbia_prize_rate1, sbia_prize_rate2, sbia_prize_option1, sbia_prize_option2, sbia_prize_option3, sbia_prize_option4, sbia_rdate, sbia_write, sbia_ip)
+			values
+			('$sbia_idx', '$sdate', '$edate', '$invite_rate1', '$invite_rate2', '$sbia_option[1]', '$sbia_option[2]', '$sbia_option[3]', '$sbia_option[4]', now(), '$w_id', '$ip')
+			";
+	if($conn->query($query)){
+		$url = "/adm/page/s3/s7slist3.php";
+		echoAlert("당첨자 확율이 수정되었습니다.");
+		echoMovePage($url);
+	}else{
+		die($query);
 	}
 }
 ?>

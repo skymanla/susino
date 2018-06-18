@@ -1,5 +1,28 @@
 <?php 
 include_once "../../_head.php";
+include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
+
+//당첨 정보 가져오기
+$sql = "select * from sb_invite_admin where 1=1 order by sbia_idx desc limit 1";
+
+$q = $conn->query($sql);
+
+$invite_length = mysqli_num_rows($q);//값이 있는지 여부 없으면;;;;;;;;;;;;;
+
+if($invite_length < 1 ){
+	$row = "";
+}else{	
+	$row = $q->fetch_assoc();
+	
+	$sdate = date('Y-m-d', strtotime($row['sbia_sdate']));
+	$edate = date('Y-m-d', strtotime($row['sbia_edate']));
+
+	$sbia_prize_option = "sbia_prize_option";
+	for($i=1;$i<5;$i++){
+		${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
+	}
+}
+
 session_start();
 ?>
 
@@ -22,29 +45,29 @@ session_start();
 			<li class="rank1">
 				<p class="copy1">1등</p>
 				<p class="copy2">
-					15만원 초대권 <br />
-					(10명)
+					<?=$sbia_prize_option1[1]?> <br />
+					(<?=$sbia_prize_option1[0]?>명)
 				</p>
 			</li>
 			<li class="rank2">
 				<p class="copy1">2등</p>
 				<p class="copy2">
-					10만원 초대권 <br />
-					(10명)
+					<?=$sbia_prize_option2[1]?> <br />
+					(<?=$sbia_prize_option2[0]?>명)
 				</p>
 			</li>
 			<li class="rank3">
 				<p class="copy1">3등</p>
 				<p class="copy2">
-					5만원 초대권 <br />
-					(30명)
+					<?=$sbia_prize_option3[1]?> <br />
+					(<?=$sbia_prize_option3[0]?>명)
 				</p>
 			</li>
 			<li class="rank4">
 				<p class="copy1">4등</p>
 				<p class="copy2">
-					3만원 초대권 <br />
-					(20명)
+					<?=$sbia_prize_option4[1]?> <br />
+					(<?=$sbia_prize_option4[0]?>명)
 				</p>
 			</li>
 		</ul>

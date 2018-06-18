@@ -7,7 +7,7 @@ $cur_page = (int)$_GET['cur_page'];
 if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
 
 //개수
-$count = "SELECT COUNT(sbi_idx) as cnt FROM $tbl_info ".$whereis;
+$count = "SELECT COUNT(a.sbi_idx) as cnt FROM $tbl_info ".$whereis;
 $count_result = $conn->query($count);
 $row = $count_result->fetch_assoc();
 $cnt = $row['cnt'];
@@ -22,7 +22,7 @@ $total_page = floor ( $cnt / $limit_num ) + 1;
 
 
 $sql = "select 
-		a.sbi_idx, a.sbi_cate, a.sbi_option2, a.sbi_option3, a.sbi_option4, a.sbi_option5, date_format(a.sbi_rdate, '%Y-%m-%d') as sbi_rdate,
+		a.sbi_idx, a.sbi_cate, a.sbi_option,  a.sbi_option2, a.sbi_option3, a.sbi_option4, a.sbi_option5, date_format(a.sbi_rdate, '%Y-%m-%d') as sbi_rdate, date_format(a.sbi_adate, '%Y-%m-%d') as sbi_adate,
 		b.sb_idx, b.sb_id, b.sb_name, (select sb_level_title from sb_member_level where  sb_level_cate=b.sb_mem_level) as sb_level_title, b.sb_phone, 
 		b.sb_email
 		from $tbl_info $whereis order by sbi_idx desc LIMIT $limit_num OFFSET $show_offset_num";
@@ -95,7 +95,7 @@ $q = $conn->query($sql);
 				<tr>
 					<td class="txt_c"><?=$board_no?></td>
 					<td class="txt_c"><?=date('Y-m-d',strtotime($row['sbi_rdate']))?></td>
-					<td class="txt_c"><?=$row['sbi_option2']=='' ? '미등록 고객' : $row['sbi_option2']?></td>
+					<td class="txt_c"><?=$row['sbi_option']=='' ? '미등록 고객' : $row['sbi_option']?></td>
 					<td class="txt_c"><?=$row['sb_id']?></td>
 					<td class="txt_c"><?=$row['sb_name']?></td>
 					<td class="txt_c"><?=$row['sb_phone']?></td>
@@ -112,11 +112,39 @@ $q = $conn->query($sql);
 	</div>
 
 	<nav class="paging_type1">
+	<?
+			$first_page_num = (floor ( ($cur_page - 1) / 10 )) * 10 + 1; // 1,11,21,31...
+			$last_page_num = $first_page_num + 9; // 10,20,30...last
+			//$next_page_num = $last_page_num + 1;
+			//$prev_page_num = $first_page_num - 10;
+			$now_next_page_num = $cur_page+1;
+			$now_prev_page_num = $cur_page-1;
+
+			if($now_prev_page_num == 0){
+				$now_prev_page = "javascript:void(0);";
+			}else{
+				$now_prev_page = "?cur_page=".$now_prev_page_num.$query_string;
+			}
+
+			if($total_page == $cur_page){
+				$now_next_page = "javascript:void(0);";
+			}else{
+				$now_next_page = "?cur_page=".$now_next_page_num.$query_string;	
+			}
+		?>
 		<a href="javascript:void(0);" class="arr all_prev"><i>처음</i></a>
-		<a href="javascript:void(0);" class="arr prev"><i>이전</i></a>
-		<a href="?cur_page=1" class="active">1</a>
-		<a href="?cur_page=2">2</a>		
-		<a href="?cur_page=2" class="arr next"><i>다음</i></a>
+		<a href="<?=$now_prev_page?>" class="arr prev"><i>이전</i></a>
+		<?
+			for($i = $first_page_num; $i <= $total_page && $i <= $last_page_num; $i ++) {
+				if($cur_page == $i){
+					echo "<a href='?cur_page={$i}{$query_string}' class='active'>{$i}</a>\n";
+				}else{
+					echo "<a href='?cur_page={$i}{$query_string}'>{$i}</a>";
+				}
+			}
+		?>
+		
+		<a href="<?=$now_next_page?>" class="arr next"><i>다음</i></a>
 		<a href="javascript:void(0);" class="arr all_next"><i>마지막</i></a>
 	</nav>
 

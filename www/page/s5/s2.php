@@ -118,7 +118,7 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	$vL = $q->fetch_assoc();
 	//체험기 가져오기(당첨된 것 만)
 	$sql_C = "select count(sbabm_mb_id) as cnt from sb_application_member where 
-				(sbabm_mb_id='".$sb_id."' and sbabm_option5='Y') and sbabm_option4 is null";
+				sbabm_mb_id='".$sb_id."' and sbabm_option4=''";
 	$q = $conn->query($sql_C);
 	$vC = $q->fetch_assoc();
 	//우리동네 알림 가져오기
