@@ -1,4 +1,8 @@
 <?
+/*
+WindDesign Ryan
+Exp : 중복된 회원 찾기. 탈퇴회원도 중복으로 처리
+ */
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 
 $chk_id = $conn->real_escape_string($_REQUEST['chk_id']);

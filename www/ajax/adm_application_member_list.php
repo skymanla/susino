@@ -1,4 +1,9 @@
 <?
+/*
+WindDesign Ryan
+Exp : admin 에서 member list json 으로 뿌려주기
+json
+ */
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 
 $cur_page = (int)$_REQUEST['cur_page'];

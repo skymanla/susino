@@ -46,7 +46,8 @@ switch($_GET['aType']){
 $now_date = date('Y-m-d');
 switch($_GET['bType']){
 	case 'ing' :
-		$where[] = " ( date_format(sbab_sdate, 'Y-m-d') >= '".$now_date."' and date_format(sbab_edate, 'Y-m-d') >= '".$now_date."' )";
+		$where[] = ' "'.$now_date.'"  between date_format(sbab_sdate, "%Y-%m-%d") and date_format(sbab_edate, "%Y-%m-%d")';
+		//$where[] = " ( date_format(sbab_sdate, 'Y-m-d') >= '".$now_date."' and date_format(sbab_edate, 'Y-m-d') >= '".$now_date."' )";
 		$ing_chk = "active";
 		$qtr[] = 'bType='.$_GET['bType'];
 		break;

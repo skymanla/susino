@@ -1,4 +1,10 @@
 <?
+/*
+WindDesign Ryan
+Exp : 미스테리쇼퍼, 미식회, 체험단 이벤트 관리자 일괄 당첨 로직
+회원은 limit 제한이 걸려있으나 관리자는 개무시하고 그냥 당첨되게 한다
+json
+ */
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 //header("Content-Type:application/json");

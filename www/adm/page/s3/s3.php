@@ -35,7 +35,7 @@ switch($_GET['stx']){
 		$title_chk = "selected";
 		break;
 	case "dating" :
-		$where[] = " date_format(sbab_edate, '%Y-%m-%d') < '".$_GET['sval']."' ";
+		$where[] = ' "'.$_GET['sval'].'"  between date_format(sbab_sdate, "%Y-%m-%d") and date_format(sbab_edate, "%Y-%m-%d")';
 		$dating_chk = "selected";
 		break;
 	case "rdating" :

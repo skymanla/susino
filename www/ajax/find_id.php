@@ -1,4 +1,9 @@
 <?
+/*
+WindDesign Ryan
+Exp : find id
+json
+ */
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 
 header("Content-Type:application/json");
@@ -7,7 +12,7 @@ header("Content-Type:application/json");
 //var_dump($_REQUEST);
 $sb_name = $conn->real_escape_string($_REQUEST['sb_name']);
 $sb_email = $conn->real_escape_string($_REQUEST['sb_email']);
-$sql = "select count(*) as cnt from sb_member where sb_name='".$sb_name."' and sb_email='".$sb_email."'";
+$sql = "select count(*) as cnt from sb_member where sb_name='".$sb_name."' and sb_email='".$sb_email."' and sb_delete_flag is null";//삭제 및 탈퇴한 회원은 안뜨게
 
 $q = $conn->query($sql);
 $cnt = $q->fetch_assoc();

@@ -71,11 +71,11 @@ $q = $conn->query($sql);
 ?>
 
 <section class="section1">
-	<h3>함께갈레요 신청자</h3>
+	<h3>함께갈래요 신청자</h3>
 	<ul class="tab_type1">
 		<li><a href="s7.php">신청자 목록</a></li>
 		<li class="active"><a href="s7slist2.php">당첨자</a></li>
-		<li><a href="s7slist3.php">당첨자 확율관리</a></li>
+		<li><a href="s7slist3.php">당첨자 확률관리</a></li>
 	</ul>
 	
 	<div class="table_wrap1 no_line">

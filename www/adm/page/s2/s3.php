@@ -1,6 +1,8 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+
+
 $cur_page = (int)$_GET['cur_page'];
 if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
 
@@ -57,9 +59,6 @@ $mail_list_query = $conn->query($sql);
 
 $sql = "select * from sb_member_level where 1 order by sb_level_cate asc";
 $level_query = $conn->query($sql);
-
-$sql = "select * from sb_dongnae_set where 1 order by sb_dong_cate asc";
-$dong_query = $conn->query($sql);
 
 ?>
 <section class="section1">
@@ -128,7 +127,9 @@ $dong_query = $conn->query($sql);
 								case "직접입력":
 									$sender_list = explode(",",$mail_row['sb_email_send_lvl']);
 									$sender_count = count($sender_list);
-									echo $sender_list[0]."외 ".($sender_count-1)."명";
+									$sender_count = $sender_count-1;
+									echo $sender_list[0];
+									echo $sender_count==0 ? "" : "외 ".$sender_count."명";
 									break;
 								case "레벨설정":
 									foreach($level_query as $key=>$lvl_row){
@@ -138,11 +139,7 @@ $dong_query = $conn->query($sql);
 									}
 									break;
 								case "우리동네":
-									foreach($dong_query as $key=>$dong_row){
-										if($dong_row['sb_dong_cate']==$mail_row['sb_email_send_lvl']){
-											echo $mail_row['sb_email_send_mb']." : ".$dong_row['sb_dong_name'];
-										}
-									}
+									echo $mail_row[sb_email_send_lvl];
 									break;
 							}
 						?>
@@ -240,7 +237,7 @@ $dong_query = $conn->query($sql);
 	    	type : "POST",
 	    	//dataType : "json",
 	    	url : "/ajax/adm_delete_msg.php",
-	    	data : {'chk_data' : chk_data},
+	    	data : {'chk_data' : chk_data, 'chk_flag' : 'email'},
 	    	success : function(result){
 	    		alert("삭제되었습니다.");
 	    		location.reload();

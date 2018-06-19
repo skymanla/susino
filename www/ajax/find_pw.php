@@ -1,7 +1,8 @@
 <?
 /*
-password 찾기
-made by skymanla(Ryan)
+WindDesign Ryan
+Exp : find pwd
+json
  */
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 
@@ -10,7 +11,7 @@ header("Content-Type:application/json");
 
 $sb_find_id = $conn->real_escape_string($_REQUEST['sb_id']);
 $sb_email = $conn->real_escape_string($_REQUEST['sb_email']);
-$sql = "select count(*) as cnt from sb_member where sb_id='".$sb_find_id."' and sb_email='".$sb_email."'";
+$sql = "select count(*) as cnt from sb_member where sb_id='".$sb_find_id."' and sb_email='".$sb_email."' and sb_delete_flag is null";//삭제된 회원 및 탈퇴회원은 안뜨게
 $q = $conn->query($sql);
 $cnt = $q->fetch_assoc();
 

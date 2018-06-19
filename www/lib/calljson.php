@@ -1,8 +1,7 @@
 <?
 $host = $_SERVER['HTTP_HOST'];
 $oCurl = curl_init();
-$url =  "http://".$host."/lib/calljson.php";
-
+$url =  "https://sslsms.cafe24.com/smsSenderPhone.php";//callback url
 $aPostData['userId'] = "winddesign32sms"; // SMS 아이디
 $aPostData['passwd'] = "075cb0de4986c1a0664f1e4ecfe56bc2"; // 인증키
 curl_setopt($oCurl, CURLOPT_URL, $url);

@@ -1,4 +1,9 @@
 <?
+/*
+WindDesign Ryan
+Exp : board delete
+json
+ */
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 //header("Content-Type:application/json");

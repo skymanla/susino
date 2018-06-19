@@ -334,7 +334,7 @@ if($flag == 'customer'){
 			";
 	if($conn->query($query)){
 		$url = "/adm/page/s3/s7slist3.php";
-		echoAlert("당첨자 확율이 수정되었습니다.");
+		echoAlert("당첨자 확률이 수정되었습니다.");
 		echoMovePage($url);
 	}else{
 		die($query);

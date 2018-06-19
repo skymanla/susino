@@ -51,8 +51,8 @@ $lvl_result = $conn->query($sql);
 				<tr class="mail_target_tr tr3" style="display:none">
 					<th>받는이 우리동네</th>
 					<td>
-						<select name="" title="" class="w_input1">
-							<option value="" data-real-addr="all">전체</option>
+						<select name="s_sido" id="s_sido" title="" class="w_input1" onchange="findArea(this)">
+							<option value="A" data-real-addr="all">전체</option>
 							<option value="0" data-real-addr="서울">서울특별시</option>
 							<option value="1" data-real-addr="부산">부산광역시</option>
 							<option value="2" data-real-addr="대구">대구광역시</option>
@@ -71,10 +71,7 @@ $lvl_result = $conn->query($sql);
 							<option value="15" data-real-addr="경남">경상남도</option>
 							<option value="16" data-real-addr="제주특별자치도">제주특별자치도</option>
 						</select>
-						<div class="radio_box_wrap">
-							<div class="radio_box"><input type="radio" value="강서구" name="addr_sec" id="addr_sec0"><label for="addr_sec0">강서구 (<b>2</b>)</label></div>
-							<div class="radio_box"><input type="radio" value="남구" name="addr_sec" id="addr_sec1"><label for="addr_sec1">남구 (<b>1</b>)</label></div>
-							<div class="radio_box"><input type="radio" value="사하구" name="addr_sec" id="addr_sec2"><label for="addr_sec2">사하구 (<b>1</b>)</label></div>
+						<div class="radio_box_wrap" id="area_depth">
 						</div>
 					</td>
 				</tr>
@@ -127,6 +124,33 @@ $(function (){
 	marTarAc1(); //받는이 설정
 	mem_list(1, "", "");//ajax 
 });
+
+function findArea(Aval){
+	if(Aval.value == "A"){
+		$('#area_depth').empty();
+	}else{
+		$.ajax({
+			type : 'POST',
+			data : {'sb_sido' : Aval.value},
+			url : '/ajax/adm_ourArea.php',
+			dataType : 'json',
+			success : function(result){
+				var i = 0;
+				var data = "";
+				for(key in result){
+					if(i==0){
+						var chkVal = "checked";
+					}else{
+						var chkVal = "";
+					}
+					data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					i++;
+				}
+				$('#area_depth').html(data);
+			}
+		})
+	}
+}
 //mem_list
 function mem_list(pageNo, stx="", searchword=""){
 	var keyword = document.getElementById("stx");
@@ -193,13 +217,14 @@ function mail_submit(form){
 	}
 
 	if( $.trim($('#sb_email_title').val()) == "" ){
-		console.log("제목을 입력하세요.");
+		alert("제목을 입력하세요.");
+		$('#sb_email_title').focus();
 		return false;
 	}
 	oEditors.getById["sb_email_content"].exec("UPDATE_CONTENTS_FIELD", []);
 	form.sb_email_content.value = document.getElementById("sb_email_content").value;
 	if(!form.sb_email_content.value || form.sb_email_content.value=='<p>&nbsp;</p>'){
-		console.log('내용을 입력하세요!');
+		alert('내용을 입력하세요!');
 		form.sb_email_content.focus();
 		return;
 	}

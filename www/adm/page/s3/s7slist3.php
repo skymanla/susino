@@ -23,11 +23,11 @@ if($invite_length < 1 ){
 ?>
 
 <section class="section1">
-	<h3>함께갈레요 신청자</h3>
+	<h3>함께갈래요 신청자</h3>
 	<ul class="tab_type1">
 		<li><a href="s7.php">신청자 목록</a></li>
 		<li><a href="s7slist2.php">당첨자</a></li>
-		<li class="active"><a href="s7slist3.php">당첨자 확율관리</a></li>
+		<li class="active"><a href="s7slist3.php">당첨자 확률관리</a></li>
 	</ul>
 
 	<form name="inviteForm" name="inviteForm" method="post" onsubmit="inviteRate(this)">
@@ -42,7 +42,7 @@ if($invite_length < 1 ){
 				</colgroup>
 				<thead>
 					<tr>
-						<th colspan="4" class="txt_l">당첨자 확율관리</th>
+						<th colspan="4" class="txt_l">당첨자 확률관리</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,11 +54,11 @@ if($invite_length < 1 ){
 						</td>
 					</tr>
 					<tr>
-						<th>당첨자 확율</th>
+						<th>당첨자 확률</th>
 						<td>
 							<input type="text" class="w_input1" value="<?=$row[sbia_prize_rate1]?>" name="invite_rate1" id="invite_rate1" style="text-align:right;"/> / 
 							<input type="text" class="w_input1" value="<?=$row[sbia_prize_rate2]?>" name="invite_rate2" id="invite_rate2" />
-							<p style="padding-top:10px;">ex ) 1/100 , 100분에 1 확율로 당첨확율이 지정된다.</p>
+							<p style="padding-top:10px;">ex ) 1/100 , 100분에 1 확률로 당첨확률이 지정된다.</p>
 						</td>
 					</tr>
 					<tr>
@@ -158,6 +158,12 @@ function inviteRate(Frm){
 		return false;
 	}
 
+	if(Frm.invite_rate1.value > Frm.invite_rate2.value){
+		alert('분자가 분모보다 큽니다.');
+		Frm.invite_rate1.focus();
+		return false;	
+	}
+
 	//명수 및 상품명 일괄 확인
 	for(var i=1;i<=4;i++){
 		//당첨자 수
@@ -174,7 +180,7 @@ function inviteRate(Frm){
 		}
 	}
 
-	if(confirm("당첨자 확율을 등록하시겠습니까?\n수정한 내용으로 저장이 됩니다.")){
+	if(confirm("당첨자 확률을 등록하시겠습니까?\n수정한 내용으로 저장이 됩니다.")){
 		try {
 			Frm.action = '/lib/write_ok.php';
 			Frm.submit();

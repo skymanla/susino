@@ -1,4 +1,8 @@
 <?
+/*
+WindDesign Ryan skymanla
+관리자에서 회원 정보 수정
+ */
 session_start();
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 

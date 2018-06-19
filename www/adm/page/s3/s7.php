@@ -6,8 +6,48 @@ $tbl_info = " sb_invite_member a left join sb_member b on a.sbi_mb_id=b.sb_id ";
 $cur_page = (int)$_GET['cur_page'];
 if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
 
+$where = array();
+
+//검색 조건
+$dating_flag = true;
+switch($_GET['stx']){
+	case "mb_id" :
+		$where[] = " b.sb_id like '%".$_GET['sval']."%' ";
+		$id_chk = "selected";
+		$dating_flag = false;
+		break;
+	case "mb_name" :
+		$where[] = " b.sb_name like '%".$_GET['sval']."%' ";
+		$name_chk = "selected";
+		$dating_flag = false;
+		break;
+	case "mb_phone":
+		$where[] = " b.sb_phone like '%".$_GET['sval']."%' ";
+		$phone_chk = "selected";
+		$dating_flag = false;
+		break;
+	case "mb_email":
+		$where[] = " b.sb_email like '%".$_GET['sval']."%' ";
+		$email_chk = "selected";
+		$dating_flag = false;
+		break;
+	case "dating" :
+		$where[] = " date_format(a.sbi_adate, '%Y-%m-%d') = '".$_GET['sval']."' ";
+		$dating_chk = "selected";
+		break;
+	default :
+		$where[] = ' 1 ';
+		break;
+}
+
+if(!empty($where)){
+	$whereis = ' and '.implode(' and ', $where);
+}else{
+	$whereis = '  ';
+}
+
 //개수
-$count = "SELECT COUNT(a.sbi_idx) as cnt FROM $tbl_info ".$whereis;
+$count = "SELECT COUNT(a.sbi_idx) as cnt FROM $tbl_info where 1=1 ".$whereis;
 $count_result = $conn->query($count);
 $row = $count_result->fetch_assoc();
 $cnt = $row['cnt'];
@@ -25,16 +65,16 @@ $sql = "select
 		a.sbi_idx, a.sbi_cate, a.sbi_option,  a.sbi_option2, a.sbi_option3, a.sbi_option4, a.sbi_option5, date_format(a.sbi_rdate, '%Y-%m-%d') as sbi_rdate, date_format(a.sbi_adate, '%Y-%m-%d') as sbi_adate,
 		b.sb_idx, b.sb_id, b.sb_name, (select sb_level_title from sb_member_level where  sb_level_cate=b.sb_mem_level) as sb_level_title, b.sb_phone, 
 		b.sb_email
-		from $tbl_info $whereis order by sbi_idx desc LIMIT $limit_num OFFSET $show_offset_num";
+		from $tbl_info where 1=1 $whereis order by sbi_idx desc LIMIT $limit_num OFFSET $show_offset_num";
 $q = $conn->query($sql);
 ?>
 
 <section class="section1">
-	<h3>함께갈레요 신청자</h3>
+	<h3>함께갈래요 신청자</h3>
 	<ul class="tab_type1">
 		<li class="active"><a href="s7.php">신청자 목록</a></li>
 		<li><a href="s7slist2.php">당첨자</a></li>
-		<li><a href="s7slist3.php">당첨자 확율관리</a></li>
+		<li><a href="s7slist3.php">당첨자 확률관리</a></li>
 	</ul>
 	<div class="table_wrap1 no_line">
 		<table>
@@ -47,16 +87,18 @@ $q = $conn->query($sql);
 				<tr>
 					<th>검색필터</th>
 					<td>
-						<select name="" title="" class="w_input1">
-							<option value="">추천등록일</option>
-							<option value="">아이디</option>
-							<option value="">이름</option>
-							<option value="">코드</option>
-							<option value="">핸드폰</option>
-							<option value="">이메일</option>
-						</select>
-						<input type="text" class="w_input1" value="" name="" style="width:180px">
-						<button type="button" class="bt_s1 input_sel">검색</button>
+						<form name="searchFrm" id="searchFrm" method="get">
+							<select name="stx" id="stx" title="" class="w_input1" onchange="sFrmval(this);">
+								<option value="dating" <?=$dating_chk?> >추천등록일</option>
+								<option value="mb_id" <?=$id_chk?> >아이디</option>
+								<option value="mb_name" <?=$name_chk?> >이름</option>
+								<option value="mb_code" <?=$code_chk?> >코드</option>
+								<option value="mb_phone" <?=$phone_chk?> >핸드폰</option>
+								<option value="mb_email" <?=$email_chk?> >이메일</option>
+							</select>
+							<input type="text" class="w_input1" value="<?=$_GET['sval']?>" name="sval" style="width:180px">
+							<button type="button" class="bt_s1 input_sel" onclick="document.searchFrm.submit()">검색</button>
+						</form>
 					</td>
 				</tr>
 			</tbody>
@@ -149,7 +191,30 @@ $q = $conn->query($sql);
 	</nav>
 
 </section>
+<script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
+<script>
+$(function(){
+	<? if($dating_flag == true){ ?>
+	$('#stx option[value="dating"]').attr('selected', 'selected');
+	//console.log($('input[name=s_sido'));
+	sFrmval($('#stx')[0]);
+	<? } ?>
+});
+function sFrmval(getVal){
+	var Pt = getVal.parentNode.getElementsByClassName('w_input1');
+	console.log(getVal.value);
 
+	if(getVal.value == "dating" || getVal.value == "rdating"){
+		Pt[1].setAttribute('id', 'inp_date');
+		$('#inp_date').datepicker({
+			dateFormat: 'yy-mm-dd'
+		});
+	}else{
+		$('#inp_date').datepicker("destroy");
+		Pt[1].removeAttribute('id');
+	}
+}
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
 ?>

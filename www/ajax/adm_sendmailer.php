@@ -1,4 +1,8 @@
 <?
+/*
+WindDesign Ryan
+Exp : send Email
+ */
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 
@@ -31,7 +35,7 @@ $header.= "From: sbchef <sbchef@naver.com> \r\n";
 $header.="Content-Transfer-Encoding: 8bit\n"; // 헤더 설정
 
 switch($mail_target){
-	case "manual":
+	case "manual"://직접입력
 		$sb_email_send_lvl = $_POST['sb_sender_email'];
 		$sb_sender = explode(",", $sb_email_send_lvl);
 		$sb_sender = array_values(array_filter(array_map('trim',$sb_sender)));
@@ -53,7 +57,7 @@ switch($mail_target){
 		$up_sql = "update ".$tbl_mail_list." set sb_email_send_date=now() where sb_idx='".$sb_idx."'";
 		$conn->query($up_sql);
 		break;
-	case "lvl_setting":
+	case "lvl_setting"://레벨설정
 		$sb_email_send_lvl = $conn->real_escape_string($_POST['sb_mb_lvl']);
 		$sb_email_send_mb = "레벨설정";
 		$sql = "insert into ".$tbl_mail_list."
@@ -71,16 +75,20 @@ switch($mail_target){
 		$up_sql = "update ".$tbl_mail_list." set sb_email_send_date=now() where sb_idx='".$sb_idx."'";
 		$conn->query($up_sql);
 		break;
-	case "dong_setting":
-		$sb_email_send_lvl = $conn->real_escape_string($_POST['sb_locate']);
+	case "dong_setting"://우리동네
+		//우리동네
+		$sb_sido = $conn->real_escape_string($_POST[s_sido]);
+		$sb_addr_sec = $conn->real_escape_string($_POST[addr_sec]);
+		include_once('./register_our_area.php');
+
 		$sb_email_send_mb = "우리동네";
 		$sql = "insert into ".$tbl_mail_list."
 		(sb_idx, sbe_idx, sb_email_title, sb_email_content, sb_email_send_lvl, sb_email_send_mb, sb_email_w_date)
 		values
-		('$sb_idx', '$sb_idx', '$sb_email_title', '$sb_email_content', '$sb_email_send_lvl', '$sb_email_send_mb', now())
+		('$sb_idx', '$sb_idx', '$sb_email_title', '$sb_email_content', '$sb_our_area', '$sb_email_send_mb', now())
 		";
 		if($conn->query($sql)){
-			$sql = "select sb_email from sb_member where sb_dongnae='".$sb_email_send_lvl."'";
+			$sql = "select sb_email from sb_member where sb_dongnae='".$sb_our_area."'";
 			$query = $conn->query($sql);
 			foreach($query as $key => $sb_sender){
 				mail($sb_sender['sb_email'],$sb_email_title,$sb_email_content_v1,$header);

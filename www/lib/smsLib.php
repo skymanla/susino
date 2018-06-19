@@ -1,30 +1,30 @@
 <?
-print_r($_POST);
-exit;
 /******************** 인증정보 ********************/
-$sms_url = $host."/adm_sendsms.php";
-//$sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // 전송요청 URL
-// $sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // HTTPS 전송요청 URL
+//$sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // 전송요청 URL(callback)
+$sms_url = "https://sslsms.cafe24.com/sms_sender.php"; // HTTPS 전송요청 URL
 $sms['user_id'] = base64_encode("winddesign32sms"); //SMS 아이디.
 $sms['secure'] = base64_encode("075cb0de4986c1a0664f1e4ecfe56bc2") ;//인증키
-$sms['msg'] = base64_encode(stripslashes($_POST['sb_email_content']));
+$sms['msg'] = base64_encode($sb_sms_content_v1);
 if( $_POST['smsType'] == "L"){
-	$sms['subject'] =  base64_encode($_POST['sb_email_title']);
+	$sms['subject'] =  base64_encode($_POST['sb_sms_title']);
 }
-$sms['rphone'] = base64_encode($_POST['rphone']);//받는이 전화번호
+$sms['rphone'] = base64_encode($rphone);//받는이 전화번호
+//$sms['rphone'] = base64_encode($_POST['rphone']);//받는이 전화번호
 $sms['sphone1'] = base64_encode($_POST['sphone1']);//보내는 사람 전화번호 
 $sms['sphone2'] = base64_encode($_POST['sphone2']);//보내는 사람 전화번호
 $sms['sphone3'] = base64_encode($_POST['sphone3']);//보내는 사람 전화번호
-$sms['rdate'] = base64_encode($_POST['rdate']);
-$sms['rtime'] = base64_encode($_POST['rtime']);
+$sms['rdate'] = base64_encode($_POST['rdate']);//예약날짜
+$sms['rtime'] = base64_encode($_POST['rtime']);//예약시간
 $sms['mode'] = base64_encode("1"); // base64 사용시 반드시 모드값을 1로 주셔야 합니다.
-$sms['returnurl'] = base64_encode($_POST['returnurl']);
+//$sms['returnurl'] = base64_encode($_POST['returnurl']);//$returnurl
+$sms['returnurl'] = base64_encode($returnurl);//$returnurl
+//$sms['testflag'] = base64_encode('Y');//test mode
 $sms['testflag'] = base64_encode($_POST['testflag']);
 $sms['destination'] = strtr(base64_encode($POST['destination']), '+/=', '-,');
-$returnurl = $_POST['returnurl'];
-$sms['repeatFlag'] = base64_encode($_POST['repeatFlag']);
-$sms['repeatNum'] = base64_encode($_POST['repeatNum']);
-$sms['repeatTime'] = base64_encode($_POST['repeatTime']);
+//$returnurl = $_POST['returnurl'];
+$sms['repeatFlag'] = base64_encode($_POST['repeatFlag']);//반복설정
+$sms['repeatNum'] = base64_encode($_POST['repeatNum']);//반복회수
+$sms['repeatTime'] = base64_encode($_POST['repeatTime']);//반복 시간
 $sms['smsType'] = base64_encode($_POST['smsType']); // LMS일경우 L
 $nointeractive = $_POST['nointeractive']; //사용할 경우 : 1, 성공시 대화상자(alert)를 생략
 
@@ -93,5 +93,5 @@ if($nointeractive=="1" && ($Result!="success" && $Result!="Test Success!" && $Re
 }else if($nointeractive!="1") {
 	echo "<script>alert('".$alert ."')</script>";
 }
-echo "<script>location.href='".$returnurl."';</script>";
+//echo "<script>location.href='".$returnurl."';</script>";
 ?>

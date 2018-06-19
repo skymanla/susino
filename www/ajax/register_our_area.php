@@ -1,4 +1,7 @@
 <?
+/*
+우리동네 값 축출을 위한 API
+ */
 switch($sb_sido){
 	case '0':
 		$sb_sido = "서울";

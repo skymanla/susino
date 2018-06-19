@@ -18,9 +18,6 @@ $sql = "select * from sb_member_level where sb_level_cate='".$row['sb_email_send
 $query = $conn->query($sql);
 $lvl_cate = $query->fetch_assoc();
 
-$sql = "select * from sb_dongnae_set where sb_dong_cate='".$row['sb_email_send_lvl']."'";
-$query = $conn->query($sql);
-$dong_cate = $query->fetch_assoc();
 ?>
 <section class="section1">
 	<h3>회원 E-mail 관리</h3>
@@ -54,7 +51,7 @@ $dong_cate = $query->fetch_assoc();
 									echo $row['sb_email_send_mb']." : ".$lvl_cate['sb_level_title'];
 									break;
 								case "우리동네":
-									echo $row['sb_email_send_mb']." : ".$dong_cate['sb_dong_name'];
+									echo $row['sb_email_send_mb']." : ".$row['sb_email_send_lvl'];
 									break;
 							}
 						?>

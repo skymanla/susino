@@ -190,6 +190,7 @@ function findArea(Aval){
 			url : '/ajax/adm_ourArea.php',
 			dataType : 'json',
 			success : function(result){
+				console.log(result);
 				var i = 0;
 				var data = "";
 				for(key in result){

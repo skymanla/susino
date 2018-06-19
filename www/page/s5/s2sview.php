@@ -13,8 +13,9 @@ if($_SESSION['login_chk'] != 99){
 	echoMovePage($url);
 }
 $mb_id = $_SESSION['sb_id'];
+$tbl_info = "sb_application_board";
 //등록 게시물 가져오기
-$sql = "select a.*, b.* from sb_application_board a left join sb_application_member b on a.sbab_idx=b.sbabm_fidx where a.sbab_idx='".$_GET['idx']."' and a.sbab_cate='".$_GET['aType']."'";
+$sql = "select a.*, b.* from $tbl_info a left join sb_application_member b on a.sbab_idx=b.sbabm_fidx where a.sbab_idx='".$_GET['idx']."' and a.sbab_cate='".$_GET['aType']."'";
 $q = $conn->query($sql);
 $row = $q->fetch_assoc();
 if(empty($row)){
@@ -22,6 +23,10 @@ if(empty($row)){
 	echoAlert("잘못된 접근입니다.");
 	echoMovePage($url);	
 }
+
+//hitup
+$sql = "update $tbl_info set sbab_hit=sbab_hit+1 where sbab_idx='".$_GET[idx]."' and sbab_cate='".$_GET[aType]."'";
+$conn->query($sql);
 ?>
 
 <div class="wrap_style1">

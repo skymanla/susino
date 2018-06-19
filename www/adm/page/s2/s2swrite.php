@@ -9,70 +9,67 @@ $lvl_result = $conn->query($sql);
 $(function(){
 	loadJSON();
 })
-            function setPhoneNumber(val){
-                var numList = val.split("-");
-                document.smsForm.sphone1.value=numList[0];
-                document.smsForm.sphone2.value=numList[1];
-                if(numList[2] != undefined){
-                    document.smsForm.sphone3.value=numList[2];
-                }
-            }
-            function loadJSON(){
-                var data_file = "/lib/calljson.php";
-                var http_request = new XMLHttpRequest();
-                try{
-                    // Opera 8.0+, Firefox, Chrome, Safari
-                    http_request = new XMLHttpRequest();
-                }catch (e){
-                    // Internet Explorer Browsers
-                    try{
-                        http_request = new ActiveXObject("Msxml2.XMLHTTP");
+function setPhoneNumber(val){
+	var numList = val.split("-");
+	document.mailFrm.sphone1.value=numList[0];
+	document.mailFrm.sphone2.value=numList[1];
+	if(numList[2] != undefined){
+		document.mailFrm.sphone3.value=numList[2];
+	}
+}
+function loadJSON(){
+	var data_file = "/lib/calljson.php";
+	var http_request = new XMLHttpRequest();
+	try{
+		// Opera 8.0+, Firefox, Chrome, Safari
+		http_request = new XMLHttpRequest();
+	}catch (e){
+		// Internet Explorer Browsers
+		try{
+			http_request = new ActiveXObject("Msxml2.XMLHTTP");
+		}catch (e) {
+			try{
+				http_request = new ActiveXObject("Microsoft.XMLHTTP");
+			}catch (e){
+				// Eror
+				alert("지원하지 않는브라우저!");
+				return false;
+			}
 
-                    }catch (e) {
+		}
+	}
+                
+	http_request.onreadystatechange = function(){
+		if (http_request.readyState == 4  ){
+			// Javascript function JSON.parse to parse JSON data
+			var jsonObj = JSON.parse(http_request.responseText);
+			if(jsonObj['result'] == "Success"){
+				var aList = jsonObj['list'];
+				var selectHtml = "<select name=\"sendPhone\" onchange=\"setPhoneNumber(this.value)\">";
+				selectHtml += "<option value='' selected>발신번호를 선택해주세요</option>";
+				for(var i=0; i < aList.length; i++){
+					selectHtml += "<option value=\"" + aList[i] + "\">";
+					selectHtml += aList[i];
+					selectHtml += "</option>";
+				}
+				selectHtml += "</select>";
+				document.getElementById("sendPhoneList").innerHTML = selectHtml;
+			}
+		}
+	}
 
-                        try{
-                            http_request = new ActiveXObject("Microsoft.XMLHTTP");
-                        }catch (e){
-                            // Eror
-                            alert("지원하지 않는브라우저!");
-                            return false;
-                        }
-
-                    }
-                }
-                console.log(http_request);
-                return false;
-                http_request.onreadystatechange = function(){
-                    if (http_request.readyState == 4  ){
-                        // Javascript function JSON.parse to parse JSON data
-                        var jsonObj = JSON.parse(http_request.responseText);
-                        console.log(jsonObj);
-                        if(jsonObj['result'] == "Success"){
-                            var aList = jsonObj['list'];
-                            var selectHtml = "<select name=\"sendPhone\" onchange=\"setPhoneNumber(this.value)\">";
-                            selectHtml += "<option value='' selected>발신번호를 선택해주세요</option>";
-                            for(var i=0; i < aList.length; i++){
-                                selectHtml += "<option value=\"" + aList[i] + "\">";
-                                selectHtml += aList[i];
-                                selectHtml += "</option>";
-                            }
-                            selectHtml += "</select>";
-                            document.getElementById("sendPhoneList").innerHTML = selectHtml;
-                        }
-                    }
-                }
-
-                http_request.open("GET", data_file, true);
-                http_request.send();
-            }
-
-        </script>
+	http_request.open("GET", data_file, true);
+	http_request.send();
+}
+</script>
 <section class="section1">
 	<h3>회원 SMS 관리</h3>
 	<form name="mailFrm" id="mailFrm" enctype="multipart/form-data" onsubmit="return mail_submit(mailFrm);">
-	<input type="hidden" name="sphone1" value="010">
-	<input type="hidden" name="sphone2" value="2517">
-	<input type="hidden" name="sphone3" value="4882">
+	<input type="hidden" name="returnurl" id="returnurl" value="" />
+	<input type="hidden" name="sphone1" id="sphone1" value="" />
+	<input type="hidden" name="sphone2" id="sphone2" value="" />
+	<input type="hidden" name="sphone3" id="sphone3" value="" />
+	<input type="hidden" name="smsType" id="smsType" value="S" />
 	<div class="table_wrap1">
 		<table>
 			<caption>SMS 작성</caption>
@@ -141,17 +138,20 @@ $(function(){
 				</tr>
 				<tr>
 					<th>제목</th>
-					<td><input type="text" class="w_input1" value="" id="sb_email_title" name="sb_email_title" style="width:100%" /></td>
+					<td><input type="text" class="w_input1" value="" id="sb_sms_title" name="sb_sms_title" style="width:100%" /></td>
 				</tr>
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea class="w_input1" id="sb_email_content" name="sb_email_content" style="height:200px;"></textarea>
+						<textarea class="w_input1" id="sb_sms_content" name="sb_sms_content" style="height:200px;"></textarea>
 					</td>
 				</tr>
 				<tr>
 					<th>보내는 번호</th>
-					<td><span id="sendPhoneList"></span></td>
+					<td>
+						<span id="sendPhoneList"></span>
+						<em>발신번호는 꼭 선택해 주세요. 발신번호는 cafe24에서 <span style="color:red">나의 서비스 관리 -> 발신번호 관리</span>에서 등록이 가능합니다.</em>
+					</td>
 				</tr>
 			</tbody>
 		</table>
@@ -159,7 +159,7 @@ $(function(){
 
 	<div class="bt_wrap2">
 		<a href="s2.php" class="bt_2">취소</a>
-		<a href="javascript:mail_submit(mailFrm);" class="bt_1" >E-mail 발송</a>
+		<a href="javascript:mail_submit(mailFrm);" class="bt_1" >SMS 발송</a>
 	</div>
 
 	<h3>회원목록</h3>
@@ -169,10 +169,36 @@ $(function(){
 </section>
 
 <script type="text/javascript">
+var chk_sms_length = false;
+var chk_sms_length_submit = true;
 //<![CDATA[
+
 $(function (){
 	marTarAc1(); //받는이 설정
-	mem_list(1, "", "");//ajax 
+	mem_list(1, "", "");//ajax
+	$('#sb_sms_content').on("blur", function(){
+		var str = $(this).val();
+		var pattern = /[\u0000-\u007f]|([\u0080-\u07ff]|(.))/g;//unicode
+		console.log(str.replace(pattern, "$&$1$2").length);
+		if(str.replace(pattern, "$&$1$2").length > 90){
+			$('input[name=smsType]').val('L');
+			chk_sms_length = true;
+			chk_sms_length_submit = true;
+			if(chk_sms_length == false){
+				//alert("90byte가 넘어가서 LMS로 변환됩니다.\nLMS는 2,000byte까지 전송가능하며, 1회당 3건이 차감됩니다.");
+			}
+		}else{
+			$('input[name=smsType]').val('S');
+			chk_sms_length == false;
+			chk_sms_length_submit = true;
+			//alert("90byte 이하여서 SMS로 변환됩니다.\nSMS는 90byte까지 전송가능하며, 1회당 1건이 차감됩니다.");
+		}
+
+		if(str.replace(pattern, "$&$1$2").length > 2000){
+			alert("2,000byte까지만 가능합니다.\n내용을 줄여주시기 바랍니다.");
+			chk_sms_length_submit = false;
+		}
+	});
 });
 function findArea(Aval){
 	if(Aval.value == "A"){
@@ -265,18 +291,36 @@ function mail_submit(form){
 		}
 	}
 
-	if( $.trim($('#sb_email_title').val()) == "" ){
-		console.log("제목을 입력하세요.");
+	if( $.trim($('#sb_sms_title').val()) == "" ){
+		alert("제목을 입력하세요.");
 		return false;
-	}	
-	form.sb_email_content.value = document.getElementById("sb_email_content").value;
-	if(!form.sb_email_content.value || form.sb_email_content.value=='<p>&nbsp;</p>'){
-		console.log('내용을 입력하세요!');
-		form.sb_email_content.focus();
-		return;
 	}
 	
-	if(confirm("해당 내용으로 메일을 전송하시겠습니까?")){
+	form.sb_sms_content.value = document.getElementById("sb_sms_content").value;
+	if(!form.sb_sms_content.value || form.sb_sms_content.value=='<p>&nbsp;</p>'){
+		alert('내용을 입력하세요!');
+		form.sb_sms_content.focus();
+		return;
+	}
+	// /<embed src="http://winddesign32.cafe24.com/data/editor/editor_1529381880">
+	//console.log($('.se2_inputarea').find('img').val());
+	//return false;
+	/*if(form.sb_sms_content.value.indexOf('embed') > -1 || form.sb_sms_content.value.indexOf('img') > -1){
+		$('input[name=smsType]').val('M');
+	}else{
+		$('input[name=smsType]').val('S');
+	}*/
+	
+	if(form.sendPhone.value == ""){
+		alert("발신번호를 선택해 주세요.");
+		return false;
+	}
+
+	if(chk_sms_length_submit == false){
+		alert("2,000byte까지만 가능합니다.\n내용을 줄여주시기 바랍니다.");
+		return false;
+	}
+	if(confirm("해당 내용으로 문자를 전송하시겠습니까?")){
 		form.method="post";
 		form.action="/ajax/adm_sendsms.php";
 		form.submit();

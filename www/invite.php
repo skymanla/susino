@@ -45,6 +45,10 @@ $(function(){
 		//alert('홍길동님과 함께갈래요 참여가 완료되었습니다.');
 		//location.href = '/';
 	});
+
+	$('.invite_cencle').on('click', function(){
+		location.href = '/';
+	});
 });
 
 function invite_member(idx, id, getName, getType=""){
@@ -53,9 +57,6 @@ function invite_member(idx, id, getName, getType=""){
 		url : "/ajax/invite_member.php",
 		data : { "midx" : idx, "mid" : id, "mname" : getName, "getType" : <?=$_GET[type]?>},
 		success : function(result){
-			console.log(result);
-			return false;
-
 			if(result == "99"){
 				alert("본인이 신청할 수 없습니다.");
 				location.href = '/';
