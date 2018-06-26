@@ -19,6 +19,7 @@ if(isset($w_sub_name[3])){
 			switch($w_b_num){
 				case "1" : $w_s_title_2="고객의 소리"; break;
 				case "2" : $w_s_title_2="일성 창업상담"; break;
+				case "3" : $w_s_title_2="일성 오너쉐프제도"; break;
 			}
 		break;
 		case "s2" : 

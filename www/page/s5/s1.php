@@ -33,7 +33,9 @@
 		<div class="w_btn">
 			<div>
 				<a href="/page/member/register_form_modify.php" class="bt_code2">회원정보변경</a>
+				<?php if(!$sb_id){?>
 				<a href="javascript:mv_login('<?=$sb_id?>');" class="bt_code3">로그인하기</a>
+				<?}?>
 			</div>
 		</div>
 	</div>

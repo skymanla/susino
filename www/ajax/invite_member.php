@@ -2,6 +2,8 @@
 /*
 WindDesign Ryan
 Exp : 함께갈래요 당첨 로직
+table : sb_invite_member
+옵션에 관한 필드가 sb_option{x}, 저장 내용을 추가하는 경우 저 칼럼을 추가하는 식으로
  */
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/Invite_Function.php";

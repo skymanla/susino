@@ -11,7 +11,7 @@ include_once "inc/page.php";
 	<link rel="shortcut icon" type="image/x-icon" href="/m/img/favicon/favicon1.ico" />
 	<link rel="stylesheet" type="text/css" href="/m/css/reset.css" />
 	<link rel="stylesheet" type="text/css" href="/m/css/layout.css" />
-	<link rel="stylesheet" type="text/css" href="/m/css/main.css" />
+	<link rel="stylesheet" type="text/css" href="/m/css/sub.css" />
 	<script type="text/javascript" src="/m/js/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 	//<![CDATA[
@@ -23,11 +23,5 @@ include_once "inc/page.php";
 </head>
 <body>
 <div id="wrap">
-	<a href="/m">메인</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
-	<?php echo $w_s_title_1.' >> '.$w_s_title_2;?>
+	<?php include_once "inc/header.php";?>
+	<div id="contents">

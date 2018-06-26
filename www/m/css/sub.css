@@ -1,1 +1,34 @@
 @charset "utf-8";
+#contents{padding-top:40px;}
+/*  wrap style */
+.wrap_conts{padding:50px 10px 15px;background-color:#f5f4f0;}
+
+/* heading style */
+.hd_s1{padding-bottom:30px;}
+.hd_s1 h2{position:relative;text-align:center;}
+.hd_s1 h2 img{width:100px;height:auto;}
+
+/* board */
+.list_s1{}
+.list_s1 > li{margin-top:5px;}
+.list_s1 > li:first-child{margin-top:0;}
+.list_s1 > li > a{position:relative;display:block;background-color:#fff;width:100%;padding:18px 38px 18px 50px;}
+.list_s1 > li > a:after{content:'';position:absolute;top:50%;right:17px;margin-top:-2px;width:7px;height:4px;background-size:100%;background-image:url("/m/img/common/bt_gnb_onoff.png");background-position:0 0;background-repeat:no-repeat;background-position-x:0;background-position-y:-9px;}
+.list_s1 > li.active > a:after{background-position-y:0;}
+.list_s1 > li > a .t_num{position:absolute;top:50%;left:10px;font-size:13px;color:#888;text-align:center;-ms-transform: translate(0, -50%);-webkit-transform: translate(0, -50%);transform: translate(0, -50%);}
+.list_s1 > li > a > h3{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding-bottom:3px;font-size:14px;color:#444;}
+.list_s1 > li > a > span{font-size:12px;color:#888;}
+.list_s1 > li .q_answer{display:none;padding:0 20px 20px;background-color:#fff;}
+.list_s1 > li .q_answer p{padding-top:20px;border-top:1px solid #d7d7d7;}
+
+/* paging */
+.paging{margin-top:10px;}
+.paging{overflow:hidden;text-align:center;}
+.paging  > a{position:relative;display:block;width:90px;padding:10px;background-color:#fff;border:1px solid #c4c4c4;font-size:12px;font-weight:500;color:#888;-moz-border-radius:3px;-webkit-border-radius:3px;	border-radius:3px;}
+.paging  > a:after{content:'';position:absolute;top:50%;margin-top:-2px;width:7px;height:4px;background-size:100%;background-image:url("/m/img/common/bt_gnb_onoff.png");background-position:0 0;background-repeat:no-repeat;background-position-x:0;background-position-y:-9px;}
+.paging  > a.bt_off{color:#c4c4c4;}
+.paging .bt_prev{float:left;}
+.paging .bt_prev:after{left:9px;-ms-transform: rotate(90deg);-webkit-transform: rotate(90deg);transform: rotate(90deg);}
+.paging .bt_next{float:right;}
+.paging .bt_next:after{right:9px;-ms-transform: rotate(-90deg);-webkit-transform: rotate(-90deg);transform: rotate(-90deg);}
+.paging > span{display:inline-block;padding:10px 0;vertical-align:middle;}

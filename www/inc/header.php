@@ -87,12 +87,9 @@
 			<a href="/page/s4/s1.php"><i></i><img src="/img/common/gnb4.png" alt="배달 초밥" /></a>
 			<ul>
 				<li <?php if($w_a_num===3 && $w_b_num===0){?>class="active"<?php }?>><a href="/page/s4/s1.php"><img src="/img/nav/gnb_s4_01.png" alt="편의점엔 없는 초밥 도시락" /></a></li>
-				<li <?php if($w_a_num===3 && $w_b_num===1){?>class="active"<?php }?>><a href="/page/s4/s2.php"><img src="/img/nav/gnb_s4_02.png" alt="한상 라인" /></a></li>
-				<li <?php if($w_a_num===3 && $w_b_num===2){?>class="active"<?php }?>><a href="/page/s4/s3.php"><img src="/img/nav/gnb_s4_03.png" alt="하프라인" /></a></li>
-				<li <?php if($w_a_num===3 && $w_b_num===3){?>class="active"<?php }?>><a href="/page/s4/s4.php"><img src="/img/nav/gnb_s4_04.png" alt="혼밥혼밥라인" /></a></li>
-				<li <?php if($w_a_num===3 && $w_b_num===4){?>class="active"<?php }?>><a href="/page/s4/s5.php"><img src="/img/nav/gnb_s4_05.png" alt="홈파티라인" /></a></li>
-				<li <?php if($w_a_num===3 && $w_b_num===5){?>class="active"<?php }?>><a href="/page/s4/s6.php"><img src="/img/nav/gnb_s4_06.png" alt="돈가츠/롤" /></a></li>
-				<li <?php if($w_a_num===3 && $w_b_num===7){?>class="active"<?php }?>><a href="/page/s4/s8.php"><img src="/img/nav/gnb_s4_07.png" alt="배달 초밥집 찾기" /></a></li>
+				<li <?php if($w_a_num===3 && $w_b_num===1){?>class="active"<?php }?>><a href="/page/s4/s2.php"><img src="/img/nav/gnb_s4_02.png" alt="배달 초밥 한눈에 보기" /></a></li>
+				<li <?php if($w_a_num===3 && $w_b_num===2){?>class="active"<?php }?>><a href="/page/s4/s3.php"><img src="/img/nav/gnb_s4_03.png" alt="라이브 픽업" /></a></li>
+				<li <?php if($w_a_num===3 && $w_b_num===3){?>class="active"<?php }?>><a href="/page/s4/s4.php"><img src="/img/nav/gnb_s4_04.png" alt="배달 초밥집 찾기" /></a></li>
 			</ul>
 		</li>
 		<li <?php if($w_a_num===4){?>class="active"<?php }?>>

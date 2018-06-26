@@ -257,7 +257,7 @@
 							<tr>
 								<td>
 									<div class="title1">결제 시 여러 프로모션에 대해 안내를 받으셨나요? </div>
-									<input type="text" class="" value="" name="" placeholder="" style="width:100%;" />
+									<input type="text" class="" value="" name="c8c8" placeholder="" style="width:100%;" />
 								</td>
 							</tr>
 							<tr>
@@ -421,6 +421,20 @@
 <script type="text/javascript">
 //<![CDATA[
 $(function(){
+
+	$('.bt_s1_red').on('click',function(){
+		$('[type="text"]').each(function (){
+			if(!$(this).val()){
+				var _Tindex = $(this).parents('.w_table1_wrap').parent().index()
+				$('#review_section_tab_ac1 a').eq(_Tindex).addClass('active').siblings().removeClass('active');
+				$('#review_section_ac1 > div').eq(_Tindex).addClass('active').siblings().removeClass('active');
+				$(this).focus();
+				return false;
+			}
+		});
+	});
+
+
 	$('.setdate').datepicker({
 		dateFormat: 'yy-mm-dd'
 	});

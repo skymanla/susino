@@ -44,7 +44,7 @@ include_once "inc/page.php";
 					특별한 고객 참여 시스템입니다.
 				</p>
 				<div class="bt_wrap_center">
-					<a href="javascript:void(0);" class="bt_1s">특별한 멤버쉽을 준비중입니다.</a>
+					<a href="javascript:void(0);" class="bt_1s bt_c_border">특별한 멤버쉽을 준비중입니다.</a>
 				</div>
 			</div>
 		</div>

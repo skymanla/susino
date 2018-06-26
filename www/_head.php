@@ -34,7 +34,7 @@ include_once "inc/page.php";
 <div id="wrap">
 	<?php include_once "inc/header.php";?>
 	<?php 
-		if( ($w_a_num===5 && ($w_b_num===0)) || ($w_a_num===0 &&  ( $w_b_num===0 || ($w_b_num===2 || isset($w_c_num)) )) || ($w_a_num===2 && ( $w_b_num===1 || $w_b_num===2 || $w_b_num===3 )) || $w_s_title_1 == 'invite'){
+		if( ($w_a_num===5 && ($w_b_num===0 || $w_b_num===2)) || ($w_a_num===0 &&  ( $w_b_num===0 || ($w_b_num===2 || isset($w_c_num)) )) || ($w_a_num===2 && ( $w_b_num===1 || $w_b_num===2 || $w_b_num===3 )) || $w_s_title_1 == 'invite'){
 			$full_con = true;
 		} else {
 			$full_con = false;

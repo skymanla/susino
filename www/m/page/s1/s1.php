@@ -1,4 +1,41 @@
 <?php include_once "../../_head.php";?>
+	<a href="/m">메인</a><br />
+	<a href="/m/page/s1/s1.php">11</a><br />
+	<a href="/m/page/s1/s2.php">12</a><br />
+	<a href="/m/page/s2/s1.php">21</a><br />
+	<a href="/m/page/s3/s1.php">31</a><br />
+	<a href="/m/page/s5/s1.php">51</a><br />
+	<a href="/m/page/s6/s1.php">61</a><br />
+	<a href="/m/page/s1/s1.php">11</a><br />
+	<a href="/m/page/s1/s2.php">12</a><br />
+	<a href="/m/page/s2/s1.php">21</a><br />
+	<a href="/m/page/s3/s1.php">31</a><br />
+	<a href="/m/page/s5/s1.php">51</a><br />
+	<a href="/m/page/s6/s1.php">61</a><br />
+	<a href="/m/page/s1/s1.php">11</a><br />
+	<a href="/m/page/s1/s2.php">12</a><br />
+	<a href="/m/page/s2/s1.php">21</a><br />
+	<a href="/m/page/s3/s1.php">31</a><br />
+	<a href="/m/page/s5/s1.php">51</a><br />
+	<a href="/m/page/s6/s1.php">61</a><br />
+	<a href="/m/page/s1/s1.php">11</a><br />
+	<a href="/m/page/s1/s2.php">12</a><br />
+	<a href="/m/page/s2/s1.php">21</a><br />
+	<a href="/m/page/s3/s1.php">31</a><br />
+	<a href="/m/page/s5/s1.php">51</a><br />
+	<a href="/m/page/s6/s1.php">61</a><br />
+	<a href="/m/page/s1/s1.php">11</a><br />
+	<a href="/m/page/s1/s2.php">12</a><br />
+	<a href="/m/page/s2/s1.php">21</a><br />
+	<a href="/m/page/s3/s1.php">31</a><br />
+	<a href="/m/page/s5/s1.php">51</a><br />
+	<a href="/m/page/s6/s1.php">61</a><br />
+	<a href="/m/page/s1/s1.php">11</a><br />
+	<a href="/m/page/s1/s2.php">12</a><br />
+	<a href="/m/page/s2/s1.php">21</a><br />
+	<a href="/m/page/s3/s1.php">31</a><br />
+	<a href="/m/page/s5/s1.php">51</a><br />
+	<a href="/m/page/s6/s1.php">61</a><br />
 
 
 

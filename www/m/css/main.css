@@ -1,6 +1,4 @@
 @charset "utf-8";
-
-#gnb{display:none;}
 #visual{padding-top:40px;}
 #notice li{padding:10px 0 14px;background-color:#000;}
 #notice li:after{content:'';display:block;clear:both;}

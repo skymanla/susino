@@ -4,7 +4,7 @@ $mobileKeyWords = array ('iPhone', 'iPod', 'BlackBerry', 'Android', 'Windows CE'
 for($i = 0 ; $i < count($mobileKeyWords) ; $i++) {
 	if(strpos($_SERVER['HTTP_USER_AGENT'],$mobileKeyWords[$i]) == true){
 		$is_mobile = true;
-		header("Location: /together/m_index.php");
+		//header("Location: /together/m_index.php");
 	}
 }
 ?>
@@ -25,6 +25,11 @@ for($i = 0 ; $i < count($mobileKeyWords) ; $i++) {
 </head>
 <body>
 	<div id="wrap">
+		<ul class="top_tab">
+			<li class="active fr"><a href="/together">스시노백쉐프 <b>창업상담</b></a></li>
+			<li class="sec"><a href="/ownerchef">스시노백쉐프 <b>오너쉐프제도</b></a></li>
+		</ul>
+
 		<div id="contents">
 			<div id="box1">
 				<img src="img/main/box_10.jpg" alt="" />

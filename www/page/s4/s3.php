@@ -1,7 +1,9 @@
 <?php include_once "../../_head.php";?>
 
-<div class="wrap_style1" style="text-align:center;">
-	준비중입니다.
+<div class="s4s3_wrap">
+	<img src="/img/s4/s4s3_bg1.jpg" alt="" />
+	<img src="/img/s4/s4s3_bg2.jpg" alt="" />
+	<img src="/img/s4/s4s3_bg3.jpg" alt="" />
 </div>
 
 <?php include_once "../../_tail.php";?>
