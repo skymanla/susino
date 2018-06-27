@@ -278,8 +278,7 @@ if($flag == 'customer'){
 					(sbab_idx, sbab_area, sbab_title, sbab_content, sbab_rdate, sbab_id, sbab_ip)
 					values
 					('$sbab_idx', '$sb_our_area', '$title', '$content', now(), '$w_id', '$ip')";
-		print_r($query);
-		exit;
+		
 		if($conn->query($query)){
 			$url = "/adm/page/s3/s6.php?idx=$sbab_idx";
 			echoAlert("이벤트가 등록되었습니다.");
@@ -339,5 +338,27 @@ if($flag == 'customer'){
 	}else{
 		die($query);
 	}
+}else if($flag == "ownerchef"){
+	$board_name = "sb_ownerchef";
+	$sql = "select sbb_idx from $board_name where 1=1 order by sbb_idx desc limit 1";
+	$q = $conn->query($sql);
+	$v = $q->fetch_assoc();
+	if(empty($v[sbb_idx])){
+		$sbb_idx = 1;
+	}else{
+		$sbb_idx = $v[sbb_idx];
+		$sbb_idx++;
+	}
+	$query = "insert into $board_name
+				(sbb_idx, sbb_name, sbb_hp, sbb_email, sbb_aria, sbb_aria2, sbb_contents, sbb_store, sbb_use, sbb_rdate)
+				values
+				('$sbb_idx', '$name','$hp2','$email2','$aria','$aria2','$content','$store','$use',now())";
+	if($conn->query($query)){
+		$url = "/ownerchef/";
+		echoAlert("오너쉐프 상담 신청하기가 등록되었습니다.");
+		echoMovePage($url);		
+	}else{
+		die($query);
+	}	
 }
 ?>

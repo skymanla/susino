@@ -130,7 +130,7 @@
 			<div class="advice_box">
 				<div class="inner">
 					<form id="myform" name="myform" method="post">
-					<input type="hidden" name="flag" value="business">
+					<input type="hidden" name="flag" value="ownerchef">
 					<table class="board_advice">
 						<caption>상담 내용 입력 란</caption>
 						<colgroup>
@@ -191,19 +191,19 @@
 								</td>
 								<th>일식종사년수</th>
 								<td colspan="3">
-									<select name="" title="" style="width:230px;">
+									<select name="use" title="" style="width:230px;">
 										<option value="">년수 선택</option>
-										<option value="">1년</option>
-										<option value="">2년</option>
-										<option value="">3년</option>
-										<option value="">4년</option>
-										<option value="">5년</option>
-										<option value="">6년</option>
-										<option value="">7년</option>
-										<option value="">8년</option>
-										<option value="">9년</option>
-										<option value="">10년</option>
-										<option value="">10년 이상~</option>
+										<option value="1">1년</option>
+										<option value="2">2년</option>
+										<option value="3">3년</option>
+										<option value="4">4년</option>
+										<option value="5">5년</option>
+										<option value="6">6년</option>
+										<option value="7">7년</option>
+										<option value="8">8년</option>
+										<option value="9">9년</option>
+										<option value="10">10년</option>
+										<option value="99">10년 이상~</option>
 									</select>
 									<p class="copy1">※ 인기 있는 지역의 매장은 조기 계약이 될 수 있으니 원하는 지역을 가장 우선적으로 확인하시기 바랍니다.</p>
 								</td>
@@ -485,23 +485,6 @@ function write_ok()
 	   } 
 	} 
 
-	//var regExp2 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i; 
-	//if( !f.email.value )
-	//{ 
-	   //alert("이메일주소를 입력해주세요"); 
-	   //f.email.focus(); 
-	   //return false; 
-	//} 
-	//else 
-	//{ 
-		//if(!regExp2.test(f.email.value))
-		//{ 
-			//alert("이메일 주소가 유효하지 않습니다"); 
-			//f.email.focus(); 
-			//return false; 
-	   //} 
-	//} 
-
 	if(f.content.value == '') 
 	{
 		alert('문의내용을 입력하세요.');
@@ -518,7 +501,7 @@ function write_ok()
 		return false;
 	}
 
-	f.action = '../../lib/write_ok.php';
+	f.action = '/lib/write_ok.php';
 	f.submit();
 }
 

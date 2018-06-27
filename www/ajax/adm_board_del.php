@@ -62,6 +62,14 @@ if($pageinfo == "s1_s1"){
 			$conn->query($sql);
 		}	
 	}
+}else if($pageinfo == "s1_s3"){
+	$tbl_info = "sb_ownerchef";
+	if($mode == "D"){
+		for($i=0;$i<count($chk_idx_arr);$i++){
+			$sql = "delete from ".$tbl_info." where sbb_idx='".$chk_idx_arr[$i]."'";
+			$conn->query($sql);
+		}
+	}
 }
 exit;
 ?>

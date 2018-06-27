@@ -47,7 +47,8 @@
 			}
 
 			var w_grid = (100/opts.w_grid).toFixed(4);
-
+			//-->설정된 태그의 총 개수인 듯 Ryan
+			//console.log(newList.length);
 			_this.append('<div class="wInstarSns"></div>');
 			$.each(newList,function (i,d){
 				if(i < opts.w_count){
