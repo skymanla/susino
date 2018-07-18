@@ -81,7 +81,7 @@ $lvl_result = $conn->query($sql);
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>
+					<td class="con_editor1">
 						<textarea class="w_input1" id="sb_email_content" name="sb_email_content" style="height:200px;display:none"></textarea>
 					</td>
 				</tr>

@@ -310,17 +310,6 @@ function dmapAc1(){
 								uniq_more = '<a href="' + addArry1[i].link + '" target="_blank" title="새창으로 열립니다." class="go_naver">네이버플레이스</a>';
 							}
 
-							//infowindow[i] = new daum.maps.CustomOverlay({
-								//position: coords,
-								//xAnchor: 1,
-								//yAnchor: 1,
-								//content: '<div class="map_pin_info">' +
-												//'<div class="pin_info">' + addArry1[i].info + '</div>' +
-												//'<div class="pin_addr">' + addArry1[i].addr + '</div>' +
-												//'<div class="pin_call">' + addArry1[i].call + '</div>' +
-												//uniq_more +
-											//'</div>'
-							//});
 
 							var wOption = '';
 							if(addArry1[i].option!=''){
@@ -330,7 +319,7 @@ function dmapAc1(){
 										wOption += '<div class="info_icon">';
 
 										if($.inArray('q', wOptionTotal) != -1){
-											//wOption += '<div class="q"><i>배달</i></div>'
+											wOption += '<div class="q"><i>배달</i></div>'
 										}  if($.inArray('p', wOptionTotal) != -1){
 											wOption += '<div class="p"><i>주차</i></div>'
 										}  if($.inArray('r', wOptionTotal) != -1){
@@ -386,10 +375,10 @@ function dmapAc1(){
 														'<div>전화번호</div>' +
 														'<div>' + addArry1[i].call + '</div>' +
 													'</li>' +
-													//wOption +
+													wOption +
 													wOpq1 +
 													wOpq2 +
-													//wOpp +
+													wOpp +
 												'</ul>' +
 											'</div>'
 							});

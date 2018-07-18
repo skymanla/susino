@@ -6,7 +6,7 @@ include_once "inc/page.php";
 <head>
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=2.0,user-scalable=yes" />
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=yes" />
 	<title>수제초밥이 신선하고 맛있는 집, 스시노백쉐프</title>
 	<link rel="shortcut icon" type="image/x-icon" href="/m/img/favicon/favicon1.ico" />
 	<link rel="stylesheet" type="text/css" href="/m/css/reset.css" />

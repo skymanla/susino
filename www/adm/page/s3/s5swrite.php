@@ -110,7 +110,7 @@ $(function() {
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>
+						<td class="con_editor1">
 							<textarea name="content" class="w_input1" id="inp_3" cols="30" rows="10"><?php echo stripslashes($row['sbe_contents'])?></textarea>
 							<!--<textarea name="" id=""  style="height:200px">에디터삽입</textarea>-->
 						</td>

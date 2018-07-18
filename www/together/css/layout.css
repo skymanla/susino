@@ -87,7 +87,23 @@
 .ban_wrap img{z-index:10;position:absolute;top:0;left:50%;margin-left:-960px;}
 
 /* quick */
-#quick{z-index:20;position:fixed;top:10px;right:0;width:206px;}
+#quick{
+	z-index:20;position:fixed;top:90px;right:-206px;width:206px;
+	-o-transition:all 0.2s ease-in-out;
+	-moz-transition:all 0.2s ease-in-out;
+	-webkit-transition:all 0.2s ease-in-out;
+	transition:all 0.2s ease-in-out;
+}
+#quick .resize_bt_wrap{position:absolute;top:10px;left:-50px;width:40px;}
+#quick .resize_bt_wrap button{width:40px;height:40px;border:0 none;background:url('../img/main/quick_s_bt1.png') no-repeat;outline:0;}
+#quick .resize_bt_wrap button i{position:absolute;top:-2000px;left:-2000px;font-size:1px;text-indent:-2000px;}
+#quick .resize_bt_wrap button.open_bt{background-position:0 0;}
+#quick .resize_bt_wrap button.go_bot{background-position:0 -40px;}
+
+#quick.active{right:0;}
+#quick.active .resize_bt_wrap button.open_bt{background-position:-40px 0;}
+#quick.active .resize_bt_wrap button.go_bot{display:none;}
+
 #quick .bt_gobtm{
 	width:206px;height:65px;margin-top:10px;background:transparent url("../img/main/quick_01.png") no-repeat;border:0 none;text-indent:-99999px;outline:none;
 }

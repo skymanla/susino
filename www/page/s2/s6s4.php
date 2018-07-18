@@ -2,7 +2,7 @@
 
 
 <div class="menu_con1">
-	<div class="top_img"><img src="/img/s2/con_s6/s5_img1.jpg" alt="" /></div>
+	<div class="top_img"><img src="/img/s2/con_s6/s4_img1.jpg" alt="" /></div>
 	<div><img src="/img/s2/con_total_copy1.jpg" alt="" /></div>
 </div>
 

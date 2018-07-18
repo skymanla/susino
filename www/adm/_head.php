@@ -41,7 +41,8 @@ include_once($_SERVER['DOCUMENT_ROOT']."/adm/_inc/page.php");
 		</div>
 		<?php include_once '_inc/lnb'.$w_a_num.'.php';?>
 		<a href="/" target="_blank" title="새창으로 열립니다." class="title go_home">스시노백 바로가기</a>
-		<a href="/together" target="_blank" title="새창으로 열립니다." class="title go_home">일성창업 바로가기</a>
+		<a href="/together" target="_blank" title="새창으로 열립니다." class="title go_home">창업상담 바로가기</a>
+		<a href="/ownerchef" target="_blank" title="새창으로 열립니다." class="title go_home">오너쉐프 바로가기</a>
 	</nav>
 	<!-- END lng_wrap -->
 	<!-- STR contents -->

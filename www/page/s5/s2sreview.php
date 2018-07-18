@@ -72,7 +72,7 @@
 							</tr>
 							<tr>
 								<td>
-									<div class="title1">어떤 메뉴를 주문하셧나요?</div>
+									<div class="title1">어떤 메뉴를 주문하셨나요?</div>
 									<input type="text" class="" value="" name="" placeholder="" style="width:100%;" />
 								</td>
 							</tr>
@@ -423,11 +423,12 @@
 $(function(){
 
 	$('.bt_s1_red').on('click',function(){
-		$('[type="text"]').each(function (){
+		$('[type="text"]').each(function (){//input text check val
 			if(!$(this).val()){
 				var _Tindex = $(this).parents('.w_table1_wrap').parent().index()
 				$('#review_section_tab_ac1 a').eq(_Tindex).addClass('active').siblings().removeClass('active');
 				$('#review_section_ac1 > div').eq(_Tindex).addClass('active').siblings().removeClass('active');
+				alert($(this).siblings('.title1').text());
 				$(this).focus();
 				return false;
 			}

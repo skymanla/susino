@@ -110,6 +110,7 @@ $q = $conn->query($sql);
 		<table>
 			<caption>회원 목록</caption>
 			<colgroup>
+				<col width="50">
 				<col width="80">
 				<col width="">
 				<col width="">
@@ -123,6 +124,7 @@ $q = $conn->query($sql);
 			</colgroup>
 			<thead>
 				<tr>
+					<th><input type="checkbox" class="" value="" name="" /></th>
 					<th>글번호</th>
 					<th>등수</th>
 					<th>추천등록일</th>
@@ -138,6 +140,7 @@ $q = $conn->query($sql);
 			<tbody>
 				<? foreach($q as $key => $row){ ?>
 				<tr>
+					<td class="txt_c"><input type="checkbox" class="" value="" name="" /></td>
 					<td class="txt_c"><?=$board_no?></td>
 					<td class="txt_c"><?=$row[sbi_option2];?> 등</td>
 					<td class="txt_c"><?=date('Y-m-d',strtotime($row['sbi_adate']))?></td>
@@ -155,6 +158,16 @@ $q = $conn->query($sql);
 				?>
 			</tbody>
 		</table>
+	</div>
+
+	<div class="bt_wrap1">
+		<div class="left_box">
+			<button type="button" class="bt_1">전체선택</button>
+			<button type="button" class="bt_1">선택해제</button>
+		</div>
+		<div class="right_box">
+			<button type="button" class="bt_1" onclick="location.href='s7ssmswrite.php'">선택 sms보내기</button>
+		</div>
 	</div>
 
 	<nav class="paging_type1">
@@ -185,7 +198,7 @@ $q = $conn->query($sql);
 				if($cur_page == $i){
 					echo "<a href='?cur_page={$i}{$query_string}' class='active'>{$i}</a>\n";
 				}else{
-					echo "<a href='?cur_page={$i}{$query_string}'>{$i}</a>";
+					echo "<a href='?cur_page={$i}{$query_string}'>{$i}</a>\n";
 				}
 			}
 		?>

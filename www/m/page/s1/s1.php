@@ -1,42 +1,84 @@
 <?php include_once "../../_head.php";?>
-	<a href="/m">메인</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
-	<a href="/m/page/s1/s1.php">11</a><br />
-	<a href="/m/page/s1/s2.php">12</a><br />
-	<a href="/m/page/s2/s1.php">21</a><br />
-	<a href="/m/page/s3/s1.php">31</a><br />
-	<a href="/m/page/s5/s1.php">51</a><br />
-	<a href="/m/page/s6/s1.php">61</a><br />
 
+<div class="wrap_conts_img">
+	<img src="/m/img/s1/01_01.jpg" alt="" />
+	<div class="story_conts">
+		<div class="story_intro">
+			<h3><img src="/m/img/s1/s1s1_sub_tit1.png" alt="브랜드 스토리 죄송해요, 제가 회를 잘 못먹어서요." /></h3>
+			<p>처음으로 전북도청에 매장을 냈을 때 한 고객분의 이야기입니다. 유독 표정이 좋지 않았던 여성분은 알고 보니 회나 초밥 같이 날 것을 잘 못드시는 분이셨습니다. 결국 우동만 조금 드시고 일행분들과 나가시더군요. 그래서 고민했습니다. 날 것을 못드시는 분들도 함께할 수 있는 초밥이 뭘까, 누구나 어울릴 수 있는 초밥은 어떻게 빚어야 할까.. 많은 시행착오를 거치고 연구했습니다.<br />
+			<br />
+			그래서 우리는 모두가 한판에 즐기는 셋트 초밥, 초장맛으로만 드셨던 분들을 위해 생크림과 우유로  만든 생와사비 크림소스를 개발하면서, 불에 굽고 간장을 바꾸고 한판에 모두를 담아냈습니다.<br />
+			<br />
+			그 진심은 2011년 1호점을 시작으로 2017년 전국 97호점까지 이어지고 있습니다. 그리고 연간 3.6t의 아나고(장어)를 판매하고 103명의 일식 전문 쉐프를 고용, 우리나라에서 가장 많은 일식 쉐프 전문가 그룹으로 도약했습니다.<br />
+			<br />
+			하지만 위기가 없지 않았습니다. 메르스(중동호흡기증후군) 사태로 인해 한때 외식을 하지 않는  상황에 직면하기도 했고, 일본 방사능 사고와 콜레라 사태로 일식/수산물 업계가 모두 극심한 부진의 사태를 겪기도 했습니다. 그때마다 가격 인상의 상황에 직면했지만 저희가 찾은 답은 따로 있었습니다. 일본산 수산물은 쓰지 않으며, 청결에 더욱 까다로운 정책을 세우고 고객들이 가장 많이 찾는 베스트 메뉴의 가격을 지금껏 유지하기로 결정했고 이 선택은 옳았습니다.<br />
+			<br />
+			지금 우리나라에서 가장 많은 초밥집, 그리고 누구나 함께 할 수 있는 초밥집의 대표 브랜드가 되어 있었으니까요
+			</p>
+		</div>
+		<div class="swiper-container slide-wrap s_img_swipe">
+			<ul class="swiper-wrapper slide">
+				<li class="swiper-slide">
+					<div class="img_wrap">
+						<img src="/m/img/s1/01_02.jpg" alt="" />
+					</div>
+					<div class="txt_wrap">
+						<h4><img src="/m/img/s1/s1s1_sub_tit2.png" alt="누구나 쉽게,누구나 함께, 어울림" /></h4>
+						<p>漁울림은 ‘물고기 어 + 울림’의 합성어로 누구나 쉽게, 누구나 함께 어울릴 수 있는 초밥을 만들고, 단 한점이라도 드시는 분들께 울림을 드리자라는 저희의 핵심가치를 함축적으로 담고 있습니다. <br />
+						<br />
+						또한 스시노백쉐프의 특별한 트레이에 담긴 메뉴에는 우리나라만의 
+						특별한 외식 문화가 담겨 있습니다. <br />
+						<br />
+						모두가 함께 해도 부족하지 않고, 초밥집에는 초밥이 많이 있어야 한다는 단순하지만 명확한 의미, <br />
+						그리고 부담없는 가격까지 담아내는 곳,  바로 스시노백쉐프 입니다.</p>
+					</div>
+				</li>
+				<li class="swiper-slide">
+					<div class="img_wrap">
+						<img src="/m/img/s1/01_03.jpg" alt="" />
+					</div>
+					<div class="txt_wrap">
+						<h4><img src="/m/img/s1/s1s1_sub_tit3.png" alt="어디에도 없는 특별한 소스" /></h4>
+						<p>날 것을 잘 못드시는 분들 대부분은
+						초장이나 와사비와 간장을 듬뿍 찍어 회나 초밥을 드신다는 것, 그것이 해답이었습니다.<br />
+						<br />
+						톡톡터지는 날치알, 부드러운 우유에 진짜 생와사비가 더해져 부드럽고 알싸한 감칠맛으로 어떤 초밥에도 어울리는
+						생 와사비 크림소스가 탄생했습니다.<br />
+						<br />
+						새로운 명란 와사비 소스와 함께초밥의 색다른 맛을 경험해보세요.</p>
+					</div>
+				</li>
+			</ul>
+			<div class="swiper-pagination paing"></div>
+		</div>
+		<div class="with_go_wrap">
+			<h4><img src="/m/img/s1/s1s1_sub_tit4.png" alt="우리는 함께 합니다" /></h4>
+			<p>스시노백쉐프 창업주 이정훈 대표가 2018년 새해 처음으로 세운<br /> 것은 바로 전국 가맹점주님 모두를 직접 만나는 계획 이었습니다. <br />
+			<br />
+			프랜차이즈 사업에 완벽한 가맹본부도, 가맹점주님도 존재할 수<br />없습니다. 사람이 하기에 신뢰와 소통을 바탕으로 하나 하나씩<br />부족한 점을 서로 보완해가며 앞으로 나아갈 때 우리가 말하는<br />상생이 될 것이라고 생각합니다.<br />
+			<br />
+			뉴스에서 보던 그저 그런 프랜차이즈가 아닙니다.</p>
+			<ul>
+				<li class="s_list1">
+					<h5>무권리점포 계약신화</h5>
+					<p>높은 권리금 상권이 아님 무권리점포 80호점 계약 체결(가맹점주의 부담해결)</p>
+				</li>
+				<li class="s_list2">
+					<h5>주방 총책임자 본사 책임지원</h5>
+					<p>본사가 직접 채용한 메인쉐프를 가맹점 책임지원,관리 (4대보험, 퇴직금 본사 부담)</p>
+				</li>
+				<li class="s_list3">
+					<h5>리뉴얼 강제조항 광고선전비 zero</h5>
+					<p>본사와 점주가 각각 부담해야 하는 광고선전비를 본사 100%부담, 강제적인 리뉴얼 강제조항 없음.</p>
+				</li>
+			</ul>
+			<div class="bt_wrap_center pd_lr">
+				<a href="https://www.tigrison.com/home" class="bt_2s_c_tranparent" target="_blank">가맹점주 소통의 공간, 어울림 협의회</a>
+			</div>
+		</div>
+	</div>
+
+</div>
 
 
 <?php include_once "../../_tail.php";?>

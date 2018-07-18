@@ -144,7 +144,9 @@ $level_query = $conn->query($sql);
 		</table>
 	</div>
 
-	<div class="table_wrap1">
+	<h3 class="mart20">전체 회원 목록</h3>
+
+	<div class="table_wrap1 mart1">
 		<table>
 			<caption>회원목록</caption>
 			<colgroup>
@@ -232,7 +234,7 @@ $level_query = $conn->query($sql);
 				if($cur_page == $i){
 					echo "<a href=\"javascript:app_mb_list({$i}, '$aType', '$fType', '$Aidx');\" class='active'>{$i}</a>\n";
 				}else{
-					echo "<a href=\"javascript:app_mb_list({$i}, '$aType', '$fType', '$Aidx');\" >{$i}</a>";
+					echo "<a href=\"javascript:app_mb_list({$i}, '$aType', '$fType', '$Aidx');\" >{$i}</a>\n";
 				}
 			}
 		?>

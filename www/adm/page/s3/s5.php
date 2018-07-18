@@ -127,7 +127,7 @@ $qtr = "page=".$cur_page;
 					if($i==0){
 				?>
 				<tr>
-					<td colspan="6" align=center>등록된 이벤트가 없습니다.</td>
+					<td colspan="7" style="text-align:center">등록된 이벤트가 없습니다.</td>
 				</tr>
 				<? } ?>
 			</tbody>

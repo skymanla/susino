@@ -1,5 +1,5 @@
 @charset "utf-8";
-#visual{padding-top:40px;}
+#visual{padding-top:50px;}
 #notice li{padding:10px 0 14px;background-color:#000;}
 #notice li:after{content:'';display:block;clear:both;}
 #notice li h3,
@@ -11,12 +11,42 @@
 
 #contents{background-color:#f4f4f4;padding-top:10px;}
 
+/* 컨텐츠 배너 롤링 */
 .slide_ban{margin:10px 0;}
 .slide_ban .slide-wrap .slide > li{height:140px;background-color:#000;}
 .slide_ban .slide-wrap .slide > li img{width:auto;height:100%;}
-.slide_ban .slide-wrap .arrow{z-index:10;position:absolute;top:50%;width:13px;height:13px;margin-top:-6px;border:0 none;background-image:url("/m/img/main/bt_ban_arr.png");background-color:transparent;background-position-x:0;background-repeat:no-repeat;background-size:100%;}
+.slide_ban .slide-wrap .arrow{z-index:10;position:absolute;top:50%;width:13px;height:13px;margin-top:-6px;border:0 none;background-image:url("/m/img/main/bt_ban_arr.png");background-color:transparent;background-position-x:0;background-repeat:no-repeat;background-size:100%;text-indent:-9999px;color:transparent;}
 .slide_ban .slide-wrap .prev_bt{left:10px;background-position-y:0;}
 .slide_ban .slide-wrap .next_bt{right:10px;background-position-y:-18px;}
 .slide_ban .slide-wrap .paing{bottom:4px;}
 
+/* 우리동네 맛평가단 */
+.taste_group{padding:30px 10px 10px;background-color:#f4f1e5;}
+.taste_group h3{width:155px;height:128px;margin:0 auto;}
+.taste_group h3 img{width:100%;height:auto;}
+.taste_group > div{margin-top:25px;padding:25px;background-color:#e5e0cd;text-align:center;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.taste_group > div h4{line-height:24px;font-size:20px;font-weight:400;}
+.taste_group > div h4 strong{font-weight:700;}
+.taste_group > div p{line-height:18px;margin-top:13px;font-size:12px;}
+.taste_group > div > div > a{display:block;}
 
+/* 모두에게 어울리는 초밥 */
+.swipe_menu{padding:50px 0;background-color:#fff;}
+.swipe_menu:after{content:'';display:block;clear:both;}
+.swipe_menu > div{float:left;}
+.swipe_menu > div{padding:10px 36px 0 40px;}
+.swipe_menu > div h3{width:62px;height:64px;}
+.swipe_menu > div h3 img{width:100%;height:auto;}
+.swipe_menu > div a{position:relative;display:block;margin-top:12px;font-size:13px;color:#888;}
+.swipe_menu > div a:after{content:'';position:absolute;top:50%;right:9px;width:13px;height:13px;margin-top:-7px;background:url("/m/img/main/bt_more.png") no-repeat;background-size:100%;}
+.swipe_menu > ul{white-space:nowrap;overflow-y:scroll;-webkit--webkit-overflow-scrolling:touch;}
+.swipe_menu > ul > li{display:inline-block;width:150px;height:150px;margin-left:7px;}
+.swipe_menu > ul > li:first-child{margin-left:0;}
+.swipe_menu > ul > li > a{display:block;}
+.swipe_menu > ul > li > a img{width:100%;height:auto;}
+
+/* 하단 메뉴 */
+.group_ban{padding:10px;}
+.group_ban a{display:block;margin-top:10px;}
+.group_ban a:first-child{margin-top:0;}
+.group_ban a img{width:100%;height:auto;}

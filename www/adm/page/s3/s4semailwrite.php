@@ -27,7 +27,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>
+					<td class="con_editor1">
 						<textarea name="" id="" class="w_input1" style="height:200px">에디터삽입</textarea>
 					</td>
 				</tr>

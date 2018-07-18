@@ -55,9 +55,9 @@ $result = $conn->query($query);
 					</div>
 				</div>
 				<div class="event">
+					<div class="bn"><a href="/page/s6/s2sview.php?idx=13"><img src="/img/main/notice_event3.png" alt="" /></a></div>
 					<div class="bn"><a href="/page/s2/s7.php"><img src="/img/main/notice_event_new.png" alt="" /></a></div>
 					<div class="bn"><a href="/page/s6/s1.php"><img src="/img/main/notice_event_instar.png" alt="" /></a></div>
-					<div class="bn"><a href="/page/s6/s1.php"><img src="/img/main/notice_event3.png" alt="" /></a></div>
 					<div class="bn"><a href="/page/s6/s3.php"><img src="/img/main/notice_event2.png" alt="" /></a></div>
 				</div>
 			</div>

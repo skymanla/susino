@@ -1,66 +1,55 @@
 $(function(){
-	
-
 	gnbOpen()//open
-
-
-	//slideSwiper();//slide
+	commonBtnTab('tab_field');//form 내 tab기능
+	commonBtnTab('mypage_type1');//우동맛 내 텝기능 전체, 미스티레쇼퍼, 스시노미식회, 체험단
+	commonBtnTab('tab_type1');//우동맛 내 텝기능, 전체,모집중,마감
+	popOpenClose();//팝업,open,close;
 });
-
-
-function slideSwiper(){
-	var swiper = new Swiper('.swiper-container', {
-		slidesPerView: 1,
-		//사이여백
-		//spaceBetween: 30,
-		loop: true,
-		autoplay: {
-			delay: 2000,
-		},
-		speed:1000,
-		pagination: {
-			el: '.swiper-pagination',
-			clickable: true,
-		},
-	});
-
-	var swiper2 = new Swiper('.swiper-container-type', {
-		slidesPerView: 1,
-		loop: true,
-		spaceBetween: 30,
-		autoplay: {
-			delay: 800,
-		},
-		speed:400,
-		pagination: {
-			el: '.swiper-pagination-sec',
-			clickable: true,
-		},
-		navigation: {
-			nextEl: '.next_bt',
-			prevEl: '.prev_bt',
-		},
-	});
-}
-
-
 
 
 function gnbOpen(){
 	var $header = $('#header');
-	var $gnb = $('#gnb');
+	var $gnb = $('#gnb .gnb_wrap');
+	var $gnbDim = $('#gnb .dim');
 
 	$header.find('.bt_menu').on('click',function(){
-		$gnb.addClass('active');
+		$gnb.add($gnbDim).addClass('active');
 		$('html').addClass('scroll_no');
 	});
 	$gnb.find('.bt_close').on('click',function(){
-		$gnb.removeClass('active');
+		$gnb.add($gnbDim).removeClass('active');
 		$('html').removeClass('scroll_no');
 	});
+	$gnbDim.on('click',function(){
+		$gnb.add($gnbDim).removeClass('active');
+		$('html').removeClass('scroll_no');
+	})
 	$gnb.find('> ul > li > button').on('click',function(e){
 		e.preventDefault();
+		$(this).closest('li').toggleClass('active').siblings().removeClass('active');
 		$(this).next().stop().slideToggle();
-		$(this).closest('li').siblings().find('div').stop().slideUp();
+		$(this).closest('li').siblings().find('ul').stop().slideUp();
+	});
+}
+
+function commonBtnTab(t){
+	var $targetWrap = $('.'+t);
+	$('.'+t).find('button, a').on('click',function(){
+		$(this).addClass('active').siblings().removeClass('active');
 	})
+}
+
+function popOpenClose(){
+	var $btnPopOpen = $('.pops_btn');
+	var $btnPopClose = $('.bt_pop_close');
+
+	$btnPopOpen.on('click',function(){
+		$('html').addClass('scroll_no');
+		$(this).next().addClass('active');
+	});
+
+	$btnPopClose.on('click',function(){
+		$('html').removeClass('scroll_no');
+		$(this).closest('.pops_open').removeClass('active');
+	});
 }

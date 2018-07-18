@@ -33,6 +33,7 @@ if($invite_length < 1 ){
 	<form name="inviteForm" name="inviteForm" method="post" onsubmit="inviteRate(this)">
 		<input type="hidden" name="flag" id="flag" value="invite" />
 		<input type="hidden" name="mode" id="mode" value="u" />
+		<input type="hidden" name="getNo"  value="<?=$row[sbia_idx]?>" />
 		<div class="table_wrap1">
 			<table>
 				<caption>미스테리 쇼퍼 작성</caption>

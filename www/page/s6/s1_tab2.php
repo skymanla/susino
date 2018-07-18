@@ -28,12 +28,13 @@ $(document).ready(function(){
 		w_imgSize : '1', // 0~4 이미지 퀄리티
 		w_grid : '5', // 몇열로 나눌것인가
 		w_count : '30', // 토탈 리스팅 갯수 max 50
-		w_tag : ['봄엔스시'], // 타겟 태그
+		w_tag : ['일본가정식한상'], // 타겟 태그
 		noShortcode : ['BhEIIC3lrya','BhD94OXh2uF'], // 리젝시킬 숏코드
 	});
 });
 //]]>
 </script>
+
 
 
 <?php include_once "../../_tail.php";?>

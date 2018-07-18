@@ -179,27 +179,41 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 			</div>
 			<div>
 				<div>
-					<h3 class="title3"><i>나의 체험기</i></h3>
-					<p class="copy1"><b><?=$vC['cnt']?>회</b></p>
-					<p class="copy2">
-						최근에 체험에 참여하셨네요!<br />
-						후기를 전송해주세요!
+					<h3 class="title3"><i>나의 후기</i></h3>
+					<p class="copy4"><b><?=$vC['cnt']?>회</b></p>
+					<p class="copy5">
+						스시노백쉐프에 다녀오셨나요? <br />
+						후기 등록하면 우동맛 스티커 증정!
 					</p>
-					<div class="bt_wrap">
+					<!-- <div class="bt_wrap">
 						<a href="s2sreview.php" class="bt2">자발적 후기 전송하기</a>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div>
 				<div>
-					<h3 class="title4"><i>나의 등급</i></h3>
-					<p class="copy1"><b><?=$vL['rate']?></b></p>
+					<h3 class="title4"><i>우동맛 스티커</i></h3>
+					<div class="my_sticker1">
+						<div class="active"><i>1</i></div>
+						<div class="active"><i>2</i></div>
+						<div class="active"><i>3</i></div>
+						<div><i>4</i></div>
+						<div><i>5</i></div>
+						<!--<div class="active"><i>1</i></div>
+						<div class="active"><i>2</i></div>
+						<div class="active"><i>3</i></div>
+						<div><i>4</i></div>
+						<div><i>5</i></div>-->
+					</div>
 					<p class="copy2">
-						스시노백쉐프의 단골고객이 되면?<br />
-						깜짝 놀랄 선물을 드려요!
+						우동 다섯그릇 모일때마다 3만원권을! <br />
+						신청 시 매주 금요일에 발송됩니다.
 					</p>
 					<div class="bt_wrap">
-						<a href="/page/s5/s1.php" class="bt1">단골 고객 혜택</a>
+						<span class="bt3">상품권 받기</span>
+						<!-- STR 5회시 나오게 -->
+						<!-- <a href="/page/s5/s1.php" class="bt2">상품권 받기</a> -->
+						<!-- END 5회시 나오게 -->
 					</div>
 				</div>
 			</div>
@@ -251,6 +265,22 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 		</div>
 
 		<ul class="bo_webzine1">
+			<li>
+				<div class="fr_banner">
+					<div class="copy">
+						셀프 미스테리 쇼퍼
+
+						매장 방분 후 후기 전송하면 우동맛 스터키가 팡팡!
+
+						우동맛 체험단에 당첨 안되었다고 아쉬워하지 말아요~!
+						자발적으로 스시노백쉐프의 미스테리 쇼퍼가 되어주세요!
+
+						첫 후기 등록하면 스시노백쉐프 1만원권을,
+						5번 등록마다 스시노백쉐프 3만원권을 드려요!
+					</div>
+					<a href="javascript:void(0);" class="go_more">후기 전송하기</a>
+				</div>
+			</li>
 			<? 
 				foreach($vB as $key=>$row){ 
 					switch($row['sbab_cate']){

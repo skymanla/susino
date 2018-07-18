@@ -21,7 +21,11 @@
 		<li class="active sec"><a href="/ownerchef">스시노백쉐프 <b>오너쉐프제도</b></a></li>
 	</ul>
 	
-	<div id="quick">
+	<div id="quick" class="active">
+		<div class="resize_bt_wrap">
+			<button type="button" class="open_bt"><i>퀵메뉴 열기</i></button>
+			<button type="button" class="go_bot"><i>창업상담 온라인문의 하단으로 이동</i></button>
+		</div>
 		<img src="img/main/quick_00.png" alt="">
 		<button type="button" class="bt_gobtm">창업상담 온라인문의 하단으로 이동</button>
 		<ul>
@@ -39,7 +43,7 @@
 
 	<div id="contents">
 		<div id="box1">
-			<div><iframe src="https://www.youtube.com/embed/ggFSG9z2ws4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+			<div><iframe src="https://www.youtube.com/embed/ox9SaHrYjU8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
 		</div>
 		<div id="box2"></div>
 		<div id="box3"></div>
@@ -264,6 +268,7 @@ $(function(){
 	goBottom();//quick 하단으로 이동 btn
 	checkedAc1();//radio,checkbox ie8동작
 	box6Slicks(); //오너쉐프 슬라이드
+	resizeAc1(); // 퀵메뉴 온오프
 });
 
 // STR 오너쉐프 슬라이드
@@ -331,6 +336,21 @@ function checkedAc1(){
 	});
 }
 
+function resizeAc1(){
+	$('.open_bt').on('click',function (){
+		$('#quick').toggleClass('active');
+	});
+
+	$(window).on('resize',function (){
+		var reW1 = $(this).width();
+		if(reW1>1800){
+			$('#quick').addClass('active');
+		} else {
+			$('#quick').removeClass('active');
+		}
+	}).resize();
+}
+
 var p_cnt01 = 1;
 function scroll(){
 	$(window).on('hashchange load', function(event) {
@@ -360,19 +380,19 @@ function scroll(){
 			}
 
 			if($(this).scrollTop() > 500){
-				$('#quick ul li a').addClass('on');
+				//$('#quick ul li a').addClass('on');
 			}
 			if($(this).scrollTop() < 500){
-				$('#quick ul li a').removeClass('on');
+				//$('#quick ul li a').removeClass('on');
 			}
 			if($(this).scrollTop() > 4400){
-				$('#quick ul li a').removeClass('on');
+				//$('#quick ul li a').removeClass('on');
 			}
 			if($(this).scrollTop() > 5000){
-				$('#quick ul li a').addClass('on');
+				//$('#quick ul li a').addClass('on');
 			}
 			if($(this).scrollTop() > 6400){
-				$('#quick ul li a').removeClass('on');
+				//$('#quick ul li a').removeClass('on');
 			}
 
 
@@ -410,7 +430,7 @@ function active(){
 }
 
 function goBottom(){
-	$('.bt_gobtm').on('click',function(){
+	$('.bt_gobtm, .go_bot').on('click',function(){
 		var lastPos = $('#box8').offset().top;
 		$('body, html').stop().animate({scrollTop:lastPos},400);
 	});

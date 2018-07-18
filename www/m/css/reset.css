@@ -1,7 +1,7 @@
 @charset "utf-8";
+@import url(notosanskr.css);
 @-ms-viewport{width:device-width;}
 @viewport{width:device-width;}
-@import url(notosanskr.css);
 *{
 	-webkit-box-sizing:border-box;
 	-moz-box-sizing:border-box;
@@ -23,8 +23,15 @@ input,button{margin:0;padding:0;font-family:'Noto Sans KR','NanumGothic','dotum'
 button{cursor:pointer;border:0 none;background-color:transparent;}
 button *{vertical-align:middle;}
 textarea,select{font-family:'Noto Sans KR','NanumGothic','dotum',sans-serif;font-size:14px;}
-select{margin:0;background-color:#fff;}
-h1,h2,h3,h4,h5,h6,b,strong{font-weight:bold;}
+select{
+	margin:0;background-color:#fff;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-ms-appearance: none;
+	background:url("/m/img/common/btn_more.png") no-repeat calc(100% - 7px) 50%;background-size:7px 4px;
+	border: 0;
+}
+h1,h2,h3,h4,h5,h6,b,strong{font-weight:700;}
 h1,h2,h3,h4,h5,h6{font-size:14px;}
 address,cite,em,i{font-style:normal;}
 a:link,a:visited{color:#444;text-decoration:none}
@@ -38,3 +45,9 @@ textarea, button, input:not([type="radio"]):not([type="checkbox"]){
 }
 
 .txt_ir{display:inline-block;text-indent:-9999px;color:transparent;}
+
+input::-webkit-input-placeholder { color:#999; }
+input::-moz-placeholder { color:#999; } /* firefox 19+ */
+input::-ms-input-placeholder { color:#999; }
+input:-ms-input-placeholder { color:#999 !important; }
+input::placeholder{color:#999; }

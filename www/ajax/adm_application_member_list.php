@@ -124,7 +124,13 @@ $mem_list_query = $conn->query($sql);
 	</table>
 </div>
 
-<div class="table_wrap1">
+<? if($aType=="prize"){?>
+	<h3 class="mart20">당첨자 목록</h3>
+<?}else{ ?>
+	<h3 class="mart20">신청자 목록</h3>
+<? } ?>
+
+<div class="table_wrap1 mart1">
 	<table>
 		<caption>회원목록</caption>
 		<colgroup>
@@ -183,6 +189,11 @@ $mem_list_query = $conn->query($sql);
 		<button type="button" class="bt_1" onclick="javascript:modiy_stat('P');">선택 당첨자 확정</button>
 		<? } ?>
 	</div>
+	<div class="right_box">
+		<?php if($aType=="prize"){ ?>
+		<button type="button" class="bt_1">선택 sms보내기</button>
+		<?php } ?>
+	</div>
 </div>
 <nav class="paging_type1">
 	<?
@@ -210,7 +221,7 @@ $mem_list_query = $conn->query($sql);
 			if($cur_page == $i){
 				echo "<a href=\"javascript:app_mb_list({$i}, '$aType', '$fType', '$Aidx');\" class='active'>{$i}</a>\n";
 			}else{
-				echo "<a href=\"javascript:app_mb_list({$i}, '$aType', '$fType', '$Aidx');\">{$i}</a>";
+				echo "<a href=\"javascript:app_mb_list({$i}, '$aType', '$fType', '$Aidx');\">{$i}</a>\n";
 			}
 		}
 	?>

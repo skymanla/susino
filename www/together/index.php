@@ -14,7 +14,7 @@ for($i = 0 ; $i < count($mobileKeyWords) ; $i++) {
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=2.0,user-scalable=yes" />
-	<title>일성코퍼레이션 창업</title>
+	<title>스시노백쉐프 창업상담</title>
 	<link rel="stylesheet" href="css/reset.css">
 	<link rel="stylesheet" href="css/layout.css" />
 	 <!--[if lt IE 9]>
@@ -29,6 +29,26 @@ for($i = 0 ; $i < count($mobileKeyWords) ; $i++) {
 			<li class="active fr"><a href="/together">스시노백쉐프 <b>창업상담</b></a></li>
 			<li class="sec"><a href="/ownerchef">스시노백쉐프 <b>오너쉐프제도</b></a></li>
 		</ul>
+
+		<div id="quick" class="active">
+			<div class="resize_bt_wrap">
+				<button type="button" class="open_bt"><i>퀵메뉴 열기</i></button>
+				<button type="button" class="go_bot"><i>창업상담 온라인문의 하단으로 이동</i></button>
+			</div>
+			<img src="img/main/quick_00.png" alt="">
+			<button type="button" class="bt_gobtm">창업상담 온라인문의 하단으로 이동</button>
+			<ul>
+				<li class="active"><a href="#box1">No.1 스시노백쉐프는<br />깐깐합니다</a></li>
+				<li><a href="#box2">초밥 프랜차이즈 그룹<br />No.1이 되기까지</a></li>
+				<li><a href="#box3">No.1 스시노백쉐프는<br />다릅니다</a></li>
+				<li><a href="#box4">No.1 스시노백쉐프는<br />다양합니다_Compact</a></li>
+				<li><a href="#box5">No.1 스시노백쉐프는<br />다양합니다_Dinning</a></li>
+				<li><a href="#box6">No.1 스시노백쉐프는<br />어울려 성장합니다</a></li>
+				<li><a href="#box7">SNS 스토리</a></li>
+				<li><a href="#box8">스시노백쉐프<br />어울림 백서</a></li>
+				<li><a href="#box9">창업상담</a></li>
+			</ul>
+		</div>
 
 		<div id="contents">
 			<div id="box1">
@@ -200,31 +220,16 @@ for($i = 0 ; $i < count($mobileKeyWords) ; $i++) {
 				</div>
 			</div>
 		</div>
-		<div id="quick">
-			<img src="img/main/quick_00.png" alt="">
-			<button type="button" class="bt_gobtm">창업상담 온라인문의 하단으로 이동</button>
-			<ul>
-				<li class="active"><a href="#box1">No.1 스시노백쉐프는<br />깐깐합니다</a></li>
-				<li><a href="#box2">초밥 프랜차이즈 그룹<br />No.1이 되기까지</a></li>
-				<li><a href="#box3">No.1 스시노백쉐프는<br />다릅니다</a></li>
-				<li><a href="#box4">No.1 스시노백쉐프는<br />다양합니다_Compact</a></li>
-				<li><a href="#box5">No.1 스시노백쉐프는<br />다양합니다_Dinning</a></li>
-				<li><a href="#box6">No.1 스시노백쉐프는<br />어울려 성장합니다</a></li>
-				<li><a href="#box7">SNS 스토리</a></li>
-				<li><a href="#box8">스시노백쉐프<br />어울림 백서</a></li>
-				<li><a href="#box9">창업상담</a></li>
-			</ul>
-		</div>
 	</div>
 
-	<script type="text/javascript">
-$(document).ready(function(){
-		$(function(){
-			scroll();//스크롤
-			active();//엑티브 메뉴
-			goBottom();//quick 하단으로 이동 btn
-			checkedAc1();//radio,checkbox ie8동작
-		});
+<script type="text/javascript">
+$(function(){
+	scroll();//스크롤
+	active();//엑티브 메뉴
+	goBottom();//quick 하단으로 이동 btn
+	checkedAc1();//radio,checkbox ie8동작
+	resizeAc1(); // 퀵메뉴 온오프
+});
 
 function checkedAc1(){
 	$('[type="radio"]').each(function (){
@@ -259,127 +264,141 @@ function checkedAc1(){
 	});
 }
 
-		var p_cnt01 = 1;
-		function scroll(){
-			$(window).on('hashchange load', function(event) {
-				var w_hash = window.location.hash.split('')[1];
-				if(w_hash){
-					p_cnt01 = w_hash;
-				}
-			});
+function resizeAc1(){
+	$('.open_bt').on('click',function (){
+		$('#quick').toggleClass('active');
+	});
 
-			$('#quick ul li a').each(function(){
-				var _liThis = $(this),
-				divId = _liThis.attr('href'),
-				targetHash = divId.split('box')[1],
-				divIdtop = $(divId).offset().top;
-
-				_liThis.on('click', function(e){
-
-					e.preventDefault();
-					location.href = '#'+targetHash;
-					$('body,html').animate({scrollTop: divIdtop},300);
-
-					//if(targetHash<10){
-						//if(targetHash==1){
-							//$('#quick ul li a').removeClass('on');
-						//} else {
-							//$('#quick ul li a').addClass('on');
-						//}
-					//} else {
-						//$('#quick ul li a').removeClass('on');
-					//}
-
-				});
-				$(window).scroll(function(){
-					if ($(this).scrollTop() > divIdtop-1 ) {
-						_liThis.parent().addClass('active').siblings().removeClass('active');
-					}
-
-					if($(this).scrollTop() > 930){
-						$('#quick ul li a').addClass('on');
-					}
-					if($(this).scrollTop() < 930){
-						$('#quick ul li a').removeClass('on');
-					}
-
-					if($(this).scrollTop() > 7535){
-						$('#quick ul li a').removeClass('on');
-					}
-
-					console.log($(this).scrollTop());
-				}).scroll();
-			});
-
-			var p_cnt01_max = $('#contents > div').length;
-			var mousewheelevt = (/Firefox/i.test(navigator.userAgent))? 'DOMMouseScroll' : 'mousewheel';
-			$('html').on(mousewheelevt, function (event) {
-				var p_wheel01 = false;
-				if (/Firefox/i.test(navigator.userAgent)){if (event.originalEvent.detail < 0) {p_wheel01 = true;}}else{if (event.originalEvent.wheelDelta >= 0) {p_wheel01 = true;}}
-				var pn = $(':animated').length;
-				if (pn == 0) {
-					if (p_wheel01) {
-						if(p_cnt01 > 1){
-							p_cnt01--;
-						}
-					} else {
-						if(p_cnt01 <= p_cnt01_max){
-							p_cnt01++;
-						}
-					}
-				}
-			});
+	$(window).on('resize',function (){
+		var reW1 = $(this).width();
+		if(reW1>1800){
+			$('#quick').addClass('active');
+		} else {
+			$('#quick').removeClass('active');
 		}
+	}).resize();
+}
 
-		function active(){
-			var $listTab = $('.list_tab > li');
-			$listTab.find('button').on('click',function(){
-				var idx = $(this).parent('li').index();
-				$(this).parent().addClass('active').siblings().removeClass('active');
-				$(this).closest('.con_box').find('.con_tab > li').eq(idx).addClass('active').siblings().removeClass('active')
-			})
+var p_cnt01 = 1;
+function scroll(){
+	$(window).on('hashchange load', function(event) {
+		var w_hash = window.location.hash.split('')[1];
+		if(w_hash){
+			p_cnt01 = w_hash;
 		}
+	});
 
-		function goBottom(){
-			$('.bt_gobtm').on('click',function(){
-				var lastPos = $('#box9').offset().top;
-				$('body, html').stop().animate({scrollTop:lastPos},400);
-			});
-		}
+	$('#quick ul li a').each(function(){
+		var _liThis = $(this),
+		divId = _liThis.attr('href'),
+		targetHash = divId.split('box')[1],
+		divIdtop = $(divId).offset().top;
 
+		_liThis.on('click', function(e){
 
+			e.preventDefault();
+			location.href = '#'+targetHash;
+			$('body,html').animate({scrollTop: divIdtop},300);
 
-		// STR 셀렉박스 체인지
-		$('#s_sido').on('change',function (){
-			selectBoxApp1($(this).val());
+			//if(targetHash<10){
+				//if(targetHash==1){
+					//$('#quick ul li a').removeClass('on');
+				//} else {
+					//$('#quick ul li a').addClass('on');
+				//}
+			//} else {
+				//$('#quick ul li a').removeClass('on');
+			//}
+
 		});
-		// END 셀렉박스 체인지
+		$(window).scroll(function(){
+			if ($(this).scrollTop() > divIdtop-1 ) {
+				_liThis.parent().addClass('active').siblings().removeClass('active');
+			}
 
-		// STR 셀렉박스 체크
-		function selectBoxApp1(add1, add2){
-			var tVal = add1;
-			$.ajax({
-				type: 'GET',
-				url: 'js/p_map.json',
-				dataType: 'json',
-				data: ''
-			}).done(function(data) {
-				var opHtml = '<option value="">시/군/구 선택</option>';
-				if(tVal != '7' && tVal != ''){
-					$.each(data[tVal].gugun,function(i,k){
-						opHtml += '<option value="'+k+'">'+k+'</option>';
-					});
+			if($(this).scrollTop() > 930){
+				$('#quick ul li a').addClass('on');
+			}
+			if($(this).scrollTop() < 930){
+				$('#quick ul li a').removeClass('on');
+			}
+
+			if($(this).scrollTop() > 7535){
+				$('#quick ul li a').removeClass('on');
+			}
+
+			console.log($(this).scrollTop());
+		}).scroll();
+	});
+
+	var p_cnt01_max = $('#contents > div').length;
+	var mousewheelevt = (/Firefox/i.test(navigator.userAgent))? 'DOMMouseScroll' : 'mousewheel';
+	$('html').on(mousewheelevt, function (event) {
+		var p_wheel01 = false;
+		if (/Firefox/i.test(navigator.userAgent)){if (event.originalEvent.detail < 0) {p_wheel01 = true;}}else{if (event.originalEvent.wheelDelta >= 0) {p_wheel01 = true;}}
+		var pn = $(':animated').length;
+		if (pn == 0) {
+			if (p_wheel01) {
+				if(p_cnt01 > 1){
+					p_cnt01--;
 				}
-				$('#s_gugun').html(opHtml);
-			}).fail(function(){
-				alert('error');
-			}).always(function() {
-				//alert('어쩌라구');
+			} else {
+				if(p_cnt01 <= p_cnt01_max){
+					p_cnt01++;
+				}
+			}
+		}
+	});
+}
+
+function active(){
+	var $listTab = $('.list_tab > li');
+	$listTab.find('button').on('click',function(){
+		var idx = $(this).parent('li').index();
+		$(this).parent().addClass('active').siblings().removeClass('active');
+		$(this).closest('.con_box').find('.con_tab > li').eq(idx).addClass('active').siblings().removeClass('active')
+	})
+}
+
+function goBottom(){
+	$('.bt_gobtm, .go_bot').on('click',function(){
+		var lastPos = $('#box9').offset().top;
+		$('body, html').stop().animate({scrollTop:lastPos},400);
+	});
+}
+
+
+
+// STR 셀렉박스 체인지
+$('#s_sido').on('change',function (){
+	selectBoxApp1($(this).val());
+});
+// END 셀렉박스 체인지
+
+// STR 셀렉박스 체크
+function selectBoxApp1(add1, add2){
+	var tVal = add1;
+	$.ajax({
+		type: 'GET',
+		url: 'js/p_map.json',
+		dataType: 'json',
+		data: ''
+	}).done(function(data) {
+		var opHtml = '<option value="">시/군/구 선택</option>';
+		if(tVal != '7' && tVal != ''){
+			$.each(data[tVal].gugun,function(i,k){
+				opHtml += '<option value="'+k+'">'+k+'</option>';
 			});
 		}
-		// END 셀렉박스 체크
+		$('#s_gugun').html(opHtml);
+	}).fail(function(){
+		alert('error');
+	}).always(function() {
+		//alert('어쩌라구');
+	});
+}
+// END 셀렉박스 체크
 
-});
 
 
 

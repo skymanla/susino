@@ -33,7 +33,7 @@ if(isset($w_sub_name[3])){
 		break;
 		case "s3" : 
 			$w_a_num = 3; 
-			$w_s_title_1="단골고객/우동맛 관리";
+			$w_s_title_1="우동맛 관리";
 			switch($w_b_num){
 				case "1" : $w_s_title_2="단골고객"; break;
 				case "2" : $w_s_title_2="미스터리 쇼퍼"; break;
@@ -43,6 +43,7 @@ if(isset($w_sub_name[3])){
 				case "6" : $w_s_title_2="우리동네 공지사항"; break;
 				case "7" : $w_s_title_2="함께갈레요 관리"; break;
 				case "8" : $w_s_title_2="후가작성 관리"; break;
+				case "9" : $w_s_title_2="엑셀 관리"; break;
 			}
 		break;
 	}

@@ -82,9 +82,17 @@ if(isset($w_sub_name[3])){
 				case "4" : $w_s_title_2="카톡 선물하기"; break;
 			}
 		break;
+		case "member" : 
+			$w_a_num = 4; 
+			$w_s_title_1=1;
+			switch($w_b_num){
+				case "1" : $w_s_title_2="공지사항"; break;
+				case "2" : $w_s_title_2="고객의소리"; break;
+			}
+		break;
 		case "scenter" : 
-			$w_a_num = ''; 
-			$w_s_title_1="고객센터";
+			$w_a_num = 4; 
+			$w_s_title_1=1;
 			switch($w_b_num){
 				case "1" : $w_s_title_2="공지사항"; break;
 				case "2" : $w_s_title_2="고객의소리"; break;

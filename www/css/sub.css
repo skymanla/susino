@@ -931,6 +931,16 @@
 .s6s4_wrap .info_wrap .invite_url_wrap input{width:100%;height:45px;line-height:45px;padding:0 10px;border:0 none;background-color:#fff;}
 .s6s4_wrap .info_wrap .invite_url_wrap a{position:absolute;top:50%;left:100%;width:72px;height:35px;margin-top:-17px;margin-left:5px;background:url('/img/s5/win_icon2.png') no-repeat center;}
 .s6s4_wrap .info_wrap .invite_url_wrap a i{position:absolute;top:-2000px;left:-2000px;font-size:1px;text-indent:-2000px;}
+.s6s4_wrap .info_event{position:relative;width:925px;height:226px;margin:663px auto 0;background-position:center top;background-repeat:no-repeat;}
+.s6s4_wrap .info_event a{position:absolute;}
+.s6s4_wrap .info_event a i{position:absolute;top:-2000px;left:-2000px;font-size:1px;text-indent:-2000px;}
+.s6s4_wrap .info_event.win{background-image:url('/img/s6/s6s4_bg_new_info_win.png');}
+.s6s4_wrap .info_event.win a{bottom:8px;right:270px;width:90px;height:17px;}
+.s6s4_wrap .info_event.notwin{background-image:url('/img/s6/s6s4_bg_new_info_notwin.png');}
+.s6s4_wrap .info_event.notwin a{bottom:8px;right:140px;width:160px;height:17px;}
+.s6s4_wrap .info_event.notwin .num{position:absolute;top:119px;width:50px;height:56px;line-height:56px;text-align:center;font-size:35px;color:#000;}
+.s6s4_wrap .info_event.notwin .num.fr{left:455px;}
+.s6s4_wrap .info_event.notwin .num.sec{left:511px;}
 
 /* STR members */
 .login_box{width:600px;margin:0 auto;padding:50px 100px;border-top:2px solid #888;border-bottom:1px solid #ccc;}
@@ -1032,8 +1042,13 @@
 .my_info > div > div .copy1 b{font-size:23px;}
 .my_info > div > div .copy2{margin-top:25px;}
 .my_info > div > div .copy3{font-size:30px;font-weight:bold;}
+.my_info > div > div .copy4{margin-top:30px;font-size:30px;font-weight:bold;}
+.my_info > div > div .copy5{margin-top:25px;}
 .my_info > div > div .copy_people{margin-top:25px;height:50px;background:url('/img/s5/mypage_set1_title_2.png') no-repeat center;}
 .my_info > div > div .copy_people i{position:absolute;top:-2000px;left:-2000px;font-size:1px;text-indent:-2000px;}
+.my_info > div > div .my_sticker1{padding-top:35px;font-size:0;text-align:center;}
+.my_info > div > div .my_sticker1 div{display:inline-block;width:35px;height:35px;margin:0 4px;background:url('/img/s5/my_sticker1.gif') no-repeat center top;}
+.my_info > div > div .my_sticker1 div.active{background-position:0 -35px;}
 .my_info > div > div .bt_wrap{width:200px;margin:10px auto 0;}
 .my_info > div > div .bt_wrap a{
 	display:block;height:40px;line-height:40px;font-size:16px;font-weight:bold;
@@ -1048,6 +1063,13 @@
 .my_info > div > div a.bt2{line-height:36px;border:2px solid #bb1a29;background-color:transparent;color:#bb1a29;}
 .my_info > div > div a.bt2:hover,
 .my_info > div > div a.bt2:focus{background-color:#ba1a29;color:#fff;}
+.my_info > div > div .bt_wrap .bt3{
+	display:block;height:40px;line-height:40px;background-color:#f5f4f0;font-size:16px;font-weight:bold;color:#cfcfcf;
+	-o-transition:all 0.1s ease-in-out;
+	-moz-transition:all 0.1s ease-in-out;
+	-webkit-transition:all 0.1s ease-in-out;
+	transition:all 0.1s ease-in-out;
+}
 
 .my_notice_wrap{padding:80px 110px 20px;margin-top:100px;background-color:#fff;}
 .my_notice_wrap .mypage_type1{text-align:center;font-size:0;}
@@ -1069,6 +1091,17 @@
 .bo_webzine1{overflow:hidden;margin:30px -15px 0;padding:25px 0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;}
 .bo_webzine1 > li{float:left;width:50%;padding:15px;}
 .bo_webzine1 > li > div{display:table;width:100%;background-color:#f5f4f0;}
+.bo_webzine1 > li > div.fr_banner{position:relative;height:330px;background:url('/img/s5/mypage_set2_banner1.jpg') no-repeat center top;}
+.bo_webzine1 > li > div.fr_banner .copy{position:absolute;top:-2000px;left:-2000px;font-size:1px;text-indent:-2000px;}
+.bo_webzine1 > li > div.fr_banner .go_more{
+	position:absolute;bottom:40px;right:40px;width:150px;height:40px;line-height:36px;border:2px solid #ba1a29;color:#ba1a29;font-weight:bold;text-align:center;
+	-o-transition:all 0.1s ease-in-out;
+	-moz-transition:all 0.1s ease-in-out;
+	-webkit-transition:all 0.1s ease-in-out;
+	transition:all 0.1s ease-in-out;
+}
+.bo_webzine1 > li > div.fr_banner .go_more:hover,
+.bo_webzine1 > li > div.fr_banner .go_more:focus{background-color:#ba1a29;color:#fff;}
 .bo_webzine1 > li > div > div{position:relative;display:table-cell;height:330px;vertical-align:middle;}
 .bo_webzine1 > li > div > div.cate{width:37%;text-align:center;}
 .bo_webzine1 > li > div > div.cate > div{

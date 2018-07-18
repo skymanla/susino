@@ -168,7 +168,7 @@ if($flag == 'customer'){
 	if($mode == 'w')	{
 		$query = "INSERT INTO $board_name (sbe_sdate, sbe_edate, sbe_idate, sbe_title, sbe_contents, sbe_file, sbe_rdate, sbe_udate) VALUES ('$sdate','$edate','$idate','$title','$content','$new_file1',now(),now())";
 		$conn->query($query);
-		$url = "/page/s6/s2.php";
+		$url = "/adm/page/s3/s5.php";
 		echoAlert("이벤트가 등록되었습니다.");
 		echoMovePage($url);
 	}else if($mode == 'd'){
@@ -325,12 +325,40 @@ if($flag == 'customer'){
 		$sbia_idx = $v['sbia_idx'];
 		$sbia_idx++;
 	}
-	//insert
-	$query = "insert into $board_name
-			(sbia_idx, sbia_sdate, sbia_edate, sbia_prize_rate1, sbia_prize_rate2, sbia_prize_option1, sbia_prize_option2, sbia_prize_option3, sbia_prize_option4, sbia_rdate, sbia_write, sbia_ip)
-			values
-			('$sbia_idx', '$sdate', '$edate', '$invite_rate1', '$invite_rate2', '$sbia_option[1]', '$sbia_option[2]', '$sbia_option[3]', '$sbia_option[4]', now(), '$w_id', '$ip')
-			";
+	//old data chechk
+	$query = "select sbia_sdate, sbia_edate from $board_name where sbia_idx='$_POST[getNo]' order by sbia_idx desc limit 1";
+	$q = $conn->query($query);
+	$old_data = $q->fetch_assoc();
+
+	$old_data_sdate = strtotime($old_data[sbia_sdate]);
+	$old_data_edate = strtotime($old_data[sbia_edate]);
+
+	$chk_sdate = strtotime($sdate);
+	$chk_edate = strtotime($edate);
+
+	//이벤트 시작 및 종료 날짜가 같다면 update 
+	if(($old_data_sdate == $chk_sdate) && ($old_data_edate == $chk_edate)){
+		$query = "update $board_name set
+					sbia_prize_rate1='$invite_rate1',
+					sbia_prize_rate2='$invite_rate2',
+					sbia_prize_option1='$sbia_option[1]',
+					sbia_prize_option2='$sbia_option[2]',
+					sbia_prize_option3='$sbia_option[3]',
+					sbia_prize_option4='$sbia_option[4]',
+					sbia_rdate = now(),
+					sbia_write='$w_id',
+					sbia_ip='$ip'
+					where sbia_idx='$_POST[getNo]'
+				";
+	}else{//기존 날짜와 다르다면 insert
+		$query = "insert into $board_name
+				(sbia_idx, sbia_sdate, sbia_edate, sbia_prize_rate1, sbia_prize_rate2, sbia_prize_option1, sbia_prize_option2, sbia_prize_option3, sbia_prize_option4, sbia_rdate, sbia_write, sbia_ip)
+				values
+				('$sbia_idx', '$sdate', '$edate', '$invite_rate1', '$invite_rate2', '$sbia_option[1]', '$sbia_option[2]', '$sbia_option[3]', '$sbia_option[4]', now(), '$w_id', '$ip')
+				";	
+	}
+
+	
 	if($conn->query($query)){
 		$url = "/adm/page/s3/s7slist3.php";
 		echoAlert("당첨자 확률이 수정되었습니다.");

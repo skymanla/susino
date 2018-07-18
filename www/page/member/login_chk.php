@@ -28,7 +28,7 @@ if($v['cnt'] == "0"){
 		if(!empty($_POST['qtr'])){
 			echoMovePage($_POST['qtr']);
 		}else{
-			echoMovePage("/");
+			echoMovePage("/page/s5/s2.php");
 		}
 	}else{
 		session_destroy ();

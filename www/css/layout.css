@@ -43,6 +43,10 @@
 	-webkit-transition:all 0.3s ease-in-out;
 	transition:all 0.3s ease-in-out;
 }
+
+#header .gnb li ul.s5 li:first-child{margin-left:370px;}
+#header .gnb li ul.s6 li:first-child{margin-left:210px;}
+
 #header .gnb li ul li a{height:50px;overflow:hidden;}
 #header .gnb li ul li a img{position:relative;top:0;}
 #header .gnb li ul li a:focus img,

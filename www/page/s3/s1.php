@@ -80,7 +80,7 @@
 			<ul class="roll">
 				<?php
 					include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
-					$query = "SELECT * FROM sb_store where sbs_new = 2";
+					$query = "SELECT * FROM sb_store where sbs_new = 2 order by sbs_no desc";
 					$result = $conn->query($query);
 					$total_rows = mysqli_num_rows($result);
 					while($row = $result->fetch_assoc()){

@@ -13,6 +13,29 @@ if(empty($row)){
 $qtr = "page=".$_GET['page'];
 ?>
 
+
+<script>
+function del()
+{
+	var f = document.forms.myform1;
+
+	var conf = confirm("정말삭제하시겠습니까?");
+	if (conf) 
+	{
+		f.method = "post";
+		f.flag.value = $('#flag').val();
+		f.mode.value = $('#mode').val();
+		f.idx.value = $('#idx').val();
+		f.action = '/lib/write_ok.php';
+		f.submit();
+	}
+}
+</script>
+<form id="myform1" name="myform1" method="post">
+<input type="hidden" name="flag" id="flag" value="event">
+<input type="hidden" name="mode" id="mode" value="d">
+<input type="hidden" name="idx" id="idx" value="<?php echo $row['sbe_idx']?>">
+
 <section class="section1">
 	<h3>이벤트</h3>
 
@@ -57,12 +80,13 @@ $qtr = "page=".$_GET['page'];
 		</table>
 	</div>
 	<div class="bt_wrap2">
-		<a href="s5.php" class="bt_2">삭제</a>
+		<a href="javascript:del();" class="bt_2">삭제</a>
 		<a href="s5swrite.php?mode=u&idx=<?=$row[sbe_idx]?>" class="bt_2">수정</a>
 		<a href="./s5.php?<?=$qtr?>" class="bt_1">목록</a>
 	</div>
 </section>
 
+</form>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
 ?>
