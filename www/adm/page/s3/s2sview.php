@@ -27,7 +27,7 @@ if($row['sbab_lvl'] != "A"){
 ?>
 <script>
 $(function(){
-	app_mb_list(1, "application", "<?=$flag_depth?>", "<?=$_GET[idx]?>");
+	app_mb_list(1, "application", "<?=$flag_depth?>", "<?=$_GET[idx]?>", "", "");
 
 	$('.tab_type1 > li').on('click', function(e){
 		$(this).parent().find('li').removeClass();
@@ -35,7 +35,7 @@ $(function(){
 	});
 });
 
-function app_mb_list(pageNo, aType, fType, Aidx, stx="", searchword=""){
+function app_mb_list(pageNo, aType, fType, Aidx, stx, searchword){
 	var keyword = document.getElementById("stx");
 	var sword = document.getElementById("search_word");
 	if(keyword != null){
@@ -69,9 +69,9 @@ function app_mb_list(pageNo, aType, fType, Aidx, stx="", searchword=""){
 <section class="section1">
 	<h3>미스테리 쇼퍼 신청자</h3>
 	<ul class="tab_type1">
-		<li class="active"><a href="javascript:app_mb_list(1, 'application', '<?=$flag_depth?>', <?=$_GET[idx]?>)">신청자 목록</a></li>
-		<li><a href="javascript:app_mb_list(1, 'prize', '<?=$flag_depth?>', <?=$_GET[idx]?>)">당첨자</a></li>
-		<li><a href="javascript:app_mb_list(1, 'manual', '<?=$flag_depth?>', <?=$_GET[idx]?>)">당첨자 직접 등록</a></li>
+		<li class="active"><a href="javascript:app_mb_list(1, 'application', '<?=$flag_depth?>', <?=$_GET[idx]?>, '', '')">신청자 목록</a></li>
+		<li><a href="javascript:app_mb_list(1, 'prize', '<?=$flag_depth?>', <?=$_GET[idx]?>, '', '')">당첨자</a></li>
+		<li><a href="javascript:app_mb_list(1, 'manual', '<?=$flag_depth?>', <?=$_GET[idx]?>, '', '')">당첨자 직접 등록</a></li>
 	</ul>
 
 	<div id="mem_list">

@@ -13,7 +13,7 @@ $where[] = " sbab_cate='$flag_depth' ";
 switch($_GET['mvpage']){
 	case "ing" :
 		$ing_chk = 'class="active"';
-		$where[] = ' date_format(sbab_sdate, "%Y-%m-%d") >= "'.date('Y-m-d').'" ';
+		$where[] = ' date_format(sbab_edate, "%Y-%m-%d") >= "'.date('Y-m-d').'" ';
 		break;
 	case "endding" :
 		$endding_chk = 'class="active"';

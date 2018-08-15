@@ -43,7 +43,7 @@
 
 	<div id="contents">
 		<div id="box1">
-			<div><iframe src="https://www.youtube.com/embed/ox9SaHrYjU8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+			<div><iframe src="https://www.youtube.com/embed/ox9SaHrYjU8?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
 		</div>
 		<div id="box2"></div>
 		<div id="box3"></div>

@@ -21,6 +21,17 @@ if($mode == "w"){
 	$edate = date('Y-m-d', strtotime($row['sbab_edate']));
 	//시도
 	$catch_area = explode(" ", $row['sbab_area']);
+	$catch_area_city = explode(",", $catch_area[1]);
+	
+	$script_val_spc = '"';
+	$script_val_comma = ',';
+	$script_val = '';
+	for($a=0;$a<count($catch_area_city);$a++){
+		if($a == count($catch_area_city)-1){
+			$script_val_comma = '';		
+		}
+		$script_val .= $script_val_spc.$catch_area_city[$a].$script_val_spc.$script_val_comma;
+	}
 	//print_r($row);
 }else{
 	$mode = "w";
@@ -112,6 +123,12 @@ $level_query = $conn->query($sql);
 <script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 var catch_area = "<?=$catch_area[0]?>";
+<? if($_GET['mode'] == 'u'){ ?>
+var catch_area_city = new Array();
+catch_area_city = [<?=$script_val?>];
+<? } else { ?>
+var catch_area_city = '';
+<? } ?>
 
 $(function(){
 	if(catch_area != ""){
@@ -179,23 +196,39 @@ function findArea(Aval){
 			url : '/ajax/adm_ourArea.php',
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
 				var i = 0;
 				var data = "";
-				for(key in result){
-					if(i==0){
-						var chkVal = "checked";
+				var chkVal = "";
+				catch_area_result = Aval.options[Aval.selectedIndex].getAttribute('data-real-addr');
+				for(key in result){				
+					if(Array.isArray(catch_area_city) == true){
+						if(catch_area == catch_area_result){
+							if(catch_area_city.indexOf(key) != -1){
+								chkVal = "checked";
+							}else{
+								chkVal = "";
+							}
+						}else{
+							if(i==0){
+								chkVal = "checked";
+							}else{
+								chkVal = "";
+							}	
+						}
 					}else{
-						var chkVal = "";
+						if(i==0){
+							chkVal = "checked";
+						}else{
+							chkVal = "";
+						}
 					}
-					data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					//data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					data += '<div class="radio_box"><input type="checkbox" value="'+key+'" '+chkVal+' name="addr_sec[]" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
 					i++;
 				}
 				$('#area_depth').html(data);
-			}, error : function(){
-				console.log('1234');
 			}
-		})
+		});
 	}
 }
 

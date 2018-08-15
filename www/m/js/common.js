@@ -6,7 +6,6 @@ $(function(){
 	popOpenClose();//팝업,open,close;
 });
 
-
 function gnbOpen(){
 	var $header = $('#header');
 	var $gnb = $('#gnb .gnb_wrap');

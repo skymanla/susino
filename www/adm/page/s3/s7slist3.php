@@ -1,25 +1,39 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 
+$mode = $_GET['mode'];
+$idx = $_GET['idx'];
+$cur_page = $_GET['cur_page'];
 $tbl_info = "sb_invite_admin";
 //저장값 불러오기
-$sql = "select * from $tbl_info where 1=1 order by sbia_idx desc limit 1";
-$q = $conn->query($sql);
-$invite_length = mysqli_num_rows($q);
+$row = "";
+if(empty($mode)) $mode = "w";
+if($mode == 'u'){
+	$sql = "select * from $tbl_info where sbia_idx=".$idx;
+	$q = $conn->query($sql);
+	$invite_length = mysqli_num_rows($q);
 
-if($invite_length < 1 ){
-	$row = "";
-}else{
-	$row = $q->fetch_assoc();
-	
-	$sdate = date('Y-m-d', strtotime($row['sbia_sdate']));
-	$edate = date('Y-m-d', strtotime($row['sbia_edate']));
+	if($invite_length < 1 ){
+		echoAlert("잘못된 페이지 접근입니다.");
+		echoMovePage("./s7slist3_list.php");
+	}else{
+		$row = $q->fetch_assoc();
+		
+		$sdate = date('Y-m-d', strtotime($row['sbia_sdate']));
+		$edate = date('Y-m-d', strtotime($row['sbia_edate']));
 
-	$sbia_prize_option = "sbia_prize_option";
-	for($i=1;$i<5;$i++){
-		${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
+		$sbia_prize_option = "sbia_prize_option";
+		for($i=1;$i<5;$i++){
+			${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
+		}
 	}
 }
+
+//query string
+if(!empty($_GET['stx'])){
+	$search_string = "&stx=".$_GET['stx']."&sval=".$_GET['sval'];
+}
+$qstring = "?page=".$cur_page.$search_string;
 ?>
 
 <section class="section1">
@@ -27,74 +41,85 @@ if($invite_length < 1 ){
 	<ul class="tab_type1">
 		<li><a href="s7.php">신청자 목록</a></li>
 		<li><a href="s7slist2.php">당첨자</a></li>
-		<li class="active"><a href="s7slist3.php">당첨자 확률관리</a></li>
+		<li class="active"><a href="s7slist3_list.php">당첨자 확률관리</a></li>
 	</ul>
 
 	<form name="inviteForm" name="inviteForm" method="post" onsubmit="inviteRate(this)">
 		<input type="hidden" name="flag" id="flag" value="invite" />
-		<input type="hidden" name="mode" id="mode" value="u" />
-		<input type="hidden" name="getNo"  value="<?=$row[sbia_idx]?>" />
+		<input type="hidden" name="mode" id="mode" value="<?=$mode?>" />
+		<input type="hidden" name="getNo"  value="<?=$row['sbia_idx']?>" />
 		<div class="table_wrap1">
 			<table>
-				<caption>미스테리 쇼퍼 작성</caption>
+				<caption>함께갈래요 작성</caption>
 				<colgroup>
 					<col width="150">
 					<col width="">
 				</colgroup>
 				<thead>
 					<tr>
-						<th colspan="4" class="txt_l">당첨자 확률관리</th>
+						<!--<th colspan="4" class="txt_l">당첨자 확률관리</th>-->
+						<? if($mode == 'u'){ ?>
+						<th colspan="4" class="txt_l">
+							<?=$row['sbia_title']?> (쿠폰 업로드 위치 : <?="/www/data/invite/".$row['sbia_idx']?>)&nbsp;&nbsp;(이벤트 URL 고유값 : <?=$row['sbia_eurl']?>)
+						</th>
+						<? }else{ ?>
+						<th colspan="4" class="txt_l">이벤트 등록</th>
+						<? } ?>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
+						<th>제목</th>
+						<td><input type="text" class="w_input1" value="<?=$row['sbia_title']?>" name="title" style="width:350px" /></td>
+					</tr>
+					<tr>
 						<th>이벤트 기간</th>
 						<td>
-							<input type="text" class="w_input1 datepicker1" value="<?=$sdate?>" name="sdate" id="date1_start" placeholder="시작일" /> - 
-							<input type="text" class="w_input1 datepicker1" value="<?=$edate?>" name="edate" id="date1_end" placeholder="종료일" />
+							<input type="text" class="w_input1 datepicker1" value="<?=$sdate?>" name="sdate" id="date1_start" placeholder="시작일" autocomplete="off" /> - 
+							<input type="text" class="w_input1 datepicker1" value="<?=$edate?>" name="edate" id="date1_end" placeholder="종료일" autocomplete="off" />
 						</td>
 					</tr>
 					<tr>
 						<th>당첨자 확률</th>
 						<td>
-							<input type="text" class="w_input1" value="<?=$row[sbia_prize_rate1]?>" name="invite_rate1" id="invite_rate1" style="text-align:right;"/> / 
-							<input type="text" class="w_input1" value="<?=$row[sbia_prize_rate2]?>" name="invite_rate2" id="invite_rate2" />
+							<input type="text" class="w_input1" value="<?=$row['sbia_prize_rate1']?>" name="invite_rate1" id="invite_rate1" style="text-align:right;"/> / 
+							<input type="text" class="w_input1" value="<?=$row['sbia_prize_rate2']?>" name="invite_rate2" id="invite_rate2" />
 							<p style="padding-top:10px;">ex ) 1/100 , 100분에 1 확률로 당첨확률이 지정된다.</p>
 						</td>
 					</tr>
 					<tr>
 						<th>1등</th>
 						<td>
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option1[0]?>" name="invite_prize_1" id="invite_prize_1" placeholder="1등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option1[1]?>" name="invite_prize_1_product" id="invite_prize_1_product" placeholder="1등상품 명" />
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option1['0']?>" name="invite_prize_1" id="invite_prize_1" placeholder="1등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option1['1']?>" name="invite_prize_1_product" id="invite_prize_1_product" placeholder="1등상품 명" />
 						</td>
 					</tr>
 					<tr>
 						<th>2등</th>
 						<td>
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option2[0]?>" name="invite_prize_2" id="invite_prize_2" placeholder="2등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option2[1]?>" name="invite_prize_2_product" id="invite_prize_2_product" placeholder="2등상품 명" />
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option2['0']?>" name="invite_prize_2" id="invite_prize_2" placeholder="2등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option2['1']?>" name="invite_prize_2_product" id="invite_prize_2_product" placeholder="2등상품 명" />
 						</td>
 					</tr>
 					<tr>
 						<th>3등</th>
 						<td>
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option3[0]?>" name="invite_prize_3" id="invite_prize_3" placeholder="3등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option3[1]?>" name="invite_prize_3_product" id="invite_prize_3_product" placeholder="3등상품 명" />
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option3['0']?>" name="invite_prize_3" id="invite_prize_3" placeholder="3등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option3['1']?>" name="invite_prize_3_product" id="invite_prize_3_product" placeholder="3등상품 명" />
 						</td>
 					</tr>
 					<tr>
 						<th>4등</th>
 						<td>
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option4[0]?>" name="invite_prize_4" id="invite_prize_4" placeholder="4등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
-							<input type="text" class="w_input1" value="<?=$sbia_prize_option4[1]?>" name="invite_prize_4_product" id="invite_prize_4_product" placeholder="4등상품 명" />
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option4['0']?>" name="invite_prize_4" id="invite_prize_4" placeholder="4등 당첨자 수" style="width:112px;text-align:right;"/> 명&nbsp;&nbsp;&nbsp;
+							<input type="text" class="w_input1" value="<?=$sbia_prize_option4['1']?>" name="invite_prize_4_product" id="invite_prize_4_product" placeholder="4등상품 명" />
 						</td>
-					</tr>
-					
+					</tr>					
 				</tbody>
 			</table>
 		</div>
 		<div class="bt_wrap2">
+			<a href="javascript:move_list();" class="bt_1">목록</a>
 			<a href="javascript:inviteRate(this.inviteForm);" class="bt_1">저장</a>
 		</div>
 	</form>
@@ -181,7 +206,7 @@ function inviteRate(Frm){
 		}
 	}
 
-	if(confirm("당첨자 확률을 등록하시겠습니까?\n수정한 내용으로 저장이 됩니다.")){
+	if(confirm("함께갈래요 이벤트를 등록하시겠습니까?")){
 		try {
 			Frm.action = '/lib/write_ok.php';
 			Frm.submit();
@@ -190,6 +215,9 @@ function inviteRate(Frm){
 		return false;
 	}
 	
+}
+function move_list(){
+	location.href = "./s7slist3_list.php<?=$qstring?>";
 }
 </script>
 

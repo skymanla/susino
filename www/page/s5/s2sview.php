@@ -15,7 +15,7 @@ if($_SESSION['login_chk'] != 99){
 $mb_id = $_SESSION['sb_id'];
 $tbl_info = "sb_application_board";
 //등록 게시물 가져오기
-$sql = "select a.*, b.* from $tbl_info a left join sb_application_member b on a.sbab_idx=b.sbabm_fidx where a.sbab_idx='".$_GET['idx']."' and a.sbab_cate='".$_GET['aType']."'";
+$sql = "select * from $tbl_info where sbab_idx='".$_GET['idx']."' and sbab_cate='".$_GET['aType']."'";
 $q = $conn->query($sql);
 $row = $q->fetch_assoc();
 if(empty($row)){
@@ -23,6 +23,11 @@ if(empty($row)){
 	echoAlert("잘못된 접근입니다.");
 	echoMovePage($url);	
 }
+//당첨 여부 가져오기
+//$row_event = '';
+$sql = "select *  from sb_application_member where sbabm_fidx='".$_GET['idx']."' and sbabm_mb_id='".$mb_id."'";
+$q = $conn->query($sql);
+$row_event = $q->fetch_assoc();
 
 //hitup
 $sql = "update $tbl_info set sbab_hit=sbab_hit+1 where sbab_idx='".$_GET[idx]."' and sbab_cate='".$_GET[aType]."'";
@@ -53,7 +58,7 @@ $conn->query($sql);
 			}
 			$now_date = date('Y-m-d');
 			$sdate = date('Y-m-d', strtotime($row['sbab_sdate']));
-			$edate = date('Y-m-d', strtotime($row['sbab_edate']));	
+			$edate = date('Y-m-d', strtotime($row['sbab_edate']));
 		?>
 		<div class="my_page_view">
 			<div class="title_wrap">
@@ -70,24 +75,24 @@ $conn->query($sql);
 				<?=stripslashes($row['sbab_content'])?>
 			</div>
 			<? 
-				if(empty($row['sbabm_fidx'])){//신청 안한경우
+				if(empty($row_event['sbabm_fidx'])){//신청 안한경우
 					//pass
 				}else{
 					$prize_flag = true;
 			?>
 			<div class="con_view2">
 				<?
-				if(empty($row['sbabm_adate'])){ //신청만 한 경우, adate 는 당첨된 날짜
+				if(empty($row_event['sbabm_adate'])){ //신청만 한 경우, adate 는 당첨된 날짜
 				?>
 				<div class="my_end"><i>신청이 완료되었습니다. 당첨자분들에게는 개별로 연락을 드립니다.</i></div>
 				<?
 				}else{
-					if(empty($row['sbabm_option2'])){//후기 작성이 되면 저 필드를 update 하자
+					if(empty($row_event['sbabm_option2'])){//후기 작성이 되면 저 필드를 update 하자
 				?>
 				<div class="my_win">
 					<div class="title"><b>홍길동</b>님 당첨을 축하드립니다!</div>
 					<div class="bt_wrap_c">
-						<a href="s2sreview.php" class="bt_s2_red">후기 작성하기</a>
+						<a href="s2sreview_<?php echo $row['sbab_cate'];?>.php?getIdx=<?=$_GET['idx']?>&aType=<?=$_GET['aType']?>" class="bt_s2_red">후기 작성하기</a>
 					</div>
 				</div>
 				<?	}else{//당첨이 되고 후기까지 작성한 경우	?> 

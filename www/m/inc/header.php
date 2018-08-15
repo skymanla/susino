@@ -36,10 +36,10 @@
 					<button type="button">어울림 스시노백쉐프<span>BRAND</span></button>
 					<ul <?php if($w_a_num===0){ echo 'style="display:block"';}?>>
 						<li><a href="/m/page/s1/s1.php">누구나쉽게, 누구나함께</a></li>
-						<li><a href="/m/page/s1/s2.php">이렇게 다릅니다</a></li>
-						<li><a href="/m/page/s1/s3.php">우리가 걸어온길</a></li>
+						<li><a href="/m/page/s1/s3.php">이렇게 다릅니다</a></li>
+						<li><a href="/m/page/s1/s2.php">우리가 걸어온길</a></li>
 						<li><a href="/m/page/s1/s4.php">대한민국 최대 일식 전문가 그룹</a></li>
-						<li><a href="/m/page/s1/s5.php">스시노 뉴스</a></li>
+						<li><a href="/m/page/s1/s6.php">스시노 뉴스</a></li>
 					</ul>
 				</li>
 				<li <?php if($w_a_num===1){ echo 'class="active"';}?>>
@@ -66,34 +66,34 @@
 				<li <?php if($w_a_num===3){ echo 'class="active"';}?>>
 					<button type="button">배달 초밥<span>DELIVERY</span></button>
 					<ul <?php if($w_a_num===3){ echo 'style="display:block"';}?>>
-						<li><a href="/m/page/s4/s1.php">배달 초밥 한눈에 보기</a></li>
-						<li><a href="/m/page/s4/s2.php">라이브 픽업</a></li>
-						<li><a href="/m/page/s4/s3.php">배달 초밥집 찾기</a></li>
+						<li><a href="/m/page/s4/s2.php">배달 초밥 한눈에 보기</a></li>
+						<li><a href="/m/page/s4/s3.php">라이브 픽업</a></li>
+						<li><a href="/m/page/s4/s4.php">배달 초밥집 찾기</a></li>
 					</ul>
 				</li>
 				<li <?php if($w_a_num===4){ echo 'class="active"';}?>>
 					<button type="button">단골고객/우동맛<span>MEMBERSHIP</span></button>
 					<ul <?php if($w_a_num===4){ echo 'style="display:block"';}?>>
-						<li><a href="/m/page/s5/s1.php">우리동네 맛 평가단이란</a></li>
+						<li><a href="/m/page/s5/s3.php">우리동네 맛 평가단이란</a></li>
 						<li><a href="/m/page/s5/s2.php">우동맛 접속</a></li>
 					</ul>
 				</li>
 				<li <?php if($w_a_num===5){ echo 'class="active"';}?>>
 					<button type="button">이벤트<span>EVENT</span></button>
 					<ul <?php if($w_a_num===5){ echo 'style="display:block"';}?>>
-						<li><a href="/m/page/s6/s1.php">이달의 이벤트</a></li>
-						<li><a href="/m/page/s6/s2.php">우리,함께갈래요?</a></li>
-						<li><a href="/m/page/s6/s3.php">#쇼미더스시노</a></li>
-						<li><a href="/m/page/s6/s4.php">카톡선물하기</a></li>
+						<li><a href="/m/page/s6/s2.php">이달의 이벤트</a></li>
+						<li><a href="/m/page/s6/s4.php">우리,함께갈래요?</a></li>
+						<li><a href="/m/page/s6/s1.php">#쇼미더스시노</a></li>
+						<li><a href="/m/page/s6/s3.php">카톡선물하기</a></li>
 						<li><a href="/m/page/s6/s5.php">어울림 이야기</a></li>
 					</ul>
 				</li>
 			</ul>
 			<div class="wrap_evnt">
-				<a href="/m/page/s1/s5.php">공지사항</a>
-				<a href="/m/page/scenter/s2.php">고객의소리</a>
-				<a href="/together/" class="ico_blank">공정창업<i class="txt_ir">새창열기</i></a>
-				<a href="https://winddesign33.cafe24.com/" class="ico_blank">일성코퍼레이션<i class="txt_ir">새창열기</i></a>
+				<a href="/m/page/s1/s6.php">공지사항</a>
+				<a href="/m/page/scenter/s1.php">고객의소리</a>
+				<a href="/together/m_index.php" class="ico_blank" target="_blank">공정창업<i class="txt_ir">새창열기</i></a>
+				<a href="https://winddesign33.cafe24.com/m/" class="ico_blank" target="_blank">일성코퍼레이션<i class="txt_ir">새창열기</i></a>
 			</div>
 			<a href="javascript:void(0);" class="bt_logout">로그아웃<i class="txt_ir"></i></a>
 			<!-- STR 로그인 되었을떄 -->

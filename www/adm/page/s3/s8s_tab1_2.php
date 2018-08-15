@@ -9,7 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 		<li><a href="s8.php">스시노 미식회</a></li>
 		<li><a href="s8.php">체험단</a></li>
 		<li><a href="s8.php">자발적 참여자</a></li>
-		<li><a href="s8.php">최초1회 참여자</a></li>
+		<li><a href="s8s_tab5.php">최초1회 참여자</a></li>
 		<li><a href="s8s_tab6.php">5회 신청자</a></li>
 	</ul>
 	<div class="table_wrap1 no_line">
@@ -49,7 +49,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 		<table>
 			<caption>회원 목록</caption>
 			<colgroup>
-				<col width="50">
 				<col width="80">
 				<col width="">
 				<col width="">
@@ -62,7 +61,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			</colgroup>
 			<thead>
 				<tr>
-					<th><input type="checkbox" class="" value="" name="" placeholder="" /></th>
 					<th>글번호</th>
 					<th>상태</th>
 					<th>발송일</th>
@@ -76,11 +74,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			</thead>
 			<tbody>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
 					<td class="txt_c">1</td>
 					<td class="txt_c">승인</td>
 					<td class="txt_c">2018-05-29</td>
-					<td>정말 기분이 좋군요 맛이 기가 막히고 코가 막힌다 그렇죠?</td>
+					<td>서울 강남 체험단 모집합니다</td>
 					<td class="txt_c">미등록 고객</td>
 					<td class="txt_c">홍길동</td>
 					<td class="txt_c">010-1234-1234</td>
@@ -89,11 +86,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				</tr>
 				<?php for($i=0;$i<2;$i++){?>
 				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
 					<td class="txt_c">1</td>
 					<td class="txt_c">승인</td>
 					<td class="txt_c">2018-05-29</td>
-					<td>정말 기분이 좋군요 맛이 기가 막히고 코가 막힌다 그렇죠?</td>
+					<td>서울 강남 체험단 모집합니다</td>
 					<td class="txt_c">winddesign</td>
 					<td class="txt_c">홍길동</td>
 					<td class="txt_c">010-1234-1234</td>
@@ -103,19 +99,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 				<?php }?>
 			</tbody>
 		</table>
-	</div>
-
-	<div class="bt_wrap1">
-		<div class="left_box">
-			<button type="button" class="bt_1">전체선택</button>
-			<button type="button" class="bt_1">선택해제</button>
-			<button type="button" class="bt_1">선택거절1</button>
-			<button type="button" class="bt_1">선택거절2</button>
-			<button type="button" class="bt_1">선택거절3</button>
-		</div>
-		<div class="right_box">
-			<button type="button" class="bt_1" onclick="location.href='s8ssmswrite1.php'">선택 sms보내기</button>
-		</div>
 	</div>
 
 	<nav class="paging_type1">
@@ -134,6 +117,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 			<div>
 				<p class="title">선택거절1</p>
 				<textarea name="" id="">거절 거절 거절</textarea>
+				<div style="text-align:center"><button type="button" class="bt_1">저장</button></div>
 			</div>
 		</div>
 		<div>
@@ -153,12 +137,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 거절 거절 거절
 거절 거절 거절
 				</textarea>
+				<div style="text-align:center"><button type="button" class="bt_1">저장</button></div>
 			</div>
 		</div>
 		<div>
 			<div>
 				<p class="title">선택거절3</p>
 				<textarea name="" id="">거절 거절 거절</textarea>
+				<div style="text-align:center"><button type="button" class="bt_1">저장</button></div>
 			</div>
 		</div>
 	</div>

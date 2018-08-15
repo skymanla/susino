@@ -1,7 +1,7 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 
-$tbl_info = " sb_invite_member a left join sb_member b on a.sbi_mb_id=b.sb_id ";
+$tbl_info = " sb_invite_member a left join sb_member b on a.sbi_mb_id=b.sb_id join sb_invite_admin c on a.sbi_pidx=c.sbia_eurl ";
 
 $cur_page = (int)$_GET['cur_page'];
 if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
@@ -9,31 +9,32 @@ if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
 $where = array();
 
 //검색 조건
-$dating_flag = true;
+$dating_flag = false;
 switch($_GET['stx']){
+	case "title":
+		$where[] = " c.sbia_title like '%".$_GET['sval']."%' ";
+		$title_chk = "selected";
+		break;
 	case "mb_id" :
 		$where[] = " b.sb_id like '%".$_GET['sval']."%' ";
 		$id_chk = "selected";
-		$dating_flag = false;
 		break;
 	case "mb_name" :
 		$where[] = " b.sb_name like '%".$_GET['sval']."%' ";
 		$name_chk = "selected";
-		$dating_flag = false;
 		break;
 	case "mb_phone":
 		$where[] = " b.sb_phone like '%".$_GET['sval']."%' ";
 		$phone_chk = "selected";
-		$dating_flag = false;
 		break;
 	case "mb_email":
 		$where[] = " b.sb_email like '%".$_GET['sval']."%' ";
 		$email_chk = "selected";
-		$dating_flag = false;
 		break;
 	case "dating" :
 		$where[] = " date_format(a.sbi_adate, '%Y-%m-%d') = '".$_GET['sval']."' ";
 		$dating_chk = "selected";
+		$dating_flag = true;
 		break;
 	default :
 		$where[] = ' 1 ';
@@ -64,7 +65,7 @@ $total_page = floor ( $cnt / $limit_num ) + 1;
 $sql = "select 
 		a.sbi_idx, a.sbi_cate, a.sbi_option,  a.sbi_option2, a.sbi_option3, a.sbi_option4, a.sbi_option5, date_format(a.sbi_rdate, '%Y-%m-%d') as sbi_rdate, date_format(a.sbi_adate, '%Y-%m-%d') as sbi_adate,
 		b.sb_idx, b.sb_id, b.sb_name, (select sb_level_title from sb_member_level where sb_level_cate=b.sb_mem_level) as sb_level_title, b.sb_phone, 
-		b.sb_email
+		b.sb_email, c.sbia_title
 		from $tbl_info where a.sbi_option2 <> '' $whereis order by a.sbi_idx desc LIMIT $limit_num OFFSET $show_offset_num";
 $q = $conn->query($sql);
 
@@ -75,7 +76,7 @@ $q = $conn->query($sql);
 	<ul class="tab_type1">
 		<li><a href="s7.php">신청자 목록</a></li>
 		<li class="active"><a href="s7slist2.php">당첨자</a></li>
-		<li><a href="s7slist3.php">당첨자 확률관리</a></li>
+		<li><a href="s7slist3_list.php">당첨자 확률관리</a></li>
 	</ul>
 	
 	<div class="table_wrap1 no_line">
@@ -91,6 +92,7 @@ $q = $conn->query($sql);
 					<td>
 						<form name="searchFrm" id="searchFrm" method="get">
 							<select name="stx" id="stx" title="" class="w_input1" onchange="sFrmval(this);">
+								<option value="title" <?=$title_chk?> >이벤트제목</option>
 								<option value="dating" <?=$dating_chk?> >추천등록일</option>
 								<option value="mb_id" <?=$id_chk?> >아이디</option>
 								<option value="mb_name" <?=$name_chk?> >이름</option>
@@ -126,7 +128,7 @@ $q = $conn->query($sql);
 				<tr>
 					<th><input type="checkbox" class="" value="" name="" /></th>
 					<th>글번호</th>
-					<th>등수</th>
+					<th>이벤트 제목</th>
 					<th>추천등록일</th>
 					<th>추천인</th>
 					<th>아이디</th>
@@ -142,7 +144,7 @@ $q = $conn->query($sql);
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="" value="" name="" /></td>
 					<td class="txt_c"><?=$board_no?></td>
-					<td class="txt_c"><?=$row[sbi_option2];?> 등</td>
+					<td class="txt_c"><?=$row['sbia_title']?></td>
 					<td class="txt_c"><?=date('Y-m-d',strtotime($row['sbi_adate']))?></td>
 					<td class="txt_c"><?=$row['sbi_option']=='' ? '미등록 고객' : $row['sbi_option']?></td>
 					<td class="txt_c"><?=$row['sb_id']?></td>
@@ -164,6 +166,8 @@ $q = $conn->query($sql);
 		<div class="left_box">
 			<button type="button" class="bt_1">전체선택</button>
 			<button type="button" class="bt_1">선택해제</button>
+			<button type="button" class="bt_1">선택 엑셀 다운로드</button>
+			<button type="button" class="bt_1">전체 엑셀 다운로드</button>
 		</div>
 		<div class="right_box">
 			<button type="button" class="bt_1" onclick="location.href='s7ssmswrite.php'">선택 sms보내기</button>

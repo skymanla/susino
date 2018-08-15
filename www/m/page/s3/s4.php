@@ -172,7 +172,7 @@
 
 <div class="wrap_conts s_top">
 	<div class="map_search_wrap">
-		<div class="data_form">
+		<div class="data_form" style="display:none;">
 			<ul class="radio_box jquery_checked" style="display:none;">
 				<li><input type="radio" class="" value="" name="s_info_type" id="s_info_type_check1" /><label for="s_info_type_check1">전체매장</label></li>
 				<li><input type="radio" class="" value="1" name="s_info_type" id="s_info_type_check2"/><label for="s_info_type_check2">다이닝</label></li>

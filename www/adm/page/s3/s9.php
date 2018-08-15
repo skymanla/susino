@@ -1,131 +1,116 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
+
+$aType = (isset($_GET['aType']) ? $_GET['aType'] : "shopper");
+$stx = (isset($_GET['stx']) ? $_GET['stx'] : "");
+$sval = (isset($_GET['sval']) ? $_GET['sval'] : "");
 ?>
+
+<script>
+$(function(){
+	ajax_review_excel("<?=$aType?>", "1", "<?=$stx?>", "<?=$sval?>");
+});
+</script>
 
 <section class="section1">
 	<h3>엑셀 관리</h3>
-	<ul class="tab_type1">
-		<li class="active"><a href="s9.php">미스터리 쇼퍼</a></li>
-		<li><a href="s9.php">스시노 미식회</a></li>
-		<li><a href="s9.php">체험단</a></li>
-		<li><a href="s9.php">자발적 참여자</a></li>
-		<li><a href="s9.php">최초1회 참여자</a></li>
-		<li><a href="s9s_tab6.php">5회 신청자</a></li>
-	</ul>
-	<div class="table_wrap1 no_line">
-		<table>
-			<caption>검색필터</caption>
-			<colgroup>
-				<col width="100">
-				<col width="">
-			</colgroup>
-			<tbody>
-				<tr>
-					<th>검색필터</th>
-					<td>
-						<select name="" title="" class="w_input1">
-							<option value="">발송일</option>
-							<option value="">아이디</option>
-							<option value="">이름</option>
-							<option value="">핸드폰</option>
-							<option value="">이메일</option>
-							<option value="">레벨</option>
-						</select>
-						<input type="text" class="w_input1" value="" name="" style="width:180px">
-						<button type="button" class="bt_s1 input_sel">검색</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+	<div id="view_container">
 	</div>
-
-	<ul class="tab_type1">
-		<li class="active"><a href="javascript:void(0);">전체</a></li>
-		<li><a href="javascript:void(0);">대기</a></li>
-		<li><a href="javascript:void(0);">승인</a></li>
-		<li><a href="javascript:void(0);">거절</a></li>
-	</ul>
-
-	<div class="table_wrap1">
-		<table>
-			<caption>회원 목록</caption>
-			<colgroup>
-				<col width="50">
-				<col width="80">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-				<col width="">
-			</colgroup>
-			<thead>
-				<tr>
-					<th><input type="checkbox" class="" value="" name="" placeholder="" /></th>
-					<th>글번호</th>
-					<th>상태</th>
-					<th>발송일</th>
-					<th>제목</th>
-					<th>아이디</th>
-					<th>이름</th>
-					<th>핸드폰</th>
-					<th>이메일</th>
-					<th>레벨</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
-					<td class="txt_c">1</td>
-					<td class="txt_c">승인</td>
-					<td class="txt_c">2018-05-29</td>
-					<td>정말 기분이 좋군요 맛이 기가 막히고 코가 막힌다 그렇죠?</td>
-					<td class="txt_c">미등록 고객</td>
-					<td class="txt_c">홍길동</td>
-					<td class="txt_c">010-1234-1234</td>
-					<td class="txt_c">winddesign@winddesign.co.kr</td>
-					<td class="txt_c">-</td>
-				</tr>
-				<?php for($i=0;$i<2;$i++){?>
-				<tr>
-					<td class="txt_c"><input type="checkbox" class="" value="" name="" placeholder="" /></td>
-					<td class="txt_c">1</td>
-					<td class="txt_c">대기</td>
-					<td class="txt_c">2018-05-29</td>
-					<td>정말 기분이 좋군요 맛이 기가 막히고 코가 막힌다 그렇죠?</td>
-					<td class="txt_c">winddesign</td>
-					<td class="txt_c">홍길동</td>
-					<td class="txt_c">010-1234-1234</td>
-					<td class="txt_c">winddesign@winddesign.co.kr</td>
-					<td class="txt_c">VIP</td>
-				</tr>
-				<?php }?>
-			</tbody>
-		</table>
-	</div>
-
-	<div class="bt_wrap1">
-		<div class="left_box">
-			<button type="button" class="bt_1">전체선택</button>
-			<button type="button" class="bt_1">선택해제</button>
-			<button type="button" class="bt_1">선택 엑셀 다운로드</button>
-			<button type="button" class="bt_1">전체 엑셀 다운로드</button>
-		</div>
-	</div>
-
-	<nav class="paging_type1">
-		<a href="javascript:void(0);" class="arr all_prev"><i>처음</i></a>
-		<a href="javascript:void(0);" class="arr prev"><i>이전</i></a>
-		<a href="?cur_page=1" class="active">1</a>
-		<a href="?cur_page=2">2</a>		
-		<a href="?cur_page=2" class="arr next"><i>다음</i></a>
-		<a href="javascript:void(0);" class="arr all_next"><i>마지막</i></a>
-	</nav>
-
 </section>
+<script type="text/javascript" src="/adm/js/jquery-ui.min.js"></script>
+<script>
+function all_check(){
+    if($('#all_check').is(':checked')){
+        $(".rp_check_class").prop("checked", true);
+    }else{
+        $(".rp_check_class").prop("checked", false);   
+    }
+}
 
+function all_check_t(){
+    $(".rp_check_class").prop("checked", true);
+}
+
+function all_check_f(){
+    $(".rp_check_class").prop("checked", false);
+}
+
+function move_page(aType){
+	if(aType == "once"){
+		location.href="./s9s_tab5.php";
+	}else if(aType == "five"){
+		location.href="./s9s_tab6.php";
+	}else{
+		location.href="./s9.php?aType="+aType;
+	}
+}
+
+function stxchg(getVal){
+	var Pt = getVal.parentNode.getElementsByClassName('w_input1');
+	if(getVal.value == "pdate"){
+		Pt[1].setAttribute('id', 'inp_date');
+		$('#inp_date').datepicker({
+			dateFormat: 'yy-mm-dd',
+			maxDate : 0
+		});
+	}else{
+		$('#inp_date').datepicker("destroy");
+		Pt[1].removeAttribute('id');
+	}
+}
+
+function ajax_review_excel(aType, cur_page, getStx, getSval, getEtype){
+	if(aType=="selfer"){
+		var url = "/ajax/adm_review_excel_list_selfer.php";
+	}else{
+		var url = "/ajax/adm_review_excel_list.php";
+	}
+	$.ajax({
+		type : "POST",
+		data : {"aType" : aType, "cur_page" : cur_page, "stx" : getStx, "sval" : getSval, "Etype" : getEtype},
+		contentType : "application/x-www-form-urlencoded",
+		url : encodeURI(url),
+		success : function(result){			
+			$('#view_container').html(result);
+			if($("select[name=stx] option:selected").val() == "pdate"){				
+				$("select[name=stx]").siblings($('input[name=sval]')).attr("id", "inp_date");
+				$('#inp_date').datepicker({
+					dateFormat: 'yy-mm-dd',
+					maxDate : 0
+				});		
+			}
+		},error : function(){
+			console.log('errrrr');
+		}
+	});
+}
+
+function review_excel_download(bType, cType){
+	if(cType == "a"){
+		var chk_data = new Array()
+		var chk_cnt = 0;
+		var chkbox = $('.rp_check_class');
+
+		for(var i=0;i<chkbox.length;i++){
+			if(chkbox[i].checked == true){
+				chk_data[chk_cnt] = chkbox[i].value;
+				chk_cnt++;
+			}
+		}
+		if(chk_data == ''){
+			alert("엑셀 다운로드할 항목을 선택해 주세요.");
+			return false;
+		}
+	}else if(cType == "b"){
+		var chk_data = "all";
+	}
+	<? if($aType=="selfer"){ ?>
+	location.href="/ajax/adm_review_excel_selfer_download.php?aType=<?=$aType?>&bType="+bType+"&cType="+cType+"&chk_data="+chk_data;
+	<? }else{ ?>
+		location.href="/ajax/adm_review_excel_download.php?aType=<?=$aType?>&bType="+bType+"&cType="+cType+"&chk_data="+chk_data;
+	<? } ?>
+}
+</script>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_tail.php');
 ?>

@@ -13,6 +13,10 @@
 </head>
 <body>
 	<div id="wrap">
+		<ul class="hd_tab">
+			<li class="active"><a href="/together/m_index.php">스시노백쉐프<br /><strong>창업상담</strong></a></li>
+			<li class="bgw"><a href="/ownerchef/m_index.php">스시노백쉐프<br /><strong>오너쉐프제도</strong></a></li>
+		</ul>
 		<div class="hd_guide_num" onclick="location.href='tel:031-1899-0836'">
 			<h4 class="tit">창업상담 전화문의</h4>
 			<p class="num">(031)1899-0836</p>
@@ -74,6 +78,7 @@
 					<h2 class="hd_tit">창업상담</h3>
 					<form id="myform" name="myform" method="post">
 						<input type="hidden" name="flag" value="business">
+						<input type="hidden" name="w_device" value="mobile">
 						<ul class="con_box">
 							<li>
 								<h3 class="tit"><label for="inp_0">이름</label></h3>
@@ -204,6 +209,7 @@
 		mMenuOpenClose();//메뉴열기;
 		animate()//quick메뉴 애니메이션;
 		active()//탭메뉴
+		menutop()//fixedmenu
 	})
 	function mMenuOpenClose(){
 		var $btnOpenMenu = $('.bt_menu'),
@@ -357,6 +363,18 @@ function write_ok()
 
 	f.action = '../../lib/write_ok.php';
 	f.submit();
+}
+
+// fixedmenu
+function menutop(){
+	$(window).on('scroll',function (){
+		var t = $(document).scrollTop();
+			if(t>73){
+				$('.bt_menu').addClass('active');
+			} else {
+				$('.bt_menu').removeClass('active');
+			}
+		});
 }
 </script>
 </html>

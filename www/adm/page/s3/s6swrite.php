@@ -3,18 +3,31 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/adm/_head.php');
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 
 $mode = $_GET['mode'];
-$flag_depth = "App_notice";
 $tbl_info = "sb_application_notice_board";
 if($mode == "w"){
 	//pass
 }else if($mode == "u"){
-	$sql = "select * from $tbl_info where sbab_idx='".$_GET['idx']."' and sbab_cate='$flag_depth' ";
+	$sql = "select * from $tbl_info where sbab_idx='".$_GET['idx']."'";
 	$q = $conn->query($sql);
 	$row = $q->fetch_assoc();
 	if(empty($row)){
 		$url = "/adm/page/s3/s6.php";
 		echoAlert("잘못된 접근입니다.");
 		echoMovePage($url);	
+	}
+
+	//시도
+	$catch_area = explode(" ", $row['sbab_area']);
+	$catch_area_city = explode(",", $catch_area[1]);
+	
+	$script_val_spc = '"';
+	$script_val_comma = ',';
+	$script_val = '';
+	for($a=0;$a<count($catch_area_city);$a++){
+		if($a == count($catch_area_city)-1){
+			$script_val_comma = '';		
+		}
+		$script_val .= $script_val_spc.$catch_area_city[$a].$script_val_spc.$script_val_comma;
 	}
 }else{
 	$mode = "w";
@@ -86,6 +99,21 @@ if($mode == "w"){
 	</form>
 </section>
 <script type="text/javascript">
+var catch_area = "<?=$catch_area[0]?>";
+<? if($_GET['mode'] == 'u'){ ?>
+var catch_area_city = new Array();
+catch_area_city = [<?=$script_val?>];
+<? } else { ?>
+var catch_area_city = '';
+<? } ?>
+
+$(function(){
+	if(catch_area != ""){
+		$('#s_sido option[data-real-addr="<?php echo $catch_area[0]?>"]').attr('selected', 'selected');
+		findArea($('#s_sido')[0]);
+	}
+});
+
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
@@ -113,23 +141,39 @@ function findArea(Aval){
 			url : '/ajax/adm_ourArea.php',
 			dataType : 'json',
 			success : function(result){
-				console.log(result);
 				var i = 0;
 				var data = "";
-				for(key in result){
-					if(i==0){
-						var chkVal = "checked";
+				var chkVal = "";
+				catch_area_result = Aval.options[Aval.selectedIndex].getAttribute('data-real-addr');
+				for(key in result){				
+					if(Array.isArray(catch_area_city) == true){
+						if(catch_area == catch_area_result){
+							if(catch_area_city.indexOf(key) != -1){
+								chkVal = "checked";
+							}else{
+								chkVal = "";
+							}
+						}else{
+							if(i==0){
+								chkVal = "checked";
+							}else{
+								chkVal = "";
+							}	
+						}
 					}else{
-						var chkVal = "";
+						if(i==0){
+							chkVal = "checked";
+						}else{
+							chkVal = "";
+						}
 					}
-					data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					//data += '<div class="radio_box"><input type="radio" value="'+key+'" '+chkVal+' name="addr_sec" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
+					data += '<div class="radio_box"><input type="checkbox" value="'+key+'" '+chkVal+' name="addr_sec[]" id="addr_sec'+i+'"><label for="addr_sec'+i+'">'+key+' (<b>'+result[key]+'</b>)</label></div>';
 					i++;
 				}
 				$('#area_depth').html(data);
-			}, error : function(){
-				console.log('1234');
 			}
-		})
+		});
 	}
 }
 

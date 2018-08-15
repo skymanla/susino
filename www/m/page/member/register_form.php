@@ -132,14 +132,11 @@
 								<option value="16" data-real-addr="제주특별자치도">제주특별자치도</option>
 							</select>
 						</li>
-						<!-- STR 시군구 선택 -->
-						<!-- 
 						<li>
 							<select name="" title="시/군/구 선택">
 								<option value="">시/군/구 선택</option>
 							</select>
 						</li>
-						 -->
 						<!-- END 시군구 선택 -->
 					</ul>
 			</div>

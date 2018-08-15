@@ -62,6 +62,11 @@
 						</ul>
 					</div>
 				</a>
+				<div class="wrap_cmt">
+					<!-- 완료 되었을때 class="active" 추가 -->
+					<span class="active">신청완료</span>
+					<span>후기완료</span>
+				</div>
 			</li>
 			<li>
 				<a href="javascript:void(0);">
@@ -78,6 +83,11 @@
 						</ul>
 					</div>
 				</a>
+				<div class="wrap_cmt">
+					<!-- 완료 되었을때 class="active" 추가 -->
+					<span>신청완료</span>
+					<span>후기완료</span>
+				</div>
 			</li>
 			<li>
 				<a href="javascript:void(0);">
@@ -94,6 +104,11 @@
 						</ul>
 					</div>
 				</a>
+				<div class="wrap_cmt">
+					<!-- 완료 되었을때 class="active" 추가 -->
+					<span class="active">신청완료</span>
+					<span class="active">후기완료</span>
+				</div>
 			</li>
 		</ul>
 </div>

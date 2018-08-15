@@ -41,7 +41,7 @@ if(isset($w_sub_name[3])){
 				case "4" : $w_s_title_2="체험단"; break;
 				case "5" : $w_s_title_2="이벤트"; break;
 				case "6" : $w_s_title_2="우리동네 공지사항"; break;
-				case "7" : $w_s_title_2="함께갈레요 관리"; break;
+				case "7" : $w_s_title_2="함께갈래요 관리"; break;
 				case "8" : $w_s_title_2="후가작성 관리"; break;
 				case "9" : $w_s_title_2="엑셀 관리"; break;
 			}

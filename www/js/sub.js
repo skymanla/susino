@@ -183,7 +183,6 @@ function popOpenAc1(t,i,m){
 function popCloseAc1(t){
 	$(t).fadeOut(300);
 	setTimeout(function(){$(t).css('margin-top','')}, 300);
-
 }
 
 function myNoticeRoll(){

@@ -7,11 +7,12 @@ json
 header("Content-Type:application/json");
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+include_once('./register_our_area.php');
 
 $tbl_name = "sb_member";
 
 $sb_sido = $_REQUEST['sb_sido'];
-include_once('./register_our_area.php');
+$sb_sido = our_area($sb_sido);
 $sql = "select sb_dongnae, count(sb_dongnae) as cnt from ".$tbl_name." where sb_dongnae like '".$sb_sido."%' group by sb_dongnae";
 //$sql = "select sb_dongnae from ".$tbl_name." where sb_dongnae like '".$sb_sido."%'";
 $query = $conn->query($sql);

@@ -258,7 +258,7 @@ function dmapAc1(){
 			dataType: 'json',
 			data: ''
 		}).done(function(addArry1) {
-
+			console.log(addArry1);
 			$.each(addArry1,function (i){
 				if(s_info_type){
 					if(s_info_type == addArry1[i].type){

@@ -68,7 +68,7 @@
 				<li><img src="/m/img/s5/coupon10000.png" alt="첫 후기 등록 시 스시노백쉐프 10000원 쿠폰"></li>
 				<li><img src="/m/img/s5/coupon30000.png" alt="다섯번 등록 마다 스시노백쉐프 30000원 쿠폰"></li>
 			</ul>
-			<a href="javascript:void(0);" class="bt_2s_c_red">후기 전송하기</a>
+			<a href="/m/page/s5/s2sreview_self.php" class="bt_2s_c_red">후기 전송하기</a>
 		</div>
 	</div>
 

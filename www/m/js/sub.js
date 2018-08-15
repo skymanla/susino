@@ -5,7 +5,6 @@ $(function (){
 	mapInfoToggle();//¸Ê Á¤º¸ ¾ÆÄÚµð¾ð ¸Þ´º
 	mapOpen();//´ÙÀÌ´×, ÄÄÆÑÆ®, À¯´ÏÅ© ¸Ê ¿ÀÇÂ
 	swiperSwipeStyle();//½º¿ÍÀÌÇÁ ÄÁÅÙÃ÷
-
 });
 
 function imgHeading(){
@@ -14,7 +13,7 @@ function imgHeading(){
 				$imgHei = $imgWrap.find('img').outerHeight();
 				var topPos = $img.outerHeight()/2;
 				var leftPos = $img.outerWidth()/2;
-				$img.css({width:leftPos,height:topPos});	
+				$img.css({width:leftPos,height:topPos});
 }
 
 function listBtnToggle(t) {
@@ -23,8 +22,6 @@ function listBtnToggle(t) {
 		$(this).next().stop().slideToggle();
 	})
 }
-
-
 
 function imgChangTab() {
 	var $btnImgSlect = $('#ssi_select_list');
@@ -97,11 +94,23 @@ function swiperSwipeStyle(){
 			}
 	});
 	$tarTab.find('button').on('click',function(){
-			swiper.autoplay.stop();
-			var tabIdx = $(this).parent().index();
-			$(this).closest('li').addClass('active').siblings().removeClass('active');
-			swiper.slideTo(tabIdx + 1);
-		});
-	
+		swiper.autoplay.stop();
+		var tabIdx = $(this).parent().index();
+		$(this).closest('li').addClass('active').siblings().removeClass('active');
+		swiper.slideTo(tabIdx + 1);
+	});
+	var swiper = new Swiper('.swiper-container-notice', {
+		slidesPerView: 1,
+		direction: 'vertical',
+		loop: true,
+		autoplay: {
+			delay: 6000,
+		},
+		speed:1000,
+		navigation: {
+			nextEl: '.bt-top',
+			prevEl: '.bt-bottom',
+		}
+	});
 
 }

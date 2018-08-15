@@ -38,7 +38,7 @@ if($v['cnt']==0){
 	$q = $conn->query($sql);
 	$vD = $q->fetch_assoc();
 
-	$sql = "select sbab_limit from $tbl_info where sbab_idx='".$idx."'";
+	$sql = "select * from $tbl_info where sbab_idx='".$idx."'";
 	$q = $conn->query($sql);
 	$vE = $q->fetch_assoc();
 
@@ -47,6 +47,13 @@ if($v['cnt']==0){
 		$r = (object) $r;
 		echo json_encode($r);
 		exit;	
+	}
+	//limit date
+	if( strtotime(date('Y-m-d H:i:s')) > strtotime($vE['sbab_edate']) ) {
+		$r = array("msg" => "해당 이벤트의 모집은 마감되었습니다.", "codeNum" => "99");
+		$r = (object) $r;
+		echo json_encode($r);
+		exit;
 	}
 
 	//check idx

@@ -16,6 +16,14 @@ if($_SESSION['login_chk'] != 99){
 $cur_page = (int)$_GET['cur_page'];
 if($cur_page=="") $cur_page = 1; //페이지 번호가 없으면 1번 페이지
 
+//Tab Move
+$udong_mv_tab_our = "";
+$udong_mv_tab_myissue = "";
+if($_GET['cType'] == 'ourlocate' || !isset($_GET['cType'])){
+	$udong_mv_tab_our = "active";
+}else if($_GET['cType'] == 'myissue'){
+	$udong_mv_tab_myissue = "active";
+}
 $tbl_info = "sb_application_board";
 //검색
 $where = array();
@@ -52,7 +60,7 @@ switch($_GET['bType']){
 		$qtr[] = 'bType='.$_GET['bType'];
 		break;
 	case 'end' :
-		$where[] = " ( date_format(sbab_edate, 'Y-m-d') < '".$now_date."' ) ";
+		$where[] = " ( date_format(sbab_edate, '%Y-%m-%d') < '".$now_date."' ) ";
 		$end_chk = "active";
 		$qtr[] = 'bType='.$_GET['bType'];
 		break;
@@ -108,27 +116,35 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	$sql_B = "select * from $tbl_info where 1 $whereis order by sbab_idx desc LIMIT $limit_num OFFSET $show_offset_num";
 	$vB = $conn->query($sql_B);
 }else{//회원
+	//$dongnae = explode(" ", $_SESSION['sb_dongnae']);
+	//$dongnae = $dongnae[1];
 	$dongnae = $_SESSION['sb_dongnae'];
-	//동네 가져오기
-	$sql_A = "select count(sb_dongnae) as cnt from sb_member where sb_dongnae='".$dongnae."'";
-	$q = $conn->query($sql_A);
-	$vA = $q->fetch_assoc();
-	//등급 가져오기
-	$sql_L = "select sb_level_title as rate from sb_member_level where sb_level_cate='".$_SESSION['sb_mem_level']."'";
-	$q = $conn->query($sql_L);
-	$vL = $q->fetch_assoc();
-	//체험기 가져오기(당첨된 것 만)
-	$sql_C = "select count(sbabm_mb_id) as cnt from sb_application_member where 
-				sbabm_mb_id='".$sb_id."' and sbabm_option4=''";
-	$q = $conn->query($sql_C);
-	$vC = $q->fetch_assoc();
+	
+	//DashBoard sql
+	$sql_dash = "select sb_review_cnt, sb_review_tocnt, sb_review_get_coupon, sb_dongnae as dongnae,
+				(select count(sb_dongnae) as cnt from sb_member where sb_dongnae=dongnae) as ourdongnae,
+				(select count(sbabm_mb_id) as cnt from sb_application_member where sbabm_mb_id='".$sb_id."' and (sbabm_option2='Y' and sbabm_option5='Y')) as accept_review,
+				(select count(sbabm_mb_id) as cnt from sb_application_member where sbabm_mb_id='".$sb_id."' and (sbabm_option2 != 'Y' and sbabm_option5='Y')) as post_review
+				from sb_member where sb_id='".$sb_id."'";
+	$query = $conn->query($sql_dash);
+	$dash_row = $query->fetch_assoc();
+
 	//우리동네 알림 가져오기
-	$sql_N = "select * from sb_application_notice_board where sbab_area='".$dongnae."' or sbab_area='A' order by sbab_idx";
+	$sql_N = "select * from sb_application_notice_board where sbab_area like '%".$dongnae."%' or sbab_area='A' order by sbab_idx limit 0, 10";
 	$vN = $conn->query($sql_N);
 	$vN_length = mysqli_num_rows($vN);
 
 	//개수
-	$count = "select count(sbab_idx) as cnt from $tbl_info where ( sbab_area='$dongnae' or sbab_area='A' ) $whereis ";	
+	$count_cType = '';
+	$area_where = " ( sbab_area like '%$dongnae%' or sbab_area='A' ) ";
+	if($_GET['cType'] == 'ourlocate' || !isset($_GET['cType'])){
+		//pass
+	}else if($_GET['cType'] == 'myissue'){//만약에 이사를 갔다거나...주로 다니는 곳이 변경되었을 경우
+		$tbl_info = $tbl_info." a right join sb_application_member b on a.sbab_idx=b.sbabm_fidx";
+		$whereis = $whereis." and sbabm_mb_id='".$sb_id."' and sbabm_option5='Y' and sbabm_cate!='selfer' ";
+		$area_where = " 1 ";//내 지역이 변경되지 않는다면 $area_where 를 초기화 시킬 필요가 없다.
+	}
+	$count = "select count(sbab_idx) as cnt from $tbl_info where $area_where $whereis ";	
 	$count_result = $conn->query($count);
 	$row = $count_result->fetch_assoc();
 	$cnt = $row['cnt'];
@@ -142,7 +158,7 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	$total_page = floor ( $cnt / $limit_num ) + 1;
 
 	//등록 게시물 가져오기
-	$sql_B = "select * from $tbl_info where ( sbab_area='$dongnae' or sbab_area='A' ) $whereis order by sbab_idx desc LIMIT $limit_num OFFSET $show_offset_num";
+	$sql_B = "select * from $tbl_info where $area_where $whereis order by sbab_idx desc LIMIT $limit_num OFFSET $show_offset_num";
 	$vB = $conn->query($sql_B);
 }
 
@@ -173,14 +189,14 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 					<!--<p class="copy1">서울시 강남구에</p>-->
 					<p class="copy1"><?=$dongnae?>에</p>
 					<!--<p class="copy3">255명의</b></p>-->
-					<p class="copy3"><?=$vA['cnt']?>명의</b></p>
+					<p class="copy3"><?=$dash_row['ourdongnae']?>명의</b></p>
 					<p class="copy_people"><i>스시노백쉐프 주민이 있습니다.</i></p>
 				</div>
 			</div>
 			<div>
 				<div>
 					<h3 class="title3"><i>나의 후기</i></h3>
-					<p class="copy4"><b><?=$vC['cnt']?>회</b></p>
+					<p class="copy4"><b><?=$dash_row['accept_review']?>회</b></p>
 					<p class="copy5">
 						스시노백쉐프에 다녀오셨나요? <br />
 						후기 등록하면 우동맛 스티커 증정!
@@ -194,26 +210,35 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 				<div>
 					<h3 class="title4"><i>우동맛 스티커</i></h3>
 					<div class="my_sticker1">
-						<div class="active"><i>1</i></div>
-						<div class="active"><i>2</i></div>
-						<div class="active"><i>3</i></div>
-						<div><i>4</i></div>
-						<div><i>5</i></div>
+						<?php 
+						for($i=1;$i<=5;$i++){
+							if($dash_row['sb_review_cnt'] >= $i){
+								$active = "active";
+							}else{
+								$active = "";
+							}
+							echo '<div class="'.$active.'"><i>'.$i.'</i></div>';
+						}
+						?>
 						<!--<div class="active"><i>1</i></div>
 						<div class="active"><i>2</i></div>
 						<div class="active"><i>3</i></div>
 						<div><i>4</i></div>
 						<div><i>5</i></div>-->
+					
 					</div>
 					<p class="copy2">
 						우동 다섯그릇 모일때마다 3만원권을! <br />
 						신청 시 매주 금요일에 발송됩니다.
 					</p>
 					<div class="bt_wrap">
-						<span class="bt3">상품권 받기</span>
+						<? if($dash_row['sb_review_cnt'] >= 5){ ?>
 						<!-- STR 5회시 나오게 -->
-						<!-- <a href="/page/s5/s1.php" class="bt2">상품권 받기</a> -->
+						<a href="javascript:get_coupon('<?=$sb_id?>');" class="bt2">상품권 받기</a>
 						<!-- END 5회시 나오게 -->
+						<? }else{ ?>
+						<span class="bt3">상품권 받기</span>
+						<? } ?>
 					</div>
 				</div>
 			</div>
@@ -222,8 +247,8 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 	<div class="my_notice_wrap"id="mv_page_top">
 
 		<div class="tab_type1">
-			<a href="javascript:void(0);" class="bt active">우리동네소식</a>
-			<a href="javascript:void(0);" class="bt">나의소식 <span class="count"><?=$vC['cnt']?></span></a>
+			<a href="javascript:mv_page3('ourlocate');" class="bt <?=$udong_mv_tab_our?>">우리동네소식</a>
+			<a href="javascript:mv_page3('myissue');" class="bt <?=$udong_mv_tab_myissue?>">나의소식 <span class="count"><?=$dash_row['post_review']?></span></a>
 			<div class="cate toggle_j">
 				<a href="javascript:mv_page2('A');" class="<?=$Da_chk?>">전체</a>
 				<a href="javascript:mv_page2('ing');" class="<?=$ing_chk?>">모집중</a>
@@ -253,9 +278,6 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 						} 
 					}
 					?>
-					<!--<li><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li>
-					<li><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li>
-					<li><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li>-->
 				</ul>
 			</div>
 			<div class="bt_wrap">
@@ -278,7 +300,7 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 						첫 후기 등록하면 스시노백쉐프 1만원권을,
 						5번 등록마다 스시노백쉐프 3만원권을 드려요!
 					</div>
-					<a href="javascript:void(0);" class="go_more">후기 전송하기</a>
+					<a href="s2sreview_self.php" class="go_more">후기 전송하기</a>
 				</div>
 			</li>
 			<? 
@@ -309,17 +331,36 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 						$app_stat = "etc1";
 						$go_more = 'javascript:void(0)';
 					}
+					//게시물 당첨 및 후기 여부 확인
+					$sql = "select * from sb_application_member where sbabm_mb_id='".$sb_id."' and sbabm_fidx='".$row['sbab_idx']."'";
+					$q = $conn->query($sql);
+					$mb_event = $q->fetch_assoc();
 			?>
 			<li>
 				<div>
-					<!-- <span><img src="/img/s5/win_icon1.png" alt="당첨" /></span> -->
 					<div class="cate <?=$bgType?>">
 						<div>
+							<?php if($mb_event['sbabm_option5'] == "Y"){ ?>
+							<span><img src="/img/s5/win_icon1.png" alt="당첨" /></span>
+							<? }else{  } ?>
 							<i><?=$cateType?></i>
 						</div>
 					</div>
 					<div class="info">
-						<div class="date <?=$app_stat?>"><i><?=$app_stat?></i></div>
+						<div class="date_wrap">
+							<div class="date <?=$app_stat?>"><i><?=$app_stat?></i></div>
+							<?
+							if(!empty($mb_event)){
+								if($mb_event['sbabm_option2'] == "Y"){
+							?>
+							<div class="order_state"><img src="/img/s5/my_event_img_list_end2.png" alt="후기 완료" /></div>
+							<? }else{ ?>
+							<div class="order_state"><img src="/img/s5/my_event_img_list_end.png" alt="신청완료" /></div>
+							<? 
+								} 
+							}
+							?>
+						</div>
 						<div class="addr">[<?=$row['sbab_area']=="A" ? "전체지역" : $row['sbab_area']?>]</div>
 						<div class="title"><?=stripslashes($row['sbab_title'])?></div>
 						<ul class="list">
@@ -365,23 +406,43 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 <script>
 function mv_page(getType){
 	if(getType=="A"){
-		location.href="./s2.php#mv_page_top";
-	}else if(getType=="shopper"){
-		location.href="./s2.php?aType="+getType+"#mv_page_top";
-	}else if(getType=="ftalk"){
-		location.href="./s2.php?aType="+getType+"#mv_page_top";
-	}else if(getType=="pick"){
-		location.href="./s2.php?aType="+getType+"#mv_page_top";
+		location.href="./s2.php?aType=&bType=<?=$_GET['bType']?>&cType=<?=$_GET['cType']?>#mv_page_top";
+	}else{
+		location.href="./s2.php?aType="+getType+"&bType=<?=$_GET['bType']?>&cType=<?=$_GET['cType']?>#mv_page_top";
 	}
 }
 
 function mv_page2(getType){
 	if(getType=="A"){
-		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>#mv_page_top";
+		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType=&cType=<?=$_GET['cType']?>#mv_page_top";
 	}else if(getType=="ing"){
-		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType="+getType+"#mv_page_top";
+		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType="+getType+"&cType=<?=$_GET['cType']?>#mv_page_top";
 	}else if(getType=="end"){
-		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType="+getType+"#mv_page_top";
+		location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType="+getType+"&cType=<?=$_GET['cType']?>#mv_page_top";
+	}
+}
+
+function mv_page3(getType){
+	location.href="./s2.php?cur_page=1&aType=<?=$_GET['aType']?>&bType=<?=$_GET['bType']?>&cType="+getType+"#mv_page_top";
+}
+
+function get_coupon(getId){
+	if(getId != "<?=$sb_id?>"){
+		alert("현재 접속 ID와 다릅니다.");
+		return false;
+	}else{
+		$.ajax({
+			type : "POST",
+			dataType : "json",
+			data : {"getId" : getId},
+			url : "/ajax/get_coupon.php",
+			success : function(result){
+				alert(result.msg);
+				location.reload();
+			}, error : function(){
+				console.log('errrrrrr');
+			}
+		});
 	}
 }
 </script>

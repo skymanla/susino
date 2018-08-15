@@ -204,9 +204,9 @@ $level_query = $conn->query($sql);
 		<div class="left_box">
 			<button type="button" class="bt_1" onclick="javascript:all_check_t();">전체선택</button>
 			<button type="button" class="bt_1" onclick="javascript:all_check_f();">선택해제</button>
-			<button type="button" class="bt_1" onclick="javascript:level_all_modify();">선택수정</button>
+			<button type="button" class="bt_1" onclick="javascript:mb_chg('u');">선택수정</button>
 			<?php if($_GET['memstat']!=3) {?>
-			<button type="button" class="bt_1" onclick="javascript:level_all_modify();">선택삭제</button>
+			<button type="button" class="bt_1" onclick="javascript:mb_chg('d');">선택삭제</button>
 			<?php }?>
 		</div>
 	</div>
@@ -280,34 +280,67 @@ function all_check_f(){
     $(".rp_check_class").prop("checked", false);   
 }
 
-function level_all_modify(){
+function mb_chg(mode){
 	var idx_flag = <?=$idx?>;
 	var chk_data = new Array()
 	var chk_cnt = 0;
 	var chkbox = $('.rp_check_class');
 
-	for(var i=0;i<chkbox.length;i++){
-        if(chkbox[i].checked == true){
-        	chk_data[chk_cnt] = new Array();
-        	var lvl_val = document.getElementById('sb_m_lvl_'+i);
-            /*chk_data[chk_cnt]['sb_idx'] = chkbox[i].value;
-            chk_data[chk_cnt]['sb_lvl_cata'] = lvl_val.options[lvl_val.selectedIndex].value;*/
-            chk_data[chk_cnt] = {'sb_idx' : chkbox[i].value, 'sb_lvl_cata' : lvl_val.options[lvl_val.selectedIndex].value}
-            chk_cnt++;
-        }
-    }
-    $.ajax({
-    	type : "POST",
-    	//dataType : "json",
-    	url : "/ajax/modify_adm_mem.php",
-    	data : {ajax_data : chk_data},
-    	success : function(result){
-    		alert("회원 레벨이 수정되었습니다.\n페이지를 새로고침합니다.");
-    		location.reload();
-    	}, error : function(jqXHR, textStatus, errorThrown){
-			console.log("error!\n"+textStatus+" : "+errorThrown);
-		}
-    });
+	if(mode == 'u'){
+		for(var i=0;i<chkbox.length;i++){
+	        if(chkbox[i].checked == true){
+	        	chk_data[chk_cnt] = new Array();
+	        	var lvl_val = document.getElementById('sb_m_lvl_'+i);
+	            /*chk_data[chk_cnt]['sb_idx'] = chkbox[i].value;
+	            chk_data[chk_cnt]['sb_lvl_cata'] = lvl_val.options[lvl_val.selectedIndex].value;*/
+	            chk_data[chk_cnt] = {'sb_idx' : chkbox[i].value, 'sb_lvl_cata' : lvl_val.options[lvl_val.selectedIndex].value}
+	            chk_cnt++;
+	        }
+	    }
+	    if(chk_data == ""){
+	    	alert("수정할 회원을 선택해 주세요.");
+	    	return false;
+	    }
+	    $.ajax({
+	    	type : "POST",
+	    	dataType : "json",
+	    	url : "/ajax/modify_adm_mem.php",
+	    	data : {"ajax_data" : chk_data, "mode" : mode},
+	    	success : function(result){
+	    		alert("회원 레벨이 수정되었습니다.\n페이지를 새로고침합니다.");
+	    		location.reload();
+	    	}, error : function(jqXHR, textStatus, errorThrown){
+				console.log("error!\n"+textStatus+" : "+errorThrown);
+			}
+	    });
+	}else if(mode == 'd'){
+		for(var i=0;i<chkbox.length;i++){
+			if(chkbox[i].checked == true){
+	        	chk_data[chk_cnt] = new Array();
+	        	var lvl_val = document.getElementById('sb_m_lvl_'+i);
+	            /*chk_data[chk_cnt]['sb_idx'] = chkbox[i].value;
+	            chk_data[chk_cnt]['sb_lvl_cata'] = lvl_val.options[lvl_val.selectedIndex].value;*/
+	            chk_data[chk_cnt] = {'sb_idx' : chkbox[i].value, 'sb_lvl_cata' : lvl_val.options[lvl_val.selectedIndex].value}
+	            chk_cnt++;
+	        }
+	    }
+	    if(chk_data == ""){
+	    	alert("수정할 회원을 선택해 주세요.");
+	    	return false;
+	    }
+	    $.ajax({
+	    	type : "POST",
+	    	dataType : "json",
+	    	url : "/ajax/modify_adm_mem.php",
+	    	data : {"ajax_data" : chk_data, "mode" : mode},
+	    	success : function(result){
+	    		alert("회원 레벨이 수정되었습니다.\n페이지를 새로고침합니다.");
+	    		location.reload();
+	    	}, error : function(jqXHR, textStatus, errorThrown){
+				console.log("error!\n"+textStatus+" : "+errorThrown);
+			}
+	    });
+	}
 }
 </script>
 <?php

@@ -1,16 +1,21 @@
 <?php 
 include_once "../../_head.php";
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 
 //당첨 정보 가져오기
-$sql = "select * from sb_invite_admin where 1=1 order by sbia_idx desc limit 1";
+//$sql = "select * from sb_invite_admin where 1=1 order by sbia_idx desc limit 1";
+
+$sql = "select * from sb_invite_admin where sbia_edate > now() order by sbia_idx desc limit 1";
 
 $q = $conn->query($sql);
 
 $invite_length = mysqli_num_rows($q);//값이 있는지 여부 없으면;;;;;;;;;;;;;
-
 if($invite_length < 1 ){
-	$row = "";
+	$row = "";	
+	echoAlert("현재 등록된 이벤트가 없습니다.\\n메인 페이지로 이동합니다.");
+	echoMovePage("/");
+	exit;
 }else{	
 	$row = $q->fetch_assoc();
 
@@ -40,13 +45,17 @@ if($invite_length < 1 ){
 	for($i=1;$i<5;$i++){
 		${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
 	}
+
+	//고유값
+	$eUrl = $row['sbia_eurl'];
 }
-
-
 
 session_start();
 if($_SESSION[sb_id]){
-	$go_to_invite_url = 'http://winddesign32.cafe24.com/invite.php?invite='.$_SESSION[sb_id].'&type=1';
+
+	$w_http_host = $_SERVER['HTTP_HOST'];
+
+	$go_to_invite_url = 'http://'.$w_http_host.'/invite.php?invite='.$_SESSION[sb_id].'&eurl='.$eUrl.'&type=1';
 } else {
 	$go_to_invite_url = '로그인 후 참여 가능합니다.';
 }
@@ -90,7 +99,12 @@ if($r[cnt] > 0){
 		</div>
 		<div class="invite_url_wrap">
 			<span><i>초대장 URL</i></span>
-			<input type="text" class="go_to_url" value="<?php echo $go_to_invite_url;?>" name="" placeholder="" readonly />
+			<input type="text" class="go_to_url" value="<?php echo $go_to_invite_url;?>" readonly />
+			<?php if($go_to_invite_url == '로그인 후 참여 가능합니다.'){?>
+			<button type="button" onClick="location.href = '/page/member/login.php'">로그인하기</button>
+			<?php } else { ?>
+			<button type="button" id="copy_url_bt" data-clipboard-text="<?php echo $go_to_invite_url;?>">복사하기</button>
+			<?php } ?>
 		</div>
 	</div>
 	<!-- END 신청 전 및 비로그인 -->
@@ -116,8 +130,37 @@ if($r[cnt] > 0){
 	<!-- END 신청 완료 -->
 	<?php } ?>
 
+	<div class="info_footer">
+		<?
+			$tbl_info = "sb_invite_admin";
+			//저장값 불러오기
+			$sql = "select * from $tbl_info where 1=1 order by sbia_idx desc limit 1";
+			$q = $conn->query($sql);
+			$invite_length = mysqli_num_rows($q);
+
+			if($invite_length < 1 ){
+				$row = "";
+			}else{
+				$row = $q->fetch_assoc();
+				
+				$sdate = date('Y-m-d', strtotime($row['sbia_sdate']));
+				$edate = date('Y-m-d', strtotime($row['sbia_edate']));
+
+				$sbia_prize_option = "sbia_prize_option";
+				for($i=1;$i<5;$i++){
+					${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
+					$sbia_prize_total_count += ${$sbia_prize_option.$i}[0];
+				}
+			}
+		?>
+		<div class="count1">(<?php echo $sbia_prize_total_count;?>명)</div>
+		<div class="count2">랜덤 <?php echo $sbia_prize_total_count;?>명 실시간 당첨!</div>
+	</div>
+
+
 </div>
 
+<script type="text/javascript" src="/js/clipboard.min.js"></script>
 <script type="text/javascript">
 //<![CDATA[
 $(function(){
@@ -137,7 +180,31 @@ function inviteAc1(){
 		var eNurl = wGoUrl[0]+'type='+wNum;
 		$(this).addClass('active').siblings().removeClass('active');
 		wTar.val(eNurl);
+		$('#copy_url_bt').attr('data-clipboard-text',eNurl);
 	});
+
+
+	$('#copy_url_bt').on('click',function(){
+		var _This = $(this);
+		var _tVal = _This.attr('data-clipboard-text');
+
+		if(_tVal=='로그인 후 참여 가능합니다.'){
+			alert('로그인 후 참여 가능합니다.');
+		}
+	});
+
+	if($('.go_to_url').val()!='로그인 후 참여 가능합니다.'){
+		var clipboard = new ClipboardJS('#copy_url_bt');
+
+		clipboard.on('success', function(e) {
+			alert('초대장 URL 복사가 완료 되었습니다.');
+		});
+		clipboard.on('error', function(e) {
+			alert('브라우저 버전이 낮아 복사 기능을 사용하실 수 없습니다.');
+		});
+	}
+
+
 }
 // END 수신인 선택
 //]]>

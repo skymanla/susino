@@ -34,7 +34,7 @@
 .swipe_menu{padding:50px 0;background-color:#fff;}
 .swipe_menu:after{content:'';display:block;clear:both;}
 .swipe_menu > div{float:left;}
-.swipe_menu > div{padding:10px 36px 0 40px;}
+.swipe_menu > div{padding:10px 26px 0 20px;}
 .swipe_menu > div h3{width:62px;height:64px;}
 .swipe_menu > div h3 img{width:100%;height:auto;}
 .swipe_menu > div a{position:relative;display:block;margin-top:12px;font-size:13px;color:#888;}

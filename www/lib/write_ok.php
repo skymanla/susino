@@ -62,6 +62,7 @@ $flag_depth1 = $conn->real_escape_string($_POST['flag_depth1']);
 $shopper_lvl = $_POST['shopper_lvl'];
 $sb_sido = $_POST['s_sido'];
 $limit_num = $conn->real_escape_string($_POST['limit_num']);
+
 $sb_addr_sec = $_POST['addr_sec'];
 include_once($_SERVER['DOCUMENT_ROOT']."/ajax/register_our_area.php");
 //end
@@ -80,6 +81,11 @@ if($flag == 'customer'){
 	$query = "INSERT INTO $board_name (sbb_name, sbb_hp, sbb_email, sbb_aria, sbb_aria2, sbb_contents, sbb_store, sbb_use, sbb_rdate) VALUES ('$name','$hp2','$email2','$aria','$aria2','$content','$store','$use',now())";
 	$conn->query($query);
 	$url = "/together/";
+
+	if(trim($_POST['w_device'])=='mobile'){
+		$url = "/together/m_index.php";
+	}
+
 	echoAlert("창업상담이 등록되었습니다.");
 	echoMovePage($url);
 }else if($flag == 'notice'){
@@ -123,7 +129,7 @@ if($flag == 'customer'){
 	//echo $sbs_option;
 	//exit;
 	if($mode == 'w'){
-		$query = "INSERT INTO $board_name (sbs_no, sbs_series, sbs_type, sbs_new, sbs_name, sbs_tel, sbs_link1, sbs_link2, sbs_zip, sbs_address, sbs_address2, sbs_option, sbs_op_p, sbs_op_q1, sbs_op_q2, sbs_rdate) VALUES ('$no','$series','$type','$new','$name','$tel','$link1','$link2','$zip','$address','$address2','$sbs_option,'$sbs_op_p','$sbs_op_q1','$sbs_op_q2',now())";
+		$query = "INSERT INTO $board_name (sbs_no, sbs_series, sbs_type, sbs_new, sbs_name, sbs_tel, sbs_link1, sbs_link2, sbs_zip, sbs_address, sbs_address2, sbs_option, sbs_op_p, sbs_op_q1, sbs_op_q2, sbs_rdate) VALUES ('$no','$series','$type','$new','$name','$tel','$link1','$link2','$zip','$address','$address2','$sbs_option','$sbs_op_p','$sbs_op_q1','$sbs_op_q2',now())";
 		$conn->query($query);
 		$url = "/page/s3/s1.php";
 		echoAlert("매장이 등록되었습니다.");
@@ -212,6 +218,18 @@ if($flag == 'customer'){
 	$board_name = "sb_application_board";
 	$sdate = $_POST['sdate']." 00:00:00";
 	$edate = $_POST['edate']." 23:59:59";
+	//우리동네 다중 checkbox 에 의한 값 표현 변경
+	$final_area = '';
+	$s_sido = our_area($_POST['s_sido']);
+	for($i=0;$i<count($_POST['addr_sec']);$i++){
+		$inter_val = ',';
+		$func_area = $_POST['addr_sec'][$i];
+		if($i == count($_POST['addr_sec'])-1){
+			$inter_val = '';
+		}
+		$final_area .= $func_area.$inter_val;
+	}
+	$sb_our_area = $s_sido." ".$final_area;
 	if($mode=="w"){
 		//idx check
 		$query = "select sbab_idx from $board_name where 1 order by sbab_idx desc limit 1";
@@ -223,17 +241,17 @@ if($flag == 'customer'){
 			$sbab_idx = $v['sbab_idx'];
 			$sbab_idx++;
 		}
-		
-
 		$query = "insert into $board_name 
 					(sbab_idx, sbab_cate, sbab_sdate, sbab_edate, sbab_lvl, sbab_area, sbab_limit, sbab_title, sbab_content, sbab_rdate, sbab_id, sbab_ip)
 					values
-					('$sbab_idx', '$flag_depth1', '$sdate', '$edate', '$shopper_lvl', '$sb_our_area', '$limit_num', $title', '$content', now(), '$w_id', '$ip')";
+					('$sbab_idx', '$flag_depth1', '$sdate', '$edate', '$shopper_lvl', '$sb_our_area', '$limit_num', '$title', '$content', now(), '$w_id', '$ip')";
+		
 		if($conn->query($query)){
 			$url .= "?idx=$sbab_idx";
 			echoAlert("이벤트가 등록되었습니다.");
 			echoMovePage($url);	
 		}else{
+			echo $query;
 			die('error');
 		}
 		
@@ -261,6 +279,20 @@ if($flag == 'customer'){
 	}
 }else if($flag == "App_notice"){
 	$board_name = "sb_application_notice_board";
+
+	//우리동네 다중 checkbox 에 의한 값 표현 변경
+	$final_area = '';
+	$s_sido = our_area($_POST['s_sido']);
+	for($i=0;$i<count($_POST['addr_sec']);$i++){
+		$inter_val = ',';
+		$func_area = $_POST['addr_sec'][$i];
+		if($i == count($_POST['addr_sec'])-1){
+			$inter_val = '';
+		}
+		$final_area .= $func_area.$inter_val;
+	}
+	$sb_our_area = $s_sido." ".$final_area;
+
 	if($mode=="w"){
 		//idx check
 		$query = "select sbab_idx from $board_name where 1 order by sbab_idx desc limit 1";
@@ -315,53 +347,66 @@ if($flag == 'customer'){
 	$board_name = "sb_invite_admin";
 	$sdate = $sdate." 00:00:00";
 	$edate = $edate." 23:59:59";
-	//여긴 update 따윈 없다
-	$sql = "select sbia_idx from $board_name where 1=1 order by sbia_idx desc limit 1";
-	$q = $conn->query($sql);
-	$v = $q->fetch_assoc();
-	if(empty($v['sbia_idx'])){
-		$sbia_idx = 1;
-	}else{
-		$sbia_idx = $v['sbia_idx'];
-		$sbia_idx++;
-	}
-	//old data chechk
-	$query = "select sbia_sdate, sbia_edate from $board_name where sbia_idx='$_POST[getNo]' order by sbia_idx desc limit 1";
-	$q = $conn->query($query);
-	$old_data = $q->fetch_assoc();
+	$title = $conn->real_escape_string($_POST['title']);
+	
+	if($mode == 'w'){
+		$sql = "select sbia_idx from $board_name where 1=1 order by sbia_idx desc limit 1";
+		$q = $conn->query($sql);
+		$v = $q->fetch_assoc();
+		if(empty($v['sbia_idx'])){
+			$sbia_idx = 1;
+		}else{
+			$sbia_idx = $v['sbia_idx'];
+			$sbia_idx++;
+		}
 
-	$old_data_sdate = strtotime($old_data[sbia_sdate]);
-	$old_data_edate = strtotime($old_data[sbia_edate]);
+		$hash_key = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";//암호화키
+		$charactersLength = strlen($hash_key);
+		$randomString = "";
+		for($i=0;$i<10;$i++){
+			$randomString .= $hash_key[rand(0, $charactersLength-1)];//랜덤 문자 생성
+		}
 
-	$chk_sdate = strtotime($sdate);
-	$chk_edate = strtotime($edate);
-
-	//이벤트 시작 및 종료 날짜가 같다면 update 
-	if(($old_data_sdate == $chk_sdate) && ($old_data_edate == $chk_edate)){
+		$query = "insert into $board_name
+				(sbia_idx, sbia_sdate, sbia_edate, sbia_prize_rate1, sbia_prize_rate2, sbia_prize_option1, sbia_prize_option2, sbia_prize_option3, sbia_prize_option4, sbia_rdate, sbia_write, sbia_ip, sbia_title, sbia_eurl)
+				values
+				('$sbia_idx', '$sdate', '$edate', '$invite_rate1', '$invite_rate2', '$sbia_option[1]', '$sbia_option[2]', '$sbia_option[3]', '$sbia_option[4]', now(), '$w_id', '$ip', '$title', '$randomString')
+				";
+		$ment = "당첨 이벤트가 등록되었습니다.";
+		$dir_path = $_SERVER['DOCUMENT_ROOT']."/data/invite";
+		$dir_path_idx = $_SERVER['DOCUMENT_ROOT']."/data/invite/".$sbia_idx;
+		if(is_dir($dir_path) == false){
+			mkdir($dir_path, 0777);
+		}
+		if(is_dir($dir_path_idx) == false){
+			mkdir($dir_path_idx, 0777);
+		}else{
+			rmdir($dir_path_idx);
+			mkdir($dir_path_idx, 0777);
+		}	
+	}else if($mode == 'u'){
 		$query = "update $board_name set
+					sbia_title = '$title',
+					sbia_sdate = '$sdate',
+					sbia_edate = '$edate',
 					sbia_prize_rate1='$invite_rate1',
 					sbia_prize_rate2='$invite_rate2',
 					sbia_prize_option1='$sbia_option[1]',
 					sbia_prize_option2='$sbia_option[2]',
 					sbia_prize_option3='$sbia_option[3]',
 					sbia_prize_option4='$sbia_option[4]',
-					sbia_rdate = now(),
+					sbia_mdate = now(),
 					sbia_write='$w_id',
 					sbia_ip='$ip'
 					where sbia_idx='$_POST[getNo]'
 				";
-	}else{//기존 날짜와 다르다면 insert
-		$query = "insert into $board_name
-				(sbia_idx, sbia_sdate, sbia_edate, sbia_prize_rate1, sbia_prize_rate2, sbia_prize_option1, sbia_prize_option2, sbia_prize_option3, sbia_prize_option4, sbia_rdate, sbia_write, sbia_ip)
-				values
-				('$sbia_idx', '$sdate', '$edate', '$invite_rate1', '$invite_rate2', '$sbia_option[1]', '$sbia_option[2]', '$sbia_option[3]', '$sbia_option[4]', now(), '$w_id', '$ip')
-				";	
+		$ment = "당첨 이벤트가 수정되었습니다.";
+		//$qstring = "?idx=".$_POST[getNo];
 	}
-
 	
 	if($conn->query($query)){
-		$url = "/adm/page/s3/s7slist3.php";
-		echoAlert("당첨자 확률이 수정되었습니다.");
+		$url = "/adm/page/s3/s7slist3_list.php".$qstring;
+		echoAlert($ment);
 		echoMovePage($url);
 	}else{
 		die($query);
@@ -383,6 +428,11 @@ if($flag == 'customer'){
 				('$sbb_idx', '$name','$hp2','$email2','$aria','$aria2','$content','$store','$use',now())";
 	if($conn->query($query)){
 		$url = "/ownerchef/";
+		if(trim($_POST['w_device'])=='mobile'){
+			$url = "/ownerchef/m_index.php";
+		}
+
+
 		echoAlert("오너쉐프 상담 신청하기가 등록되었습니다.");
 		echoMovePage($url);		
 	}else{

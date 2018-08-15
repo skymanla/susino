@@ -27,7 +27,7 @@ function probability($p, $per1){
     return $c;
 }
 
-function re_probability(){
+function re_probability($eUrl=""){
 	global $conn;
 	$comP_arr = array(1, 2, 3, 4);//1~4등 배열 수
 	$chk_flag = false;
@@ -39,7 +39,8 @@ function re_probability(){
 		$q = $conn->query($sql);
 		$comP = $q->fetch_assoc();
 		//기준 합격자 수
-		$sql = "select sbia_prize_option{$Num} as comQ from sbi_invite_admin where 1=1 order by sbia_idx desc";
+		//$sql = "select sbia_prize_option{$Num} as comQ from sbi_invite_admin where 1=1 order by sbia_idx desc";
+		$sql = "select sbia_prize_option{$Num} as comQ from sbi_invite_admin where sbia_eurl='".$eUrl."'";
 		$q = $conn->query($sql);
 		$comQ = $q->fetch_assoc();
 		$comQ = explode('||', $comQ['comQ']);

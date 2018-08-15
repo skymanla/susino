@@ -211,6 +211,10 @@ $qtr = "page=".$cur_page;
 		            chk_cnt++;
 		        }
 		    }
+		    if(chk_data == ''){
+		    	alert("삭제할 게시물을 선택해 주세요.");
+		    	return false;
+		    }
 		    $.ajax({
 		    	type : 'POST',
 		    	url : '/ajax/adm_board_del.php',

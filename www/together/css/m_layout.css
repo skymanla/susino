@@ -1,9 +1,24 @@
 @charset "utf-8";
 #wrap{position:relative;}
 #wrap img{width:100%;}
-#wrap .bt_menu{position:fixed;top:15px;right:15px;width:40px;height:40px;background:url("../img/m_main/btn_menu.png") no-repeat;background-size:100%;text-indent:-9999px;border:0 none;}
+#wrap .bt_menu{position:absolute;top:86px;right:15px;width:40px;height:40px;background:url("../img/m_main/btn_menu.png") no-repeat;background-size:100%;text-indent:-9999px;border:0 none;}
+#wrap .bt_menu.active{position:fixed;top:15px;}
+
+/* STR hd_tab*/
+.hd_tab{z-index:777;position:absolute;top:0;left:0;width:100%;line-height:1.2;}
+.hd_tab:after{content:"";display:block;clear:none;}
+.hd_tab li{position:relative;float:left;width:50%;}
+.hd_tab li.bgw{background:rgba(255,255,255,0.4);}
+.hd_tab li:after{content:"";position:absolute;top:100%;left:0;width:100%;height:22px;margin-top:-1px;background:url('../img/m_main/m_toptab_line.png') repeat-x;background-position:top center;background-size:200px 14px;}
+.hd_tab li.active:after{background-image:url('../img/m_main/m_toptab_line_active.png');background-repeat:no-repeat;}
+.hd_tab li a{overflow:hidden;position:relative;display:block;padding:10px 0;font-size:10px;color:#fff;text-align:center;text-decoration:none;}
+.hd_tab li a:after{content:"";position:absolute;bottom:0;left:50%;width:100%;height:1px;margin-left:14px;background-color:#d1d7dd;}
+.hd_tab li a:before{content:"";position:absolute;bottom:0;right:50%;width:100%;height:1px;margin-right:14px;background-color:#d1d7dd;}
+.hd_tab li a strong{font-weight:700;font-size:14px;}
+/* END hd_tab*/
+
 .hd_guide_num{
-	position:absolute;margin-top:5px;padding:6px 14px 8px;background:rgba(188,26,41,0.9);
+	position:absolute;top:73px;margin-top:5px;padding:6px 14px 8px;background:rgba(188,26,41,0.9);
 	-webkit-border-radius:0 7px 7px 0;
 	-moz-border-radius:0 7px 7px 0;
 	border-radius:0 7px 7px 0;
@@ -13,7 +28,7 @@
 .hd_guide_num .desc{line-height:1.2;font-size:13px;font-weight:400;color:#d9a4a6;letter-spacing:-0.5px;}
 .mask{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.40);}
 .mask.on{display:block;}
-.menu_wrap{position:relative;position:fixed;top:0;right:0;width:0;height:100%;overflow:hidden;overflow-y:auto;background:#202020;
+.menu_wrap{z-index:998;position:relative;position:fixed;top:0;right:0;width:0;height:100%;overflow:hidden;overflow-y:auto;background:#202020;
 	-webkit-transition: all 0.2s;
 	-moz-transition: all 0.2s;
 	-o-transition: all 0.2s;

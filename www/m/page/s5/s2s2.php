@@ -10,17 +10,17 @@
 
 		<div class="my_notice_roll_wrap">
 			<h3><img src="/m/img/s5/s5s2_sub_tit2.png" alt="나의 소식"></h3>
-			<div class="roll_wrap">
-				<ul class="roll">
-					<li><a href="javascript:void(0)">스시노백쉐프 홈페이지 리뉴얼 오픈 안내</a></li>
-					<!-- <li><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li> -->
-					<!-- <li><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li> -->
-					<!-- <li><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li> -->
+			<div class="roll_wrap swiper-container-notice slide-wrap">
+				<ul class="roll swiper-wrapper slide">
+					<li class="swiper-slide"><a href="javascript:void(0)">스시노백쉐프 홈페이지 리뉴얼 오픈 안내</a></li>
+					<li class="swiper-slide"><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li>
+					<li class="swiper-slide"><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li>
+					<li class="swiper-slide"><a href="s2snotice_view.php">우동맛의 미스테리 쇼퍼 자체 후기를 작성하면 스시노백쉐프 할인권을 드립니다!</a></li>
 				</ul>
 			</div>
 			<div class="bt_wrap">
-				<button type="button" class="prev"><i>이전</i></button>
-				<button type="button" class="next"><i>다음</i></button>
+				<button type="button" class="prev bt-top"><i>이전</i></button>
+				<button type="button" class="next bt-bottom"><i>다음</i></button>
 			</div>
 		</div>
 
@@ -62,6 +62,11 @@
 						</ul>
 					</div>
 				</a>
+				<div class="wrap_cmt">
+					<!-- 완료 되었을때 class="active" 추가 -->
+					<span class="active">신청완료</span>
+					<span>후기완료</span>
+				</div>
 			</li>
 			<li>
 				<a href="javascript:void(0);">
@@ -85,6 +90,11 @@
 						</ul>
 					</div>
 				</a>
+				<div class="wrap_cmt">
+					<!-- 완료 되었을때 class="active" 추가 -->
+					<span>신청완료</span>
+					<span>후기완료</span>
+				</div>
 			</li>
 			<li>
 				<a href="javascript:void(0);">
@@ -108,6 +118,11 @@
 						</ul>
 					</div>
 				</a>
+					<div class="wrap_cmt">
+					<!-- 완료 되었을때 class="active" 추가 -->
+					<span class="active">신청완료</span>
+					<span class="active">후기완료</span>
+				</div>
 			</li>
 		</ul>
 </div>
