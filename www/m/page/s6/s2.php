@@ -1,5 +1,6 @@
-<?php include_once "../../_head.php";?>
-
+<?php
+include_once "../../_head.php";
+?>
 <div class="wrap_conts">
 	<div class="hd_s_img">
 		<h2><img src="/m/img/s6/s6s1_tit.png" alt="이달의 이벤트" /></h2>
@@ -12,75 +13,53 @@
 	 -->
 	<!-- END 글쓰기 -->
 	<div class="wrap_evnt_area">
+		<input type="hidden" name="pageNum" value="1" />
 		<ul>
-			<li>
-				<a href="/m/page/s6/s2sview.php">
-					<div class="wrap_evnt_img">
-						<img src="/m/img/s6/test1.jpg" alt="" />
-					</div>
-					<div class="wrap_evnt_desc">
-						<em class="mk_ing">진행중</em>
-						<!-- STR 진행 예정일때 -->
-						<!--
-						<em class="mk_ex">진행예정</em>
-						 -->
-						<!-- END 진행 예정일때 -->
-					
-						<!-- STR 종료 되었을때 -->
-						<!--
-						<em class="mk_end">종료</em>
-						 -->
-						<!-- END 종료 되었을때 -->
-						<h3>하나멤버스 X 스시노백쉐프</h3>
-						<span>2018-03-02 ~ 2018-03-09</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="/m/page/s6/s2sview.php">
-					<div class="wrap_evnt_img">
-						<img src="/m/img/s6/test2.jpg" alt="" />
-					</div>
-					<div class="wrap_evnt_desc">
-						<em class="mk_ex">진행 예정</em>
-						<h3>하나멤버스 X 스시노백쉐프</h3>
-						<span>2018-03-02 ~ 2018-03-09</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="/m/page/s6/s2sview.php">
-					<div class="wrap_evnt_img">
-						<img src="/m/img/s6/test3.jpg" alt="" />
-					</div>
-					<div class="wrap_evnt_desc">
-						<em class="mk_end">종료</em>
-						<h3>하나멤버스 X 스시노백쉐프</h3>
-						<span>2018-03-02 ~ 2018-03-09</span>
-					</div>
-				</a>
-			</li>
-			<li>
-				<a href="/m/page/s6/s2sview.php">
-					<div class="wrap_evnt_img">
-						<img src="/m/img/s6/test4.jpg" alt="" />
-					</div>
-					<div class="wrap_evnt_desc">
-						<em class="mk_end">종료</em>
-						<h3>하나멤버스 X 스시노백쉐프</h3>
-						<span>2018-03-02 ~ 2018-03-09</span>
-					</div>
-				</a>
-			</li>
 			<!-- STR 등록된 글이 없을때 -->
 			<!-- 
 			<li class="none_word">등록된 이벤트가 없습니다.</li>
 			 -->
 			<!-- END 등록된 글이 없을때 -->
 		</ul>
-		<button type="button" class="bt_2s_c_more">더보기<i></i></button>
+		<button type="button" onclick="event_page('1');" class="bt_2s_c_more">더보기<i></i></button>
 	</div>
 
 </div>
-
+<script>
+$(function(){
+	event_page('1');
+});
+function event_page(getPage){
+	var pageNum = $('input[name=pageNum]').val();
+	$.ajax({
+		type : "POST",
+		data : {"cur_page" : pageNum},
+		url : "/ajax/mobile_eventboard_list.php",
+		success : function(result){
+			if(result == 99){
+				//<li class="none_word">등록된 이벤트가 없습니다.</li>
+				if(pageNum == "1"){
+					var html_data = '<li class="none_word">등록된 이벤트가 없습니다.</li>';
+					$('.bt_2s_c_more').hide();
+					$('.wrap_evnt_area > ul').html(html_data);	
+				}else{
+					$('.bt_2s_c_more').hide();
+				}
+			}else{
+				$('input[name=pageNum]').val(Number(pageNum)+1);
+				if(pageNum == "1"){
+					$('.wrap_evnt_area > ul').html(result);	
+					$('.wrap_evnt_area > ul > li').last().addClass('pagination')
+				}else{
+					$('.wrap_evnt_area > ul > .pagination').after(result);
+					$('.wrap_evnt_area > ul > li').removeClass('pagination')
+					$('.wrap_evnt_area > ul > li').last().addClass('pagination')
+				}
+			}
+		}, error : function(){
+			console.log('errrrr');
+		}
+	});
+}
+</script>
 <?php include_once "../../_tail.php";?>

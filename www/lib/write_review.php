@@ -53,6 +53,7 @@ switch($aType){
 		$event_cate = "";//$event_title로 대체
 		break;
 }
+
 //당점 확인 여부
 if($aType!="selfer"){//자발적 후기는 당첨 여부가 필요없다.
 	//post 값에 대한 DB에서 유효성 검사
@@ -81,8 +82,6 @@ if($aType!="selfer"){//자발적 후기는 당첨 여부가 필요없다.
 	$event_title = "자발적 후기";
 }
 
-
-exit;
 $sbr_s_sido = our_area($_POST['s_sido']);
 //insert value
 $insert_common = "sbr_widx='".$mb_idx."',

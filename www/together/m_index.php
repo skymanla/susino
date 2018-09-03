@@ -17,10 +17,10 @@
 			<li class="active"><a href="/together/m_index.php">스시노백쉐프<br /><strong>창업상담</strong></a></li>
 			<li class="bgw"><a href="/ownerchef/m_index.php">스시노백쉐프<br /><strong>오너쉐프제도</strong></a></li>
 		</ul>
-		<div class="hd_guide_num" onclick="location.href='tel:031-1899-0836'">
+		<div class="hd_guide_num" onclick="location.href='tel:010-2000-2694'">
 			<h4 class="tit">창업상담 전화문의</h4>
-			<p class="num">(031)1899-0836</p>
-			<p class="desc">※ 창업/가맹/점포 문의는<br />영업지원본부 4번을 누르시면 연결됩니다.</p>
+			<p class="name">담당자 : 한태수 차장</p>
+			<p class="num">(010)2000-2694</p>
 		</div>
 		<div id="content">
 			<div id="box1">
@@ -164,7 +164,7 @@
 							<div class="in_agree">
 								<input type="checkbox" class="chk_1" id="chk_1" value="" name="" />
 								<label for="chk_1">개인정보 활용 동의</label>
-								<img src="img/m_main/box_91.png" alt="" onclick="location.href='tel:031-1899-0836'">
+								<img src="img/m_main/box_91.png" alt="" onclick="location.href='tel:010-2000-2694'">
 							</div>
 						</div>
 					</form>
@@ -194,10 +194,10 @@
 				<li><button type="button">스시노백쉐프<br />어울림 백서</button></li>
 				<li><button type="button">창업상담</button></li>
 			</ul>
-			<div class="guide_num" onclick="location.href='tel:031-1899-0836'">
+			<div class="guide_num" onclick="location.href='tel:010-2000-2694'">
 				<h4 class="tit">창업상담 전화문의</h4>
-				<p class="num">(031)1899-0836</p>
-				<p class="desc">※ 창업/가맹/점포 문의는 영업지원본부 4번을 누르시면 연결됩니다.</p>
+				<p class="name">담당자 : 한태수 차장</p>
+				<p class="num">(010)2000-2694</p>
 			</div>
 			<button type="button" class="bt_close">메뉴 닫기</button>
 		</div>

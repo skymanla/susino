@@ -32,11 +32,6 @@
 						<label for="form_rad_24">불만있어요</label>
 					</li>
 				</ul>
-				<h5>메뉴사진</h5>
-				<ul class="f_table">
-					<li><input type="file" id="form_lbl_20" value="" name=""></li>
-					<li><button type="button" class="bt_2s_c_gray"><label for="form_lbl_20">파일첨부</label></button></li>
-				</ul>
 				<h5>주문 후 메뉴가 나오는 시간이 얼마나 걸렸나요?</h5>
 				<ul class="radio_type w2">
 					<li>

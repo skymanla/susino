@@ -35,7 +35,7 @@ for($i = 0 ; $i < count($mobileKeyWords) ; $i++) {
 				<button type="button" class="open_bt"><i>퀵메뉴 열기</i></button>
 				<button type="button" class="go_bot"><i>창업상담 온라인문의 하단으로 이동</i></button>
 			</div>
-			<img src="img/main/quick_00.png" alt="">
+			<img src="img/main/quick_000.png" alt="">
 			<button type="button" class="bt_gobtm">창업상담 온라인문의 하단으로 이동</button>
 			<ul>
 				<li class="active"><a href="#box1">No.1 스시노백쉐프는<br />깐깐합니다</a></li>

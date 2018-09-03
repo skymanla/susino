@@ -1,5 +1,6 @@
 <?php 
 include_once "inc/page.php";
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/login_infomation.php");
 ?>
 <!DOCTYPE html>
 <html lang="ko">
@@ -66,16 +67,16 @@ include_once "inc/page.php";
 				<!-- <a href="javascript:void(0);">더보기</a> -->
 			</div>
 			<ul>
-				<li><a href="/m/page/s2/s2.php"><img src="/m/img/main/img_set_menu1.jpg" alt="다함께, 셋트" /></a></li>
-				<li><a href="/m/page/s2/s3s1.php"><img src="/m/img/main/img_set_menu2.jpg" alt="든든히, 한상차림" /></a></li>
-				<li><a href="/m/page/s2/s4.php"><img src="/m/img/main/img_set_menu3.jpg" alt="혼자서, 싱글초밥" /></a></li>
-				<li><a href="/m/page/s2/s5.php"><img src="/m/img/main/img_set_menu4.jpg" alt="점심엔, 런치초밥" /></a></li>
-				<li><a href="/m/page/s2/s6.php"><img src="/m/img/main/img_set_menu5.jpg" alt="컴팩트, 전용초밥" /></a></li>
-				<li><a href="/m/page/s2/s7.php"><img src="/m/img/main/img_set_menu6.jpg" alt="사시미/탕" /></a></li>
+				<li><a href="/m/page/s2/s1.php"><img src="/m/img/main/img_set_menu1.jpg" alt="다함께, 셋트" /></a></li>
+				<li><a href="/m/page/s2/s8.php"><img src="/m/img/main/img_set_menu2.jpg" alt="든든히, 한상차림" /></a></li>
+				<li><a href="/m/page/s2/s2.php"><img src="/m/img/main/img_set_menu3.jpg" alt="혼자서, 싱글초밥" /></a></li>
+				<li><a href="/m/page/s2/s3.php"><img src="/m/img/main/img_set_menu4.jpg" alt="점심엔, 런치초밥" /></a></li>
+				<li><a href="/m/page/s2/s4.php"><img src="/m/img/main/img_set_menu5.jpg" alt="컴팩트, 전용초밥" /></a></li>
+				<li><a href="/m/page/s2/s6.php"><img src="/m/img/main/img_set_menu6.jpg" alt="사시미/탕" /></a></li>
 			</ul>
 		</div>
 		<div class="group_ban">
-			<a href="/m/page/s2/s1s4.php"><img src="/m/img/main/img_ban_type1.png" alt="볼빨간 연어, 그라브락스" /></a>
+			<a href="/m/page/s2/s2s2.php"><img src="/m/img/main/img_ban_type1.png" alt="볼빨간 연어, 그라브락스" /></a>
 			<a href="/m/page/s3/s4.php"><img src="/m/img/main/img_ban_type2.png" alt="유니크매장 강남스타" /></a>
 			<a href="/m/page/s3/s1.php"><img src="/m/img/main/img_ban_type3.png" alt="백쉐프의 초밥집 찾기" /></a>
 		</div>

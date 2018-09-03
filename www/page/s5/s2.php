@@ -196,7 +196,7 @@ if($_SESSION['sba_id'] == "admin"){//관리자
 			<div>
 				<div>
 					<h3 class="title3"><i>나의 후기</i></h3>
-					<p class="copy4"><b><?=$dash_row['accept_review']?>회</b></p>
+					<p class="copy4"><b><?=$dash_row['sb_review_tocnt']?>회</b></p>
 					<p class="copy5">
 						스시노백쉐프에 다녀오셨나요? <br />
 						후기 등록하면 우동맛 스티커 증정!

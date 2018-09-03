@@ -1,4 +1,20 @@
-<?php 
+<?php
+$uri = $_SERVER['REQUEST_URI'];
+//모바일 체크
+$mAgent = array("iPhone","iPod","Android","Blackberry", 
+    "Opera Mini", "Windows ce", "Nokia", "sony" );
+$chkMobile = false;
+for($i=0; $i<sizeof($mAgent); $i++){
+    if(stripos( $_SERVER['HTTP_USER_AGENT'], $mAgent[$i] )){
+        $chkMobile = true;
+        break;
+    }
+}
+
+if($chkMobile == true){
+	header('Location: http://'.$_SERVER['HTTP_HOST'].'/m'.$uri);
+}
+
 session_start();
 include_once "inc/page.php";
 ?>

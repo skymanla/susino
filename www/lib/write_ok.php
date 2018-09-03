@@ -1,10 +1,10 @@
 <?php 
 include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 $flag					= trim($_POST['flag']);//게시판 정보
-if($flag == 'notice' || $flag == 'event' || $flag == "shopper" || $flag == "ftalk" || $flag == "pick" || $flag == "invite"){//관리자 세션 체크하는 듯?
+if($flag == 'notice' || $flag == 'event' || $flag == "shopper" || $flag == "ftalk" || $flag == "pick" || $flag == "invite"
+	|| $flag == "App_notice"){//관리자 세션 체크하는 듯?
 	include_once($_SERVER['DOCUMENT_ROOT']."/lib/Session.php");
 }
-
 include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
 
 if($flag != 'business'){
@@ -291,7 +291,12 @@ if($flag == 'customer'){
 		}
 		$final_area .= $func_area.$inter_val;
 	}
-	$sb_our_area = $s_sido." ".$final_area;
+	if($s_sido == "A"){
+		$sb_our_area = $s_sido;		
+	}else{
+		$sb_our_area = $s_sido." ".$final_area;
+	}
+	
 
 	if($mode=="w"){
 		//idx check
@@ -327,10 +332,10 @@ if($flag == 'customer'){
 					sbab_udate=now(),
 					sbab_id='$w_id',
 					sbab_ip='$ip'
-				where sbab_idx='$idx''
+				where sbab_idx='$idx'
 				";
 		if($conn->query($query)){
-			$url = "/adm/page/s3/s6.php?idx=$idx";
+			$url = "/adm/page/s3/s6sview.php?idx=$idx";
 			echoAlert("이벤트가 수정되었습니다.");
 			echoMovePage($url);
 		}else{

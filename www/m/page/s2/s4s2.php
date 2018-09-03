@@ -2,41 +2,37 @@
 
 <div class="wrap_conts wid_full">
 	<div class="hd_s_img">
-		<h2><img src="/m/img/s2/s2s4s1_tit.png" alt="" /></h2>
+		<h2><img src="/m/img/s2/s2s6s1_tit.png" alt="" /></h2>
 	</div>
 	<div class="wrap_in_ssi">
 		<div class="img_select">
-			<div>볼빨간 연어 컬렉션</div>
+			<div>모듬 초밥</div>
 			<select id="ssi_select_list" name="" title="" onchange="location = this.value;">
-				<option value="/m/page/s2/s4s1.php">붓코스 라인</option>
-				<option value="/m/page/s2/s4s2.php" selected="selected">볼빨간 연어 컬렉션</option>
-				<option value="/m/page/s2/s4s3.php">화이트 라인</option>
-				<option value="/m/page/s2/s4s4.php">블랙 라인</option>
-				<option value="/m/page/s2/s4s5.php">애니멀 키즈라인</option>
-				<option value="/m/page/s2/s4s6.php">백쉐프 돈카츠</option>
+				<option value="/m/page/s2/s4s1.php">백쉐프 초밥</option>
+				<option value="/m/page/s2/s4s2.php" selected="selected">모듬 초밥</option>
+				<option value="/m/page/s2/s4s3.php">오늘의 초밥(런치)</option>
+				<option value="/m/page/s2/s4s4.php">테마키스시</option>
+				<option value="/m/page/s2/s4s5.php">간편 스시</option>
+				<option value="/m/page/s2/s4s6.php">컴팩트 사시미</option>
 			</select>
 		</div>
 		<div class="img_change">
-			<img src="/m/img/s2/01_04_01.jpg" alt="" />
+			<img src="/m/img/s2/05_02_01.jpg" alt="" />
 			<div class="ssi_guide">
-				<p>북유럽 숙성방식으로 재워낸 볼빨간 연어, 그라브락스와 함께 연어의 모든것을 즐겨보세요. 연어를 좋아하시는 연어 매니아들께 추천드립니다.</p>
-				<div>신선 샐러드 + 연어 사시미 6cps (연어, 그라브락스) + 신선 초밥 8pcs
-			(연어, 연어아부리, 그라브락스, 활어, 초새우, 와규불초밥, 다마고) + 고로케 + 우동
-			후식 (나가사끼 생우동 or 생생 어묵우동 or 냉모밀(계절 메뉴) 중 택) 
+				<p>신선한 재료를 모은 컴팩트 매장 스테디 셀러 1인 초밥 메뉴입니다. </p>
+				<div>구성 : 신선 샐러드 + 신선 초밥 (계절생선(활어), 아까미, 아마애비, 생새우, 메카대절, 연어, 장새우, 장어½, 와규불초밥, 가이바시, 타코와사비) + 나가사끼 생우동 or 냉모밀 (5~9월) + 디저트
 				</div>
-				<span>1인 <strong>21,000원</strong></span>
+				<span>1인 <strong>15,900원</strong></span>
 			</div>
 		</div>
-		<div class="ssi_guide_sec">
-			<img src="/m/img/s2/01_04_02.jpg" alt="" />
-			<p>그라브락스는 신선한 연어에 소금, 설탕, 딜(dill), 후추 등의 양념을 발라 저온 숙성시킨
-			진한 주홍빛의 연어로,  스웨덴, 노르웨이, 핀란드, 아이슬란드 등의 스칸디나비아 지역에서
-			전통적인 방식을 더해 스시노백쉐프만의 새로운 연어로 만들었습니다.
+		<!-- <div class="ssi_guide_sec">
+			<img src="/m/img/s2/04_03_02.jpg" alt="" />
+			<p>
 			</p>
 		</div>
 		<div class="ssi_menu_guide">
-			<img src="/m/img/s2/01_04_03.jpg" alt="" />
-		</div>
+			<img src="/m/img/s2/04_01_03.jpg" alt="" />
+		</div> -->
 		<div class="ssi_inmenu_guide re_img">
 			<?php include_once "menu_guide1.php";?>
 		</div>

@@ -85,6 +85,7 @@ function htmlCheck($data,$check)
 			break;
 		default : 
 			$data = $data;
+			break;
 	}
 	return $data;
 }
@@ -184,7 +185,7 @@ function UPLOAD_FILE($path,$limitsize,$fileCnt=1)
 //메세지, 유알엘, alter 타입
 function go_href($msg,$url,$ty) 
 {
-	Switch($ty)
+	switch($ty)
 	{
 		Case "go";
 			 echo("<script language=\"javascript\"> 

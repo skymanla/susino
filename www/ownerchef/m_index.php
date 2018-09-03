@@ -19,8 +19,8 @@
 		</ul>
 		<div class="hd_guide_num" onclick="location.href='tel:010-3679-5273'">
 			<h4 class="tit">오너쉐프 상담문의</h4>
+			<p class="name">담당자 : 이상우 본부장</p>
 			<p class="num">(010)3679-5273</p>
-			<p class="desc">※ 창업/가맹/점포 문의는<br />1899-0836에서 상담하실 수 있습니다.</p>
 		</div>
 		<div id="content">
 			<div id="box1">
@@ -212,8 +212,8 @@
 			</ul>
 			<div class="guide_num" onclick="location.href='tel:010-3679-5273'">
 				<h4 class="tit">오너쉐프상담 전화문의</h4>
+				<p class="name">담당자 : 이상우 본부장</p>
 				<p class="num">(010)3679-5273</p>
-				<p class="desc">※ 창업/가맹/점포 문의는 (031)1899-0836으로 문의해주세요.</p>
 			</div>
 			<button type="button" class="bt_close">메뉴 닫기</button>
 		</div>

@@ -5,31 +5,33 @@
 		<div class="gnb_wrap">
 			<button type="button" class="bt_close txt_ir">닫기</button>
 			<div class="wrap_login">
+				<? if(empty($_SESSION['sb_idx'])){ ?>
 				<div class="l_off">
 					<p>우동맛 평가단 신청하고,<br />특별한 혜택을 받아보세요</p>
 					<a href="/m/page/member/login.php" class="bt_1s bt_c_red">로그인 하기</a>
 				</div>
+				<? }else{ ?>
 				<!-- STR 로그인 되었을때 -->
-				<!--  
 				<div class="l_on">
-					<h3><a href="javascript:void(0);" class="ssi_name">이해리님</a><span>VIP 단골고객</span></h3>
+					<!-- <h3><a href="javascript:void(0);" class="ssi_name">이해리님</a><span>VIP 단골고객</span></h3> -->
+					<h3><a href="/m/page/member/register_form_modify.php" class="ssi_name"><?=$dash_row['sb_name']?></a><span><?=$dash_row['level_title']?></span></h3>
 					<ul>
 						<li>
-							<a href="javascript:void(0);">
+							<a href="/m/page/s5/s2s2.php">
 								<strong>나의소식</strong>
-								<span class="c_num">3</span>
+								<span class="c_num"><?=$dash_row['post_review']?></span>
 							</a>
 						</li>
 						<li>
 							<a href="javascript:void(0);">
 								<strong>우리동네</strong>
-								<span>강남구</span>
+								<span><?=$dash_row['dongnae']?></span>
 							</a>
 						</li>
 					</ul>
 				</div>
-				-->
 				<!-- END 로그인 되었을때 -->
+				<? } ?>
 			</div>
 			<ul>
 				<li <?php if($w_a_num===0){ echo 'class="active"';}?>>
@@ -45,13 +47,13 @@
 				<li <?php if($w_a_num===1){ echo 'class="active"';}?>>
 					<button type="button">초밥<span>MENU</span></button>
 					<ul <?php if($w_a_num===1){ echo 'style="display:block"';}?>>
-						<li><a href="/m/page/s2/s1.php">새로운 초밥</a></li>
-						<li><a href="/m/page/s2/s2.php">다함께, 셋트초밥</a></li>
-						<li><a href="/m/page/s2/s3s1.php">든든히, 한상차림</a></li>
-						<li><a href="/m/page/s2/s4.php">혼자서, 싱글초밥</a></li>
-						<li><a href="/m/page/s2/s5.php">점심엔, 런치초밥</a></li>
-						<li><a href="/m/page/s2/s6.php">컴팩트, 전용초밥</a></li>
-						<li><a href="/m/page/s2/s7.php">사시미/탕</a></li>
+						<li><a href="/m/page/s2/s7.php">새로운 초밥</a></li>
+						<li><a href="/m/page/s2/s1.php">다함께, 셋트초밥</a></li>
+						<li><a href="/m/page/s2/s8.php">든든히, 한상차림</a></li>
+						<li><a href="/m/page/s2/s2.php">혼자서, 싱글초밥</a></li>
+						<li><a href="/m/page/s2/s3.php">점심엔, 런치초밥</a></li>
+						<li><a href="/m/page/s2/s4.php">컴팩트, 전용초밥</a></li>
+						<li><a href="/m/page/s2/s6.php">사시미/탕</a></li>
 					</ul>
 				</li>
 				<li <?php if($w_a_num===2){ echo 'class="active"';}?>>
@@ -91,14 +93,19 @@
 			</ul>
 			<div class="wrap_evnt">
 				<a href="/m/page/s1/s6.php">공지사항</a>
-				<a href="/m/page/scenter/s1.php">고객의소리</a>
-				<a href="/together/m_index.php" class="ico_blank" target="_blank">공정창업<i class="txt_ir">새창열기</i></a>
+				<a href="/m/page/scenter/s1.php">의견있어요</a>
 				<a href="https://winddesign33.cafe24.com/m/" class="ico_blank" target="_blank">일성코퍼레이션<i class="txt_ir">새창열기</i></a>
+				<a href="/together/m_index.php" class="ico_blank" target="_blank">공정창업<i class="txt_ir">새창열기</i></a>
+				<a href="/ownerchef/m_index.php" class="ico_blank" target="_blank">멋진 쉐프 상시모집<i class="txt_ir">새창열기</i></a>
+				
 			</div>
-			<a href="javascript:void(0);" class="bt_logout">로그아웃<i class="txt_ir"></i></a>
+			<? if(empty($_SESSION['sb_idx'])){ ?>
+			<a href="/m/page/member/login.php" class="bt_login">로그인<i class="txt_ir"></i></a>
+			<? }else{ ?>
 			<!-- STR 로그인 되었을떄 -->
-			<!-- <a href="javascript:void(0);" class="bt_login">로그인<i class="txt_ir"></i></a> -->
+			<a href="/lib/log_out.php" class="bt_logout">로그아웃<i class="txt_ir"></i></a>
 			<!-- END 로그인 되었을떄 -->
+			<? } ?>
 		</div>
 		<div class="dim"></div>
 	</nav>

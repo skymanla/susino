@@ -2,37 +2,35 @@
 
 <div class="wrap_conts wid_full">
 	<div class="hd_s_img">
-		<h2><img src="/m/img/s2/s2s6s1_tit.png" alt="" /></h2>
+		<h2><img src="/m/img/s2/s2s7s1_tit.png" alt="" /></h2>
 	</div>
 	<div class="wrap_in_ssi">
 		<div class="img_select">
-			<div>모듬 초밥</div>
+			<div>사시미 라인</div>
 			<select id="ssi_select_list" name="" title="" onchange="location = this.value;">
-				<option value="/m/page/s2/s6s1.php">백쉐프 초밥</option>
-				<option value="/m/page/s2/s6s2.php" selected="selected">모듬 초밥</option>
-				<option value="/m/page/s2/s6s3.php">오늘의 초밥(런치)</option>
-				<option value="/m/page/s2/s6s4.php">테마키스시</option>
-				<option value="/m/page/s2/s6s5.php">간편 스시</option>
-				<option value="/m/page/s2/s6s6.php">컴팩트 사시미</option>
+				<option value="/m/page/s2/s6s1.php">특사시미 라인</option>
+				<option value="/m/page/s2/s6s2.php" selected="selected">사시미 라인</option>
+				<option value="/m/page/s2/s6s3.php">스시노 알탕</option>
+				<option value="/m/page/s2/s6s4.php">맑은 어묵탕</option>
 			</select>
 		</div>
 		<div class="img_change">
-			<img src="/m/img/s2/05_02_01.jpg" alt="" />
+			<img src="/m/img/s2/06_02_01.jpg" alt="" />
 			<div class="ssi_guide">
-				<p>신선한 재료를 모은 컴팩트 매장 스테디 셀러 1인 초밥 메뉴입니다. </p>
-				<div>구성 : 신선 샐러드 + 신선 초밥 (계절생선(활어), 아까미, 아마애비, 생새우, 메카대절, 연어, 장새우, 장어½, 와규불초밥, 가이바시, 타코와사비) + 나가사끼 생우동 or 냉모밀 (5~9월) + 디저트
+				<p>더 좋은 재료로 업그레이드된 스시노백쉐프 사시미 라인입니다.</p>
+				<div>신선 사시미 18pcs (활어, 그라브락스, 연어, 아카미, 메카대절)
 				</div>
-				<span>1인 <strong>15,900원</strong></span>
+				<span> <strong>27,000원</strong></span>
 			</div>
 		</div>
-		<!-- <div class="ssi_guide_sec">
-			<img src="/m/img/s2/04_03_02.jpg" alt="" />
-			<p>
+		<div class="ssi_guide_sec">
+			<img src="/m/img/s2/06_02_02.jpg" alt="" />
+			<p>일반 횟집에서 맛보시던 그런 회가 아닌 숙성된 재료로 일식 쉐프가 정성스럽게 준비한 사시미입니다.
 			</p>
 		</div>
 		<div class="ssi_menu_guide">
-			<img src="/m/img/s2/04_01_03.jpg" alt="" />
-		</div> -->
+			<img src="/m/img/s2/06_02_03.jpg" alt="" />
+		</div>
 		<div class="ssi_inmenu_guide re_img">
 			<?php include_once "menu_guide1.php";?>
 		</div>

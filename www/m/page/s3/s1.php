@@ -54,55 +54,10 @@
 			<div id="dmap"></div>
 			<button type="button" class="bt_my_location">내위치 찾기</button>
 		</div>
-		<!-- 다이닝 매장일때(D) <div class="info_type bg1"></div> -->
-		<!-- 컴팩트 매장일때(C) <div class="info_type bg2"></div> -->
-		<!-- 유니크 매장일때(U) <div class="info_type bg3"></div> -->
 		<div class="list_wrap">
-			
-			<div class="list_box">
-				<?php for($i=0;$i<3;$i++){?>
-				<div>
-					<div class="info_name">강남역본점</div>
-					<div class="paddress1">서울 강남구 강남대로 100길 (역삼동)</div>
-					<div class="info_type bg1"></div>
-					<section>
-						<div class="map_pin_info">
-							<ul>
-								<li>
-									<div>주소</div>
-									<div>전북 전주시 완산구 홍산 3길 15(효자동3가)</div>
-								</li>
-								<li>
-									<div>전화번호</div>
-									<div>063-229-0802</div>
-								</li>
-								<li>
-									<div>서비스</div>
-									<div class="info_icon">
-										<div class="q"><i>배달</i></div>
-										<div class="p"><i>주차</i></div>
-										<div class="r"><i>room</i></div>
-										<div class="c"><i>예약</i></div>
-										<div class="k"><i>전자상품권</i></div>
-									</div>
-								</li>
-								<li>
-									<div>주차정보</div>
-									<div>매장 앞 4대 주차가능</div>
-								</li>
-							</ul>
-						</div>
-					</section>
-				</div>
-				<?php }?>
-			</div>
+			<div class="list_box"></div>
 		</div>
 	</div>
-	<!-- <div class="paging"> -->
-		<!-- <a href="javascript:void(0);" class="bt_prev bt_off">이전목록</a> -->
-		<!-- <span>1-10 / 102</span> -->
-		<!-- <a href="javascript:void(0);" class="bt_next">다음목록</a> -->
-	<!-- </div> -->
 	<div class="new_map_info">
 		<h2><img src="/m/img/s3/new_info_title.png" alt="스시노백쉐프 신규매장안내"></h2>
 		<div class="info_slide">
@@ -600,7 +555,3 @@ function dmapAc1(){
 <?php include_once "../../_tail.php";?>
 
 
-
-
-
-<?php include_once "../../_tail.php";?>

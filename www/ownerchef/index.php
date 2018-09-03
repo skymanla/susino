@@ -26,7 +26,7 @@
 			<button type="button" class="open_bt"><i>퀵메뉴 열기</i></button>
 			<button type="button" class="go_bot"><i>창업상담 온라인문의 하단으로 이동</i></button>
 		</div>
-		<img src="img/main/quick_00.png" alt="">
+		<img src="img/main/quick_000.png" alt="">
 		<button type="button" class="bt_gobtm">창업상담 온라인문의 하단으로 이동</button>
 		<ul>
 			<li class="active"><a href="#box1">오너쉐프 제도란?</a></li>

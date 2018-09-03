@@ -1,16 +1,16 @@
 <?php 
 include_once "../../_head.php";
-include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
 
-//당첨 정보 가져오기
-$sql = "select * from sb_invite_admin where 1=1 order by sbia_idx desc limit 1";
+$sql = "select * from sb_invite_admin where sbia_edate > now() order by sbia_idx desc limit 1";
 
 $q = $conn->query($sql);
 
 $invite_length = mysqli_num_rows($q);//값이 있는지 여부 없으면;;;;;;;;;;;;;
-
 if($invite_length < 1 ){
-	$row = "";
+	$row = "";	
+	echoAlert("현재 등록된 이벤트가 없습니다.\\n메인 페이지로 이동합니다.");
+	echoMovePage("/");
+	exit;
 }else{	
 	$row = $q->fetch_assoc();
 
@@ -40,6 +40,9 @@ if($invite_length < 1 ){
 	for($i=1;$i<5;$i++){
 		${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
 	}
+
+	//고유값
+	$eUrl = $row['sbia_eurl'];
 }
 
 session_start();
@@ -47,7 +50,7 @@ if($_SESSION[sb_id]){
 
 	$w_http_host = $_SERVER['HTTP_HOST'];
 
-	$go_to_invite_url = 'http://'.$w_http_host.'/m/invite.php?invite='.$_SESSION[sb_id].'&type=1';
+	$go_to_invite_url = 'http://'.$w_http_host.'/invite.php?invite='.$_SESSION[sb_id].'&eurl='.$eUrl.'&type=1';
 } else {
 	$go_to_invite_url = '로그인 후 참여 가능합니다.';
 }
@@ -75,11 +78,11 @@ if($r[cnt] > 0){
 } else {
 	// 신청 완료 회원
 	$w_event_in = false;
-} 
+}
 ?>
 
 
-<div class="wrap_conts_img">
+<div class="wrap_conts_img psr">
 	<img src="/m/img/s6/06_01.jpg" alt="" />
 
 	<div class="wrap_width_go">
@@ -137,11 +140,41 @@ if($r[cnt] > 0){
 
 		<!-- END 신청 완료 -->
 		<?php } ?>
+		
 	</div>
 
+	<div class="info_foot_wrap">
+		<!-- STR 당첨인원 -->
+		<div class="info_footer">
+			<?
+			$tbl_info = "sb_invite_admin";
+			//저장값 불러오기
+			$sql = "select * from $tbl_info where 1=1 order by sbia_idx desc limit 1";
+			$q = $conn->query($sql);
+			$invite_length = mysqli_num_rows($q);
 
+			if($invite_length < 1 ){
+				$row = "";
+			}else{
+				$row = $q->fetch_assoc();
+				
+				$sdate = date('Y-m-d', strtotime($row['sbia_sdate']));
+				$edate = date('Y-m-d', strtotime($row['sbia_edate']));
 
-	<img src="/m/img/s6/06_02.jpg" alt="" />
+				$sbia_prize_option = "sbia_prize_option";
+				for($i=1;$i<5;$i++){
+					${$sbia_prize_option.$i} = explode("||", $row["sbia_prize_option{$i}"]);
+					$sbia_prize_total_count += ${$sbia_prize_option.$i}[0];
+				}
+			}
+		?>
+		<div class="count1">(<?php echo $sbia_prize_total_count;?>명)</div>
+		<div class="count2">랜덤 <?php echo $sbia_prize_total_count;?>명 실시간 당첨!</div>
+		</div>
+		<!-- END 당첨인원 -->
+		<img src="/m/img/s6/06_02.jpg" alt="" />
+	</div>
+		
 </div>
 
 <script type="text/javascript" src="/m/js/clipboard.min.js"></script>

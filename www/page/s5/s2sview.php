@@ -30,7 +30,7 @@ $q = $conn->query($sql);
 $row_event = $q->fetch_assoc();
 
 //hitup
-$sql = "update $tbl_info set sbab_hit=sbab_hit+1 where sbab_idx='".$_GET[idx]."' and sbab_cate='".$_GET[aType]."'";
+$sql = "update $tbl_info set sbab_hit=sbab_hit+1 where sbab_idx='".$_GET['idx']."' and sbab_cate='".$_GET['aType']."'";
 $conn->query($sql);
 ?>
 
@@ -90,7 +90,7 @@ $conn->query($sql);
 					if(empty($row_event['sbabm_option2'])){//후기 작성이 되면 저 필드를 update 하자
 				?>
 				<div class="my_win">
-					<div class="title"><b>홍길동</b>님 당첨을 축하드립니다!</div>
+					<div class="title"><b><?=$mb_id?></b>님 당첨을 축하드립니다!</div>
 					<div class="bt_wrap_c">
 						<a href="s2sreview_<?php echo $row['sbab_cate'];?>.php?getIdx=<?=$_GET['idx']?>&aType=<?=$_GET['aType']?>" class="bt_s2_red">후기 작성하기</a>
 					</div>

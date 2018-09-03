@@ -117,6 +117,16 @@
 						<label for="form_rad_194">5점</label>
 					</li>
 				</ul>
+				<h5>메뉴사진</h5>
+				<ul class="f_table">
+					<li><input type="file" id="form_lbl_20" value="" name=""></li>
+					<li><button type="button" class="bt_2s_c_gray"><label for="form_lbl_20">파일첨부</label></button></li>
+				</ul>
+				<h5>영수증 첨부</h5>
+				<ul class="f_table">
+					<li><input type="file" id="form_lbl_14" value="" name=""></li>
+					<li><button type="button" class="bt_2s_c_gray"><label for="form_lbl_14">파일첨부</label></button></li>
+				</ul>
 				<h5><label for="form_lbl_41">마지막으로 맛/서비스/클린에 대한 총평을 적어주세요. <br />(50자 이상 부탁드려요~)</label></h5>
 				<textarea name="" id="form_lbl_41" cols="30" rows="10" style="height:100px"></textarea>
 				<a href="javascript:void(0);" class="bt_2s_c_red">전송하기</a>

@@ -1,4 +1,5 @@
 <?php 
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/login_infomation.php");
 include_once "inc/page.php";
 ?>
 <!DOCTYPE html>

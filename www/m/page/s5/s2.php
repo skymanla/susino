@@ -1,4 +1,12 @@
-<?php include_once "../../_head.php";?>
+<?php
+include_once "../../_head.php";
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+
+if($dash_row == ''){
+	go_href("회원만 이용 가능합니다.", "/m/page/member/login.php", "go");
+	exit;
+}
+?>
 
 <div class="wrap_conts">
 	<div class="hd_s_img">
@@ -7,15 +15,15 @@
 	<div class="wrap_our_village">
 		<div class="noodle_intro">
 			<div class="info_name">
-				<h3>김하나님</h3>
+				<h3><?=$dash_row['sb_name']?>님</h3>
 				<ul>
 					<li>
 						<span class="n_tit loca"><i>위치</i>우리동네</span>
-						<span class="n_desc">서울시 노원구</span>
+						<span class="n_desc"><?=$dash_row['dongnae']?></span>
 					</li>
 					<li>
 						<span class="n_tit our"><i>주민 수</i>동네주민</span>
-						<span class="n_desc">244명</span>
+						<span class="n_desc"><?=$dash_row['ourdongnae']?>명</span>
 					</li>
 				</ul>
 			</div>
@@ -26,11 +34,21 @@
 					스시노백쉐프 상품권을!?
 				</p>
 				<ul class="wrap_sticker">
-					<li class="s_on">스티커 있음</li>
+					<?php 
+					for($i=1;$i<=5;$i++){
+						if($dash_row['sb_review_cnt'] >= $i){
+							$active = "s_on";
+						}else{
+							$active = "";
+						}
+						echo '<li class="'.$active.'">'.$i.'</li>';
+					}
+					?>
+					<!--<li class="s_on">스티커 있음</li>
 					<li class="s_on">스티커 있음</li>
 					<li class="s_on">스티커 있음</li>
 					<li>스티커 없음</li>
-					<li>스티커 없음</li>
+					<li>스티커 없음</li>-->
 				</ul>
 				<a href="javascript:void(0);" class="bt_2s_c_border_red pops_btn">우동맛 스티커 안내</a>
 				<div class="in_pops pops_open">
@@ -39,15 +57,23 @@
 						<div class="info_noodle pdt10">
 							<h4 class="type2"><img src="/m/img/s5/s5s2_sub_tit6.png" alt="나의 우동맛 스티커"></h4>
 							<ul class="wrap_sticker">
-								<li class="s_on">스티커 있음</li>
-								<li class="s_on">스티커 있음</li>
-								<li class="s_on">스티커 있음</li>
-								<li class="s_on">스티커 없음</li>
-								<li class="s_on">스티커 없음</li>
+								<?php 
+								for($i=1;$i<=5;$i++){
+									if($dash_row['sb_review_cnt'] >= $i){
+										$active = "s_on";
+									}else{
+										$active = "";
+									}
+									echo '<li class="'.$active.'">'.$i.'</li>';
+								}
+								?>
 							</ul>
 							<!-- 상품권 받기 비활성시 class="bt_2s_disabled"로 클래스 변경 -->
-							<a href="javascript:void(0);" class="bt_2s_c_red">상품권 받기</a>
-
+							<? if($dash_row['sb_review_cnt'] >= 5){ ?>
+							<a href="javascript:get_coupon('<?=$sb_id?>');" class="bt_2s_c_red">상품권 받기</a>
+							<? }else{ ?>
+							<a href="javascript:void(0);" class="bt_2s_disabled">상품권 받기</a>
+							<? } ?>
 						</div>
 						<div class="noddle_method">
 							<h5><img src="/m/img/s5/s5s2_sub_tit7.png" alt="우동맛 스티커란?"></h5>
@@ -74,10 +100,30 @@
 		<ul class="member_info">
 			<li><a href="/m/page/member/register_form_modify.php">회원정보</a></li>
 			<li><a href="/m/page/s5/s2s1.php">우리동네 소식</a></li>
-			<li><a href="/m/page/s5/s2s2.php">나의 소식<span class="n_new">2</span></a></li>
-			<li><a href="/m/page/s5/s2s3.php">나의 후기<span class="n_num">3회</span></a></li>
+			<li><a href="/m/page/s5/s2s2.php">나의 소식<span class="n_new"><?=$dash_row['post_review']?></span></a></li>
+			<li><a href="/m/page/s5/s2s3.php">나의 후기<span class="n_num"><?=$dash_row['sb_review_tocnt']?>회</span></a></li>
 		</ul>
 	</div>
 </div>
-
+<script>
+function get_coupon(getId){
+	if(getId != "<?=$sb_id?>"){
+		alert("현재 접속 ID와 다릅니다.");
+		return false;
+	}else{
+		$.ajax({
+			type : "POST",
+			dataType : "json",
+			data : {"getId" : getId},
+			url : "/ajax/get_coupon.php",
+			success : function(result){
+				alert(result.msg);
+				location.reload();
+			}, error : function(){
+				console.log('errrrrrr');
+			}
+		});
+	}
+}
+</script>
 <?php include_once "../../_tail.php";?>

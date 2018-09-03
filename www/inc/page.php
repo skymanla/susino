@@ -114,5 +114,17 @@ if($w_file_name=="invite.php"){
 	$w_s_title_1="invite";
 }
 
+/*
+if (empty($_SERVER['HTTPS'])) {
+	if($w_file_name=='s1_test.php'){
+		header('Location: https://'.$w_http_host.$w_request_uri);
+	}
+} else {
+	if($w_file_name!='s1_test.php'){
+		header('Location: http://'.$w_http_host.$w_request_uri);
+	}
+}
+*/
+
 
 ?>

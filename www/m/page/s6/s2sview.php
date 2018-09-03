@@ -1,4 +1,27 @@
-<?php include_once "../../_head.php";?>
+<?php
+include_once "../../_head.php";
+$sql = "select * from sb_event where sbe_idx='".$_GET['idx']."'";
+$query = $conn->query($sql);
+
+if($query->num_rows == '0'){
+	header("HTTP/1.0 404 Not Found");
+	die("<h3>잘못된 접근입니다.</h3>");	
+}
+$row = $query->fetch_assoc();
+
+$now_date = date('Y-m-d');
+$class = "";
+if($now_date >= $row['sbe_sdate'] && $now_date < $row['sbe_edate']){
+	$class = "mk_ing";
+	$class_title = "진행중";
+}else if($now_date < $row['sbe_sdate']){
+	$class = "mk_ex";
+	$class_title = "진행예정";
+}else{
+	$class = "mk_end";
+	$class_title = "종료";
+}
+?>
 
 <div class="wrap_conts wid_full">
 	<div class="hd_s_img">
@@ -6,24 +29,13 @@
 	</div>
 	<div class="wrap_evnt_list">
 		<div class="evnt_hd">
-			<em class="mk_ing">진행중</em>
-			<!-- STR 진행 예정일때 -->
-			<!--
-			<em class="mk_ex">종료</em>
-			 -->
-			<!-- END 진행 예정일때 -->
-		
-			<!-- STR 종료 되었을때 -->
-			<!--
-			<em class="mk_end">종료</em>
-			 -->
-			<!-- END 종료 되었을때 -->
-			<h3>하나멤버스 X 스시노백쉐프</h3>
+			<em class="<?=$class?>"><?=$class_title?></em>
+			<h3><?=stripcslashes($row['sbe_title'])?></h3>
 			<span>2018-03-02 ~ 2018-03-09</span>
 		</div>
 		<div class="evnt_conts">
-			<img src="/m/img/s6/test_view1.jpg" alt="" />
-			동해물과백두산이 마르고 닳도록 하느님이 보우하사 우리나라만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세.
+			<img src="/data/event/<?php echo $row['sbe_file'];?>" alt="" />
+			<?=stripcslashes($row['sbe_contents'])?>
 		</div>
 	</div>
 	<div class="bt_wrap_right pd_lr">

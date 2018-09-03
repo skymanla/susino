@@ -13,7 +13,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/_head.php');
 				<input type="text" class="" value="" name="sb_id" placeholder="아이디" />
 				<input type="password" class="" value="" name="sb_pwd" placeholder="비밀번호" />
 				<div class="checkbox_box">
-					<input type="checkbox" class="chk_1" id="chk_1" value="">
+					<input type="checkbox" class="chk_1" id="chk_1" name="save_id" value="Y">
 					<label for="chk_1">아이디저장</label>
 				</div>
 				<button type="submit" class="">로그인</button>

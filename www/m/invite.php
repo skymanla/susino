@@ -1,6 +1,20 @@
 <?php
 include_once "_head.php";
-include_once $_SERVER['DOCUMENT_ROOT']."/lib/dbconn.php";
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+
+//이벤트 고유값으로 진행 이벤트 찾아내기
+$eUrl = $conn->real_escape_string($_GET['eurl']);
+$sql = "select * from sb_invite_admin where sbia_eurl='".$eUrl."' and sbia_edate > now()";
+$q = $conn->query($sql);
+
+if($q->num_rows == '0'){//없다
+	header("HTTP/1.0 400 Bed Request");
+	echoAlert("존재하지 않는 이벤트입니다.");
+	echoMovePage("/");
+	exit;
+}else{
+	$info_r = $q->fetch_assoc();
+}
 
 //회원 이름, 고유값 가져오기
 $sb_id = $conn->real_escape_string($_GET['invite']);
@@ -15,14 +29,15 @@ if($_GET['type']) {
 }
 
 if($w_type==1){
-	$w_copy1 = '님께서<br />외식 하자고 하시네요!';
+	$w_copy1 = '님께서 외식 하자고 하시네요!';
 } else if($w_type==2){
-	$w_copy1 = '님께서<br />데이트 신청 하셨네요!';
+	$w_copy1 = '님께서 데이트 신청 하셨네요!';
 } else if($w_type==3){
-	$w_copy1 = '님께서<br />밥 한번 먹자고 하시네요!';
+	$w_copy1 = '님께서 밥 한번 먹자고 하시네요!';
 } else if($w_type==4){
-	$w_copy1 = '님께서<br />밥 한번 먹자고 하시네요!';
+	$w_copy1 = '님께서 밥 한번 먹자고 하시네요!';
 }
+
 ?>
 
 <div class="wrap_with_go <?php echo 'bg'.$w_type; ?>">
@@ -45,29 +60,20 @@ $(function(){
 	});
 
 	$('.invite_cencle').on('click', function(){
-		location.href = '/m/';
+		location.href = '/';
 	});
 });
 
-function invite_member(idx, id, getName, getType=""){
+function invite_member(idx, id, getName, getTyp){
 	$.ajax({
 		type : "POST",
+		dataType : "json",
+		data : { "midx" : idx, "mid" : id, "mname" : getName, "getType" : <?=$_GET[type]?>, "eurl" : "<?=$eUrl?>"},
 		url : "/ajax/invite_member.php",
-		data : { "midx" : idx, "mid" : id, "mname" : getName, "getType" : <?=$_GET[type]?>},
 		success : function(result){
-			if(result == "99"){
-				alert("본인이 신청할 수 없습니다.");
-				location.href = '/m/';
-			}else if(result == "29"){
-				alert("탈퇴 혹은 존재하지 않는 회원입니다.");
-				location.href = '/m/';
-			}else if(result == "39"){
-				alert("이미 신청이 된 회원입니다.");
-				location.href = '/m/';
-			}else if(result == "19"){
-				alert("<?=$r[sb_name]?>님과 함께갈래요 참여가 완료되었습니다.");
-				location.href = '/m/';
-			}
+			alert(result.msg);
+			//location.reload();
+			//location.href = '/';
 		}, error : function(){
 			console.log('error!!!!!');
 		}

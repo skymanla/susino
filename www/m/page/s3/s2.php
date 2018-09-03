@@ -122,16 +122,9 @@
 		</div>
 		<div class="wrap_dmap">
 			<div id="dmap"></div>
-			<button type="button" class="bt_my_location">내위치 찾기</button>
 		</div>
-		<!-- 다이닝 매장일때(D) <div class="info_type bg1"></div> -->
-		<!-- 컴팩트 매장일때(C) <div class="info_type bg2"></div> -->
-		<!-- 유니크 매장일때(U) <div class="info_type bg3"></div> -->
 		<div class="list_wrap">
-			
-			<div class="list_box">
-			
-			</div>
+			<div class="list_box"></div>
 		</div>
 	</div>
 </div>

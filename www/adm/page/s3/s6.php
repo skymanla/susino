@@ -109,7 +109,7 @@ $q = $conn->query($sql);
 				<tr>
 					<td class="txt_c"><input type="checkbox" class="rp_check_class" value="<?=$r['sbab_idx']?>" name="rp_check[]" placeholder="" /></td>
 					<td class="txt_c"><?=$board_no?></td>
-					<td class="txt_c"><?=$r['sbab_area']=="A" ? '전체' : $r['sbab_area'] ?></td>
+					<td class="txt_c"><?=$r['sbab_area']=="A" ? '전체 지역' : $r['sbab_area'] ?></td>
 					<td><?=stripslashes($r['sbab_title'])?></td>
 					<td class="txt_c"><?=date('Y-m-d', strtotime($r['sbab_rdate']))?></td>
 					<td class="txt_c"><a href="s6sview.php?idx=<?=$r['sbab_idx']?>" class="bt_s1">자세히보기</a></td>

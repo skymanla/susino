@@ -10,9 +10,9 @@
 			<select id="ssi_select_list" name="" title="" onchange="location = this.value;">
 				<option value="/m/page/s2/s1s1.php" selected="selected">랍스터 반반 라인</option>
 				<option value="/m/page/s2/s1s2.php">빅콰트로 라인</option>
-				<option value="/m/page/s2/s1s3.php">핑크 한상 라인</option>
-				<option value="/m/page/s2/s1s4.php">볼빨간 연어 컬렉션</option>
-				<option value="/m/page/s2/s1s5.php">애니멀 키즈라인</option>
+				<option value="/m/page/s2/s1s3.php">시그니처 라인</option>
+				<option value="/m/page/s2/s1s4.php">스시노 반반 라인</option>
+				<option value="/m/page/s2/s1s5.php">와규 스테이크 라인</option>
 			</select>
 		</div>
 		<div class="img_change">

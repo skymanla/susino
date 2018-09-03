@@ -7,7 +7,7 @@
 	<div class="wrap_our_village">
 		<div class="tit_area">
 			<h3><img src="/m/img/s5/s5s2_sub_tit5.png" alt="나의 후기"></h3>
-			<span>3회</span>
+			<span><?=$dash_row['sb_review_tocnt']?>회</span>
 		</div>
 		<div class="noodle_intro">
 			<div class="info_noodle pdt10">
@@ -17,11 +17,16 @@
 					스시노백쉐프 상품권을!?
 				</p>
 				<ul class="wrap_sticker">
-					<li class="s_on">스티커 있음</li>
-					<li class="s_on">스티커 있음</li>
-					<li class="s_on">스티커 있음</li>
-					<li>스티커 없음</li>
-					<li>스티커 없음</li>
+					<?php 
+					for($i=1;$i<=5;$i++){
+						if($dash_row['sb_review_cnt'] >= $i){
+							$active = "s_on";
+						}else{
+							$active = "";
+						}
+						echo '<li class="'.$active.'">'.$i.'</li>';
+					}
+					?>
 				</ul>
 				<a href="javascript:void(0);" class="bt_2s_c_border_red pops_btn">우동맛 스티커 안내</a>
 				<div class="in_pops pops_open">
@@ -30,14 +35,19 @@
 						<div class="info_noodle pdt10">
 							<h4 class="type2"><img src="/m/img/s5/s5s2_sub_tit6.png" alt="나의 우동맛 스티커"></h4>
 							<ul class="wrap_sticker">
-								<li class="s_on">스티커 있음</li>
-								<li class="s_on">스티커 있음</li>
-								<li class="s_on">스티커 있음</li>
-								<li class="s_on">스티커 없음</li>
-								<li class="s_on">스티커 없음</li>
+								<?php 
+								for($i=1;$i<=5;$i++){
+									if($dash_row['sb_review_cnt'] >= $i){
+										$active = "s_on";
+									}else{
+										$active = "";
+									}
+									echo '<li class="'.$active.'">'.$i.'</li>';
+								}
+								?>
 							</ul>
 							<!-- 상품권 받기 비활성시 class="bt_2s_disabled"로 클래스 변경 -->
-							<a href="javascript:void(0);" class="bt_2s_c_red">상품권 받기</a>
+							<a href="javascript:get_coupon('<?=$sb_id?>');" class="bt_2s_c_red">상품권 받기</a>
 
 						</div>
 						<div class="noddle_method">
