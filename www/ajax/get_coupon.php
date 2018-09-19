@@ -16,7 +16,7 @@ if($getId != $_SESSION['sb_id']){
 	exit;
 }
 
-$sql = "select * from sb_member where sb_id='".$getId."'";
+$sql = "select * from sb_member where sb_id='".$getId."' and sb_delete_flag is null";
 $q = $conn->query($sql);
 $member = $q->fetch_assoc();
 
@@ -38,10 +38,24 @@ if($conn->query($sql)){
 			where sb_id='".$member['sb_id']."'";
 	if($conn->query($sql)){
 		//문자 발송 API
-		$title = "[스시노백쉐프] 우리동네맛평가단 다섯그릇 완성!";
-		$content = $member['sb_id']."님! 우리동네 맛평가단 후기 5번 등록이 완료되었습니다. 소중한 후기 등록에 감사한 마음을 담아
+		$smsType = "L";
+		$sms_title = "[스시노백쉐프] 우리동네맛평가단 다섯그릇 완성!";
+		$sms_content = $member['sb_id']."님! 우리동네 맛평가단 후기 5번 등록이 완료되었습니다. 소중한 후기 등록에 감사한 마음을 담아
 					다음 날 스시노백쉐프 기프티카드 3만원권을 발송해드립니다. 고객님의 의견에 귀기울여 보다 나은 서비스와 맛을 제공하는 스시노백쉐프가 되도록 노력하겠습니다.
 					기프티카드의 유효기간과, 사용가능 매장 확인 후 방문 부탁드립니다!";
+		$smsSender = getSmsSender();
+		$smsSender = explode("-", $smsSender);
+					
+		$sphone1 = $smsSender[0];
+		$sphone2 = $smsSender[1];
+		$sphone3 = $smsSender[2];
+
+		$rphone = $member['sb_phone'];
+		include($_SERVER['DOCUMENT_ROOT']."/lib/smsLib2.php");
+		
+		$sql = "insert into sb_refuse_sms (sb_idx2, sb_fidx, sb_refuse_type, sb_sms_content, sb_sms_send_mb, sb_sms_send_phone, sb_sms_w_date, sb_sms_result) values 
+						('".$sbc_idx."', '0', 'getCoupon', '".$sms_content."', '".$member['sb_id']."', '".$member['sb_phone']."', now(), '".$Result."')";		
+		$conn->query($sql);
 		//문자 발송 END
 		$result = array("msg"=>"상품권 신청이 완료되었습니다.", "codeNum"=>"19");		
 		$result = (object) $result;

@@ -75,8 +75,8 @@ function invite_member(idx, id, getName, getTyp){
 			alert(result.msg);
 			//location.reload();
 			//location.href = '/';
-		}, error : function(){
-			console.log('error!!!!!');
+		}, error:function(request,status,error){
+    		console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 		}
 	});
 }

@@ -22,7 +22,7 @@
 				<th>이름</th>
 				<th>핸드폰</th>
 				<th>이메일</th>
-				<th>레벨</th>
+				<th>승인코드</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -54,7 +54,7 @@
 				<td class="txt_c"><?=$row['sb_name']?></td>
 				<td class="txt_c"><?=$row['sb_phone']?></td>
 				<td class="txt_c"><?=$row['sb_email']?></td>
-				<td class="txt_c"><?=$row['mb_level']?></td>
+				<td class="txt_c"><?=$row['sbabm_option4']?></td>
 			</tr>
 			<? 
 				$board_no--;

@@ -14,7 +14,7 @@ $mb_id = trim($_SESSION['sb_id']);
 //관리자 및 비회원은 접근 못하게 막는다
 if(empty($mb_idx) || empty($mb_id)){
 	header("HTTP/1.0 404 Not Found");
-	die("<h3>잘못된 접근입니다.</h3>");
+	die("<h3>1. 잘못된 접근입니다.</h3>");
 }
 //idx value
 $getIdx = trim($_POST['getIdx']);
@@ -24,7 +24,7 @@ $aType = trim($_POST['aType']);
 $aType_arr = array("shopper", "ftalk", "pick", "selfer");
 if(!in_array($aType, $aType_arr)){
 	header("HTTP/1.0 404 Not Found");
-	die("<h3>잘못된 접근입니다.</h3>");	
+	die("<h3>2. 잘못된 접근입니다.</h3>");	
 }
 
 if($aType == "ftalk"){
@@ -61,7 +61,7 @@ if($aType!="selfer"){//자발적 후기는 당첨 여부가 필요없다.
 	$query = $conn->query($sql);
 	if($query->num_rows == '0'){
 		header("HTTP/1.0 404 Not Found");
-		die("<h3>잘못된 접근입니다.</h3>");
+		die("<h3>3. 잘못된 접근입니다.</h3>");
 	}else{
 		$app_val = $query->fetch_assoc();
 	}

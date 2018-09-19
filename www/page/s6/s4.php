@@ -48,6 +48,7 @@ if($invite_length < 1 ){
 
 	//고유값
 	$eUrl = $row['sbia_eurl'];
+	$event_idx = $row['sbia_eurl'];
 }
 
 session_start();
@@ -60,7 +61,7 @@ if($_SESSION[sb_id]){
 	$go_to_invite_url = '로그인 후 참여 가능합니다.';
 }
 
-$sql = "select * from sb_invite_member where sbi_mb_id='".$_SESSION[sb_id]."'";
+$sql = "select * from sb_invite_member where sbi_mb_id='".$_SESSION[sb_id]."' and sbi_pidx='".$event_idx."'";
 
 $q = $conn->query($sql);
 $r = $q->fetch_assoc();
@@ -74,7 +75,7 @@ if($r['sbi_option2'] == ""){
 	$w_event_win = true;
 }
 
-$sql = "select count(*) as cnt from sb_invite_member where sbi_mb_id='".$_SESSION[sb_id]."'";
+$sql = "select count(*) as cnt from sb_invite_member where sbi_mb_id='".$_SESSION[sb_id]."' and sbi_pidx='".$event_idx."'";
 $q = $conn->query($sql);
 $r = $q->fetch_assoc();
 if($r[cnt] > 0){

@@ -69,13 +69,14 @@ function ajax_review(aType, cur_page, getStx, getSval, getEtype){
 
 
 function review_accpect(getfIdx, getIdx, val){
+	var su_code = val.previousSibling.previousSibling;
 	if(val.trim() == ''){
 		alert("승인번호를 입력해 주세요.");
 		return false;
 	}else{
 		$.ajax({
 			type : "POST",
-			data : {"getfIdx" : getfIdx, "getIdx" : getIdx, "getVal" : val},
+			data : {"getfIdx" : getfIdx, "getIdx" : getIdx, "getVal" : su_code.value},
 			dataType : "json",
 			url : "/ajax/adm_review_accept_ok.php",
 			success : function(result){

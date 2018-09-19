@@ -3,7 +3,7 @@
 WindDesign Ryan
 Exp : 당첨확률 로직
  */
-function probability($p, $per1){
+function probability($p, $per1, $per2){
 	$n = 0;
 	$t = 0;
 	$c = 0;
@@ -14,9 +14,19 @@ function probability($p, $per1){
 
     if ($n < 1) $n = 0;
 
-    $t = mt_rand(0, $per1.'00');
+    if($per1 == $per2){//확률을 같게할 경우
+    	$st = '1';
 
-    if ($t <= $n) $c = 1;
+    	$t = mt_rand($st, $per1.'00');
+
+    	$c = 1;
+    }else{//확률이 다를 경우
+    	$st = '0';
+
+    	$t = mt_rand($st, $per1.'00');
+
+    	if ($t <= $n) $c = 1;
+    }
 
     //$c = 1 -> 당첨;
     if($c == 1){

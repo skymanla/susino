@@ -57,7 +57,7 @@
 				<td class="txt_c"><?=$row['sb_email']?></td>
 				<td class="txt_c">
 					<input type="text" class="w_input1" value="<?=$row['sbabm_option4']?>" name="review_code" placeholder="승인코드입력" <?=$row['sbabm_option4']!='' ? "disabled" : "" ?> style="width:180px">
-					<button type="button" class="bt_s1 input_sel" onclick="javascript:review_accpect('<?=$row['sbabm_fidx']?>','<?=$row['sbabm_idx']?>', $('input[name=review_code]').val())">승인</button>
+					<button type="button" class="bt_s1 input_sel" onclick="javascript:review_accpect('<?=$row['sbabm_fidx']?>','<?=$row['sbabm_idx']?>', this)">승인</button>
 				</td>
 			</tr>
 			<? 

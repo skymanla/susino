@@ -308,4 +308,62 @@ function getB64Decode2($arg)
 	$xarg = base64_decode($xarg);
 	return $xarg;
 }
+
+
+//mobile check
+function device_chk(){
+	$mAgent = array("iPhone","iPod","Android","Blackberry", 
+	    "Opera Mini", "Windows ce", "Nokia", "sony" );
+	$chkMobile = false;
+	for($i=0; $i<sizeof($mAgent); $i++){
+	    if(stripos( $_SERVER['HTTP_USER_AGENT'], $mAgent[$i] )){
+	        $chkMobile = true;
+	        break;
+	    }
+	}
+
+	return $chkMobile;
+}
+
+function randomString($getHash = '', $getTbl = '', $getColumn = ''){
+	global $conn;
+
+	$hash_key = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";//암호화키
+	$charactersLength = strlen($hash_key);
+	$randomString = "";
+	for($i=0;$i<8;$i++){
+		$randomString .= $hash_key[rand(0, $charactersLength-1)];//랜덤 문자 생성
+	}
+
+	$check_sql = $getColumn."='".$randomString."' ";
+	$sql = "select count(*) as cnt from ".$getTbl." where ".$check_sql;
+	$q = $conn->query($sql);
+	$v = $q->fetch_assoc();
+
+	if($v['cnt'] > 0){
+		return randomString("", $getTbl, $getColumn);
+	}else{
+		return $randomString;
+	}
+
+}
+
+function getSmsSender(){
+	$host = $_SERVER['HTTP_HOST'];
+	$oCurl = curl_init();
+	$url =  "https://sslsms.cafe24.com/smsSenderPhone.php";//callback url
+	$aPostData['userId'] = "winddesign32sms"; // SMS 아이디
+	$aPostData['passwd'] = "075cb0de4986c1a0664f1e4ecfe56bc2"; // 인증키
+	curl_setopt($oCurl, CURLOPT_URL, $url);
+	curl_setopt($oCurl, CURLOPT_POST, 1);
+	curl_setopt($oCurl, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($oCurl, CURLOPT_POSTFIELDS, $aPostData);
+	curl_setopt($oCurl, CURLOPT_SSL_VERIFYPEER, 0);
+	$ret = curl_exec($oCurl);	
+	curl_close($oCurl);
+
+	$ret = json_decode($ret, true);
+	$ret = $ret['list'][0];//1번째것만 들고옵니다
+	return $ret;
+}
 ?>

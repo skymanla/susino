@@ -77,8 +77,8 @@
 				<td class="txt_c"><?=$row['sb_phone']?></td>
 				<td class="txt_c"><?=$row['sb_email']?></td>
 				<td class="txt_c">
-					<input type="text" class="w_input1" value="" name="" placeholder="승인코드입력"  style="width:180px">
-					<button type="button" class="bt_s1 input_sel">승인</button>
+					<input type="text" class="w_input1" value="<?=$row['sbabm_option4']?>" name="review_code" placeholder="승인코드입력" <?=$row['sbabm_option4']!='' ? "disabled" : "" ?> style="width:180px">
+					<button type="button" class="bt_s1 input_sel" onclick="javascript:review_accpect('<?=$row['sbabm_fidx']?>','<?=$row['sbabm_idx']?>', this)">승인</button>
 				</td>
 			</tr>
 			<? 
@@ -141,27 +141,29 @@
 	<a href="<?=$final_move_page?>" class="arr all_next"><i>마지막</i></a>
 </nav>
 
-<h3>거절 sms template</h3>
 
-<div class="sms_box_wrap">
-	<?
-	$sql = "select * from sb_sms_template where 1 ";
-	$query = $conn->query($sql);
-	$sms_no = "1";
-	foreach($query as $key => $sms_row){
-	?>
-	<div>
+		
+	<h3>거절 sms template</h3>
+
+	<div class="sms_box_wrap">
+		<?
+		$sql = "select * from sb_sms_template where 1 ";
+		$query = $conn->query($sql);
+		$sms_no = "1";
+		foreach($query as $key => $sms_row){
+		?>
 		<div>
-			<p class="title">선택거절<?=$sms_no?></p>
-			<textarea name="sms_refuse_type<?=$sms_no?>" id=""><?=stripcslashes($sms_row['st_content'])?></textarea>
-			<div style="text-align:center">
-				<input type="hidden" name="st_idx<?=$i?>" value="<?=$i?>" />
-				<button type="button" class="bt_1" onclick="javascript:sms_save('<?=$sms_row['st_idx']?>', this);">저장</button>
+			<div>
+				<p class="title">선택거절<?=$sms_no?></p>
+				<textarea name="sms_refuse_type<?=$sms_no?>" id=""><?=stripcslashes($sms_row['st_content'])?></textarea>
+				<div style="text-align:center">
+					<input type="hidden" name="st_idx<?=$i?>" value="<?=$i?>" />
+					<button type="button" class="bt_1" onclick="javascript:sms_save('<?=$sms_row['st_idx']?>', this);">저장</button>
+				</div>
 			</div>
 		</div>
+		<? 
+			$sms_no++;
+		}
+		?>
 	</div>
-	<? 
-		$sms_no++;
-	}
-	?>
-</div>

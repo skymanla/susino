@@ -9,26 +9,50 @@
 	//file chkeck
 	$specialList = array("!","@","#","$","%","^","&","*","+","-","|","`","~",":",";","'","/"," ","?",">","<","=");
 	$update_common = '';
+	$device = device_chk();	
 	for($i=1;$i<=2;$i++){
 		if(is_uploaded_file($_FILES["file{$i}"]['tmp_name'])){
 			$mime_type = mime_content_type($_FILES["file{$i}"]['tmp_name']);
-			if($mime_type != "image/png"){
+			$mime_type = explode("/", $mime_type);
+
+			if($mime_type['0'] != "image"){
 				$sql = "delete from sb_review_board where sbr_idx=".$sbr_idx;
 				$conn->query($sql);
 				echoAlert("이미지 파일이 아닙니다.다시 작성해 주시기 바랍니다.");
 				echoMovePage($url);
 				exit;
 			}
-			$tmp_name = $_FILES["file{$i}"]['tmp_name'];
-			$name = $_FILES["file{$i}"]['name'];
-			$file_size = $_FILES["file{$i}"]['size'];
-			${"file_size$i"} = $file_size;
-			$new_filename = str_replace($specialList, "", $name);
-			${"new_filename$i"} = $new_filename;
-			$ext = substr(strrchr($new_filename,"."),1);
-			$ext = strtolower($ext);
-			if(move_uploaded_file($tmp_name, $dir_path_member."/".$name)){
-				${"update_common".$i} = "sbr_file{$i}='".$name."', sbr_file{$i}_size='".$file_size."'";
+			
+			if($device == true){
+				$tmp_name = $_FILES["file{$i}"]['tmp_name'];
+				//device 용 이름
+				$name = $_FILES["file{$i}"]['name'];
+				$re_name = date('YmdHis');
+
+				$file_size = $_FILES["file{$i}"]['size'];
+				${"file_size$i"} = $file_size;
+				
+				$new_filename = str_replace($specialList, "", $name);
+				$ext = substr(strrchr($new_filename,"."),1);
+				$ext = strtolower($ext);
+
+				${"new_filename$i"} = $re_name.".".$ext;
+				if(move_uploaded_file($tmp_name, $dir_path_member."/".$re_name.".".$ext)){
+					${"update_common".$i} = "sbr_file{$i}='".$name."', sbr_file{$i}_size='".$file_size."'";
+				}
+			}else{
+
+				$tmp_name = $_FILES["file{$i}"]['tmp_name'];
+				$name = $_FILES["file{$i}"]['name'];
+				$file_size = $_FILES["file{$i}"]['size'];
+				${"file_size$i"} = $file_size;
+				$new_filename = str_replace($specialList, "", $name);
+				${"new_filename$i"} = $new_filename;
+				$ext = substr(strrchr($new_filename,"."),1);
+				$ext = strtolower($ext);
+				if(move_uploaded_file($tmp_name, $dir_path_member."/".$name)){
+					${"update_common".$i} = "sbr_file{$i}='".$name."', sbr_file{$i}_size='".$file_size."'";
+				}
 			}
 		}else{
 			$sql = "delete from sb_review_board where sbr_idx=".$sbr_idx;

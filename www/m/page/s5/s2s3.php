@@ -1,4 +1,7 @@
-<?php include_once "../../_head.php";?>
+<?php
+include_once "../../_head.php";
+include_once($_SERVER['DOCUMENT_ROOT']."/lib/function.php");
+?>
 
 <div class="wrap_conts">
 	<div class="hd_s_img">

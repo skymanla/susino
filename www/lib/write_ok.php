@@ -372,6 +372,8 @@ if($flag == 'customer'){
 			$randomString .= $hash_key[rand(0, $charactersLength-1)];//랜덤 문자 생성
 		}
 
+		$randomString = randomString('', 'sb_invite_admin', 'sbia_eurl');
+
 		$query = "insert into $board_name
 				(sbia_idx, sbia_sdate, sbia_edate, sbia_prize_rate1, sbia_prize_rate2, sbia_prize_option1, sbia_prize_option2, sbia_prize_option3, sbia_prize_option4, sbia_rdate, sbia_write, sbia_ip, sbia_title, sbia_eurl)
 				values
